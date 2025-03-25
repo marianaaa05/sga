@@ -9,3 +9,9 @@ npx create-next-app@latest
 √ Would you like to use Turbopack for `next dev`? ... No / Yes
 √ Would you like to customize the import alias (`@/*` by default)? ... No / Yes
 
+npx shadcn@latest init
+Use --legacy-peer-deps
+
+npx shadcn@latest add button
+Use --legacy-peer-deps
+
