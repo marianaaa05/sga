@@ -21,7 +21,8 @@
      (pathname === "/" && href === "/") ||
      pathname === href ||
      pathname?.startsWith(`${href}/`);
- 
+
+   // Cuando se hace clic en el botón, se navega a la ruta proporcionada (href).
    const onClick = () => {
      router.push(href)
    }
@@ -31,11 +32,11 @@
        onClick={onClick}
        type="button"
        className={cn(
-         "flex items-center gap-x-2 text-slate-600 text-sm font-[500] pl-6 transition-all hover:text-slate-700 hover:bg-slate-400/20",
-         isActive && "text-sky-800 bg-sky-400/20 hover:bg-sky-400/20 hover:text-sky-800"
+         "flex items-center gap-x-2 text-slate-600 text-sm font-medium pl-6 transition-all hover:text-slate-700 hover:bg-slate-400/20",
+         isActive && "text-sky-800 bg-gray-400/20 hover:bg-gray-400/20 hover:text-sky-800"
        )}
      >
-       <div className="flex items-center gap-x-2 py-4">
+       <div className="flex items-center gap-x-3 py-4">
          <Icon
            size={22}
            className={cn("text-slate-700", isActive && "text-sky-900")}
@@ -44,7 +45,7 @@
        </div>
        <div
          className={cn(
-           "ml-auto opacity-0 border-x border-sky-900 h-full transition-all", isActive && "opacity-100"
+          "ml-auto opacity-0 border-1 border-sky-900 h-full transition-all", isActive && "opacity-100"
          )}
        />
      </button>

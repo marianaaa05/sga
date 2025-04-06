@@ -25,7 +25,7 @@ import { Button } from "../../components/ui/button";
          <span>Click me</span>
        </Button>
        <Button variant={"secondaryLms"} size={"default"}>
-         <span>Click me</span>
+         <span>secundaryLms</span>
        </Button>
        <Button variant={"success"} size={"default"}>
          <span>Click me</span>
@@ -37,7 +37,7 @@ import { Button } from "../../components/ui/button";
          <span>Click me</span>
        </Button>
        <Button variant={"outlineLms"} size={"default"}>
-         <span>Click me</span>
+         <span>outlineLms</span>
        </Button>
        <Button variant={"ghostLms"} size={"default"}>
          <span>Click me</span>

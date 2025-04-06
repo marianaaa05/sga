@@ -4,7 +4,7 @@ const ButtonsLayout = ({
   children: React.ReactNode
 }) => {
   return (
-    <div className="grid grid-rows items-center justify-items-center min-h-screen bg-blue-500 ">
+    <div className="grid grid-rows items-center justify-items-center min-h-screen">
       <body>
           {children}
       </body>

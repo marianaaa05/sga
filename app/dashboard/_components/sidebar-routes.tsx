@@ -6,12 +6,12 @@ import { TextSearch, NotebookText } from "lucide-react"
    {
      icon: NotebookText,
      label: "Centro de Control",
-     href: "/"
+     href: "/dashboard"
    },
    {
      icon: TextSearch,
-     label: "Browse",
-     href: "/search"
+     label: "Explorador",
+     href: "/dashboard/search"
    }
  ]
  
