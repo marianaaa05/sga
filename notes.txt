@@ -16,3 +16,4 @@ npx shadcn@latest add button
 Use --legacy-peer-deps
 
 npm install @clerk/nextjs
+npx shadcn@latest add sheet
