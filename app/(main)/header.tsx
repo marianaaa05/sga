@@ -12,10 +12,10 @@ import { Button } from "@/components/ui/button";
            <Image
              src="/logo.webp"
              alt="Logo Inicial"
-             width="70"
-             height="70"
+             width="60"
+             height="60"
            />
-           <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-extrabold text-gray-800 tracking-wide">
+           <h1 className="text-sm sm:text-xl md:text-xl lg:text-2xl font-extrabold text-gray-800 tracking-wide">
              Learning Manager System
            </h1>
          </div>
@@ -31,7 +31,7 @@ import { Button } from "@/components/ui/button";
                mode="modal"
              >
                {/* <Component {...pageProps}/> */}
-               <Button variant="secondary">
+               <Button variant="secondary" className="text-sm">
                  Inicia sesión o registrarte
                </Button>
              </SignInButton>
