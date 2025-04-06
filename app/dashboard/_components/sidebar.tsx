@@ -2,6 +2,7 @@ import Logo from "./logo";
 import { ClerkLoaded, ClerkLoading } from "@clerk/nextjs";
 import { Loader } from "lucide-react";
 import { UserButton } from "@clerk/nextjs";
+import { SidebarRoutes } from "./sidebar-routes";
 
 const Sidebar = () => {
   return (
@@ -10,6 +11,7 @@ const Sidebar = () => {
        <Logo />
      </div>
      <div className="flex-1 flex flex-col w-full">
+       <SidebarRoutes />
      </div>
      <div className='p-4 mt-auto flex flex-col items-end'>
            <ClerkLoading>
@@ -18,7 +20,12 @@ const Sidebar = () => {
            <ClerkLoaded>
              <UserButton afterSignOutUrl='/'/>
            </ClerkLoaded>
-             <p className="text-xs">Hecho con ❤️ por <a href="https://www.aunar.edu.co/" target="_blank" rel="noopener noreferrer">Aunar</a></p>
+             <p className="text-xs">Hecho con ❤️ por {" "}
+              <a href="https://www.aunar.edu.co/" 
+                 target="_blank" 
+                 rel="noopener noreferrer">Aunar
+              </a>
+             </p>
          </div>
     </div>
   );
