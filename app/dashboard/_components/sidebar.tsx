@@ -1,13 +1,25 @@
 import Logo from "./logo";
+import { ClerkLoaded, ClerkLoading } from "@clerk/nextjs";
+import { Loader } from "lucide-react";
+import { UserButton } from "@clerk/nextjs";
 
 const Sidebar = () => {
   return (
-    <div className="h-full border-r flex-col overflow-y-auto bg-white shadow-sm">
+    <div className="h-full border-r flex flex-col overflow-y-auto bg-white shadow-sm">
       <div className="p-6">
        <Logo />
-    </div>
-     <div className="flex flex-col w-full">
      </div>
+     <div className="flex-1 flex flex-col w-full">
+     </div>
+     <div className='p-4 mt-auto flex flex-col items-end'>
+           <ClerkLoading>
+             <Loader className='h-5 w-5 text-muted-foreground animate-spin'/>
+           </ClerkLoading>
+           <ClerkLoaded>
+             <UserButton afterSignOutUrl='/'/>
+           </ClerkLoaded>
+             <p className="text-xs">Hecho con ❤️ por <a href="https://www.aunar.edu.co/" target="_blank" rel="noopener noreferrer">Aunar</a></p>
+         </div>
     </div>
   );
 };
