@@ -40,7 +40,7 @@ import { Button } from "../../components/ui/button";
          <span>outlineLms</span>
        </Button>
        <Button variant={"ghostLms"} size={"default"}>
-         <span>Click me</span>
+         <span>ghostLms</span>
        </Button>
        <Button variant={"linkLms"} size={"default"}>
          <span>Link</span>
