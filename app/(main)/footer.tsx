@@ -4,9 +4,9 @@ import { Button } from "@/components/ui/button";
  
  export const Footer = () => {
    return ( 
-     <footer className="hidden lg:block h-20 w-full bg-sky-800">
+     <footer className="hidden lg:block h-20 w-full bg-sky-700">
        <div className="max-w-screen-lg mx-auto flex items-center justify-between h-full">
-         <Button size="lg" variant="link" className="w-full">
+         <Button size="lg" variant="link" className="">
            <Link
              href={"https://www.aunar.edu.co/"}
              target="_blank"
@@ -21,7 +21,7 @@ import { Button } from "@/components/ui/button";
            />
            </Link>
          </Button>
-         <Button size="lg" variant="link" className="w-full">
+         <Button size="lg" variant="link" className="">
            <Image
              src="/logo_aunar.svg"
              alt=""
@@ -30,7 +30,7 @@ import { Button } from "@/components/ui/button";
              className="mr-4 rounded-md"
            />
          </Button>
-         <Button size="lg" variant="link" className="w-full">
+         <Button size="lg" variant="link" className="">
            <Image
              src="/logo.svg"
              alt=""
@@ -39,7 +39,7 @@ import { Button } from "@/components/ui/button";
              className="mr-4 rounded-md"
            />
          </Button>
-         <Button size="lg" variant="link" className="w-full">
+         <Button size="lg" variant="link" className="">
            <Image
              src="/next.svg"
              alt=""
@@ -48,7 +48,7 @@ import { Button } from "@/components/ui/button";
              className="mr-4 rounded-md"
            />
          </Button>
-         <Button size="lg" variant="link" className="w-full">
+         <Button size="lg" variant="link" className="">
            <Image
              src="/vercel.svg"
              alt=""
@@ -58,7 +58,7 @@ import { Button } from "@/components/ui/button";
            />
          </Button>
        </div>
-       <p className="w-full text-xs text-neutral-100 bg-sky-800 items-center text-center p-2">
+       <p className="w-full text-xs text-neutral-100 bg-sky-700 items-center text-center p-2">
            © 2024 Semillero de Investigación en Ingeniería Informática. Todos los derechos reservados.
          </p>
      </footer>
