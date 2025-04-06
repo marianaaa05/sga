@@ -4,37 +4,37 @@ import { Button } from "../../components/ui/button";
    return ( 
      <div className="grid grid-cols-3 gap-4 p-4 text-center">
              <Button variant={"default"} size={"default"}>
-         <span>Click me</span>
+         <span>default</span>
        </Button>
        <Button variant={"destructive"} size={"default"}>
-         <span>Click me</span>
+         <span>destructive</span>
        </Button>
        <Button variant={"outline"} size={"default"}>
-         <span>Click me</span>
+         <span>outline</span>
        </Button>
        <Button variant={"secondary"} size={"default"}>
-         <span>Click me</span>
+         <span>secondary</span>
        </Button>
        <Button variant={"ghost"} size={"default"}>
-         <span>Click me</span>
+         <span>ghost</span>
        </Button>
        <Button variant={"link"} size={"default"}>  
-         Link
+         <span>link</span>
        </Button>
        <Button variant={"primary"} size={"default"}>
-         <span>Click me</span>
+         <span>primary</span>
        </Button>
        <Button variant={"secondaryLms"} size={"default"}>
          <span>secundaryLms</span>
        </Button>
        <Button variant={"success"} size={"default"}>
-         <span>Click me</span>
+         <span>success</span>
        </Button>
        <Button variant={"warning"} size={"default"}>
-         <span>Click me</span>
+         <span>warning</span>
        </Button>
        <Button variant={"danger"} size={"default"}>
-         <span>Click me</span>
+         <span>danger</span>
        </Button>
        <Button variant={"outlineLms"} size={"default"}>
          <span>outlineLms</span>
@@ -43,25 +43,25 @@ import { Button } from "../../components/ui/button";
          <span>ghostLms</span>
        </Button>
        <Button variant={"linkLms"} size={"default"}>
-         <span>Link</span>
+         <span>linkLms</span>
        </Button>
        <Button variant={"neonBlue"} size={"default"}>
-         <span>Click me</span>
+         <span>neonBlue</span>
        </Button>
        <Button variant={"neonPink"} size={"default"}>
-         <span>Click me</span>
+         <span>neonPink</span>
        </Button>
        <Button variant={"neonPurple"} size={"default"}>
-         <span>Click me</span>
+         <span>neonPurple</span>
        </Button>
        <Button variant={"neonGreen"} size={"default"}> 
-         <span>Click me</span>
+         <span>neonGreen</span>
         </Button>
        <Button variant={"neonOrange"} size={"default"}>
-         <span>Click me</span>
+         <span>neonOrange</span>
        </Button>
        <Button variant={"cyberGradient"} size={"default"}>
-         <span>Click me</span>
+         <span>cyberGradient</span>
       </Button>
      </div>
     );

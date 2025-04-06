@@ -45,11 +45,11 @@ const buttonVariants = cva(
  
          // variant ciberpunk
          neonBlue:
-           "bg-[#00ccff] text-[#001a33] shadow-xs hover:bg-[#00b8e6] focus-visible:ring-[#00ccff]/50 dark:bg-[#00ccff]/80 dark:hover:bg-[#00b8e6]/90",
+           "bg-[#00ccff] text-white shadow-xs hover:bg-[#00b8e6] focus-visible:ring-[#00ccff]/50 dark:bg-[#00ccff]/80 dark:hover:bg-[#00b8e6]/90",
          neonPink:
            "bg-[#ff00ff] text-[#330033] shadow-xs hover:bg-[#e600e6] focus-visible:ring-[#ff00ff]/50 dark:bg-[#ff00ff]/80 dark:hover:bg-[#e600e6]/90",
          neonPurple:
-           "bg-[#9900ff] text-[#1a0033] shadow-xs hover:bg-[#8800e6] focus-visible:ring-[#9900ff]/50 dark:bg-[#9900ff]/80 dark:hover:bg-[#8800e6]/90",
+           "bg-[#9900ff] text-white shadow-xs hover:bg-[#8800e6] focus-visible:ring-[#9900ff]/50 dark:bg-[#9900ff]/80 dark:hover:bg-[#8800e6]/90",
          neonGreen:
            "bg-[#00ff99] text-[#00331a] shadow-xs hover:bg-[#00e68a] focus-visible:ring-[#00ff99]/50 dark:bg-[#00ff99]/80 dark:hover:bg-[#00e68a]/90",
          neonOrange:

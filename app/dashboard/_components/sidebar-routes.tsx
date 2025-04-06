@@ -1,7 +1,8 @@
 'use client'
-import { TextSearch, NotebookText } from "lucide-react"
+ import { TextSearch, NotebookText, Pencil, ChartScatter } from "lucide-react"
  import { SidebarItem } from "./sidebar-item"
- 
+ import { usePathname } from "next/navigation";
+
  const guestRoutes = [
    {
      icon: NotebookText,
@@ -14,9 +15,25 @@ import { TextSearch, NotebookText } from "lucide-react"
      href: "/dashboard/search"
    }
  ]
+
+ const teacherRoutes = [
+  {
+    icon: Pencil,
+    label: "Cursos",
+    href: "/dashboard/teacher/courses"
+  },
+  {
+    icon: ChartScatter,
+    label: "Analiticas",
+    href: "/dashboard/teacher/analytics"
+  },
+]
  
  export const SidebarRoutes = () => {
-   const routes = guestRoutes
+   const pathname = usePathname();
+   const isTeacherPage = pathname?.includes("/dashboard/teacher");
+   const routes = isTeacherPage ? teacherRoutes : guestRoutes
+
    return(
      <div className="flex flex-col w-full">
        {routes.map((route) => (
@@ -27,7 +44,7 @@ import { TextSearch, NotebookText } from "lucide-react"
            href={route.href}
          />
        ))}
-       Group Labs
+       <h1 className="text-center">Demos de usuarios</h1>
      </div>
    )
  }
