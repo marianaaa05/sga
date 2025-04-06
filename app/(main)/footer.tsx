@@ -10,7 +10,7 @@ export const Footer = () => {
     >
       <div
         className="max-w-screen mx-auto flex 
-       items-center justify-between h-full"
+       items-center justify-center h-full"
       >
         <Button size="lg" variant="link" className="">
           <Link
@@ -23,7 +23,7 @@ export const Footer = () => {
               alt=""
               height={60}
               width={60}
-              className="mr-4 rounded-md"
+              className="mr-4"
             />
           </Link>
         </Button>
@@ -33,7 +33,7 @@ export const Footer = () => {
             alt=""
             height={200}
             width={200}
-            className="mr-4 rounded-md"
+            className="mr-4"
           />
         </Button>
         <Button size="lg" variant="link" className="">
@@ -42,7 +42,7 @@ export const Footer = () => {
             alt=""
             height={50}
             width={50}
-            className="mr-4 rounded-md"
+            className="mr-4"
           />
         </Button>
         <Button size="lg" variant="link" className="">
@@ -51,7 +51,7 @@ export const Footer = () => {
             alt=""
             height={70}
             width={70}
-            className="mr-4 rounded-md"
+            className="mr-4"
           />
         </Button>
         <Button size="lg" variant="link" className="">
@@ -60,7 +60,7 @@ export const Footer = () => {
             alt=""
             height={70}
             width={70}
-            className="mr-4 rounded-md"
+            className="mr-4"
           />
         </Button>
       </div>
