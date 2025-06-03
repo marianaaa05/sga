@@ -17,3 +17,8 @@ Use --legacy-peer-deps
 
 npm install @clerk/nextjs
 npx shadcn@latest add sheet
+
+-> npx shadcn@latest add form
+-> npx shadcn@latest add input
+-> npm i axios
+-> npm i react-hot-toast
