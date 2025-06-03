@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import * as z from "zod";
@@ -19,6 +18,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import toast from "react-hot-toast";
 
 const formSchema = z.object({
   title: z.string().min(3, {
@@ -40,8 +40,8 @@ const CreatePage = () => {
     try {
       const response = await axios.post("/api/courses", values);
       router.push(`/dashboard/teacher/courses/${response.data.id}`);
-    } catch (error) {
-      console.error("Error al crear el curso:", error);
+    } catch {
+      toast.error("Error al crear el curso");
     }
   };
 
