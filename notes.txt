@@ -37,3 +37,4 @@ https://www.prisma.io/docs/getting-started
 -> npm install prisma @prisma/client
 -> npx prisma generate
 -> npx prisma db push
+-> mpx prisma studio
