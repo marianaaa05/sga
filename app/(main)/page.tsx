@@ -2,7 +2,7 @@ import Image from "next/image";
  // import Link from "next/link";
  import { Code, Database, Server } from "lucide-react";
  // import VideoComponent from "@/components/video";
- 
+ //CARRUSEL DE IMÁGENES
  export default function Home() {
    return (
      <>
