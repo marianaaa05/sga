@@ -39,8 +39,16 @@ const CourseIdPage = async({
   const completedText = `${completedFields} / ${totalFields}`;
 
   return (
-    <div>
-      <p>Curso {params.courseId}</p>
+    <div className="p-6">
+      <div className="flex items-center justify-between">
+        <div className="flex flex-col gap-y-2">
+          <h1 className="text-2xl font-bold">Curso en construcción</h1>
+          <span className="text-sm text-slate-600">
+            Complete todos los campos requeridos para publicar el curso {" "}
+            {completedText}
+          </span>
+        </div>
+      </div>
     </div>
   );
 };
