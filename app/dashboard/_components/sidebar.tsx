@@ -21,7 +21,7 @@ const Sidebar = () => {
           <UserButton afterSignOutUrl="/" />
         </ClerkLoaded>
         <p className="text-xs">
-          Hecho con ❤️ por{" "}
+          Hecho con ❤️ por {" "}
           <a
             href="https://www.aunar.edu.co/"
             target="_blank"
