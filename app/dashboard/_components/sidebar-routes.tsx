@@ -1,5 +1,5 @@
 'use client'
- import { TextSearch, NotebookText, Pencil, ChartScatter } from "lucide-react"
+ import { TextSearch, NotebookText, GraduationCap, ChartColumnIncreasing } from "lucide-react";
  import { SidebarItem } from "./sidebar-item"
  import { usePathname } from "next/navigation";
 
@@ -18,13 +18,13 @@
 
  const teacherRoutes = [
   {
-    icon: Pencil,
+    icon: GraduationCap,
     label: "Cursos",
     href: "/dashboard/teacher/courses"
   },
   {
-    icon: ChartScatter,
-    label: "Analiticas",
+    icon: ChartColumnIncreasing,
+    label: "Analíticas",
     href: "/dashboard/teacher/analytics"
   },
 ]
