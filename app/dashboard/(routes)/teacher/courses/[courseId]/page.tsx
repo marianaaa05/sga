@@ -4,6 +4,7 @@ import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
 import { PanelsLeftBottom } from "lucide-react";
 import { redirect } from "next/navigation";
+import { FormTitle } from "./_components/form-title";
 
 const CourseIdPage = async ({
   params,
@@ -46,7 +47,7 @@ const CourseIdPage = async ({
         <div className="flex flex-col gap-y-2">
           <h1 className="text-2xl font-bold">Curso en construcción</h1>
           <span className="text-sm text-slate-600">
-            Complete todos los campos requeridos para publicar el curso{" "}
+            🎯Complete todos los campos requeridos para publicar el curso{" "}
             {completedText}
           </span>
         </div>
@@ -56,10 +57,11 @@ const CourseIdPage = async ({
           <div className="flex items-center gap-x-2">
             <IconInsign icon={PanelsLeftBottom} variant="success" size="sm" />
             <h2 className="text-sm font-semibold text-slate-900">
-              Personaliza tu curso para que sea único y atractivo para tusAdd
-              commentMore actions estudiantes
+              Personaliza tu curso para que sea único y atractivo para tus
+              estudiantes.
             </h2>
           </div>
+          <FormTitle initialData={{title: "Curso"}} courseId={params.courseId} />
         </div>
       </div>
     </div>
