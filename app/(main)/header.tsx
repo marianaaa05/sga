@@ -17,17 +17,17 @@ export const Header = () => {
     <header className="h-20 w-full border-b-2 border-slate-300 px-4 bg-gray-200">
       <div className="lg:max-w-screen-lg mx-auto flex items-center justify-between h-full">
         <div className="pt-8 pl-4 pb-7 flex items-center gap-x-3">
-          <Image src="/askverse-1.png" alt="Logo Inicial" width="120" height="100" quality={100} />
+          <Image src="/skahverse.png" alt="Logo Inicial" width="120" height="100" quality={100} />
           <div>
             <h1 className="text-sm sm:text-xl md:text-2xl lg:text-2xl font-extrabold tracking-wide">
               <span className="bg-gradient-to-r from-[#00ccff] via-[#ff00ff] to-[#ff6600] bg-clip-text text-transparent">
-                ASK
+                SKAH
               </span>
               <span className="text-sky-800">verse</span>
             </h1>
 
             <div className="text-xs text-gray-700">
-              Artificial Intelligence, Software & Knowledge
+              Software, Knowledge, AI & Hardware
             </div>
           </div>
         </div>

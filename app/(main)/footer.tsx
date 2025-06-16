@@ -4,41 +4,39 @@ import Link from "next/link";
 
 export const Footer = () => {
   return (
-    <footer
-      className="hidden lg:block w-full bg-gray-600"
-    >
+    <footer className="hidden lg:block w-full bg-gradient-to-r from-gray-400 via-gray-700 to-gray-400">
       <div
         className="max-w-screen mx-auto flex 
        items-center justify-center p-2"
       >
         <Button size="lg" variant="link">
-          <Image 
+          <Image
             src="/Kernel.png"
-            alt="Semillero de Inteligencia Artificial y Desarrollo de Software" 
-            height={100} 
-            width={100} 
-            className="mr-4 mt-3">          
-          </Image>
+            alt="Semillero de Inteligencia Artificial y Desarrollo de Software"
+            height={100}
+            width={100}
+            className="mr-4 mt-3"
+          ></Image>
         </Button>
 
         <Button size="lg" variant="link">
-          <Image 
-            src="/Animus.png" 
-            alt="Semillero de ciberseguridad" 
-            height={50} 
-            width={50} 
-            className="mr-3">
-          </Image>
+          <Image
+            src="/Animus.png"
+            alt="Semillero de ciberseguridad"
+            height={50}
+            width={50}
+            className="mr-3"
+          ></Image>
         </Button>
 
         <Button size="lg" variant="link">
-          <Image 
-            src="/sinapsis.png" 
-            alt="Semillero de Investigación en Robótica" 
-            height={50} 
-            width={50} 
-            className="mr-4 inset-shadow-black">
-          </Image>
+          <Image
+            src="/sinapsis.png"
+            alt="Semillero de Investigación en Robótica"
+            height={50}
+            width={50}
+            className="mr-4 inset-shadow-black"
+          ></Image>
         </Button>
 
         <Button size="lg" variant="link">
@@ -58,11 +56,17 @@ export const Footer = () => {
         </Button>
 
         <Button size="lg" variant="link">
-          <Image src="/logo_aunar.svg" alt="" height={200} width={200} className="mr-3"></Image>
+          <Image
+            src="/logo_aunar.svg"
+            alt=""
+            height={200}
+            width={200}
+            className="mr-3"
+          ></Image>
         </Button>
       </div>
-      <p className="w-full text-xs text-neutral-100 text-center p-2 bg-gray-700">
-        © 2024 Semilleros de Investigación en Ingeniería Informática. Todos los
+      <p className="w-full text-xs text-neutral-100 text-center p-2 bg-gradient-to-r from-gray-500 via-gray-900 to-gray-500">
+        © 2025 Semilleros de Investigación en Ingeniería Informática. Todos los
         derechos reservados.
       </p>
     </footer>
