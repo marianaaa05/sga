@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const images = [
@@ -50,6 +50,11 @@ export default function ImageCarousel() {
     setCurrent((prev) => (prev === 0 ? total - 1 : prev - 1));
   const nextSlide = () =>
     setCurrent((prev) => (prev === total - 1 ? 0 : prev + 1));
+
+  useEffect(() => {
+    const interval = setInterval(nextSlide, 5000);
+    return () => clearInterval(interval);
+  }, [current]);
 
   return (
     <div className="relative w-full max-w-4xl mx-auto ">
