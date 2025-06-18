@@ -43,6 +43,7 @@ const images = [
   },
 ];
 
+
 export default function ImageCarousel() {
   const [current, setCurrent] = useState(0);
   const total = images.length;

@@ -4,6 +4,7 @@ import Image from "next/image";
 //  import { Code, Database, Server } from "lucide-react";
 import ImageCarousel from "./carousel";
 import VideoGrid from "./interviews";
+import { Calendar1 } from "lucide-react";
 // import VideoComponent from "@/components/video";
 
 export default function Home() {
@@ -59,7 +60,8 @@ export default function Home() {
       {/*centra el texto*/}
       <div className="mb-8 mt-8">
         <div className="min-h w-full text-center  md:p-8 lg:p-25 lg:h-4">
-          <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-neutral-100 mb-6 mt-0 md:mt-20 p-0">
+          <h1 className="flex items-center justify-center gap-2 text-2xl md:text-3xl lg:text-4xl font-bold text-neutral-100 mb-6 mt-0 md:mt-20 p-0">
+            <Calendar1 className="w-8 h-8 md:w-10 md:h-10 lg:w-10 lg:h-12 text-purple-700" />
             EVENTOS
           </h1>
           {/* <div className="flex justify-center gap-6 md:gap-8 text-white">
@@ -76,7 +78,8 @@ export default function Home() {
       {/* <section className="relative bg-gradient-to-br from-gray-600 via-gray-900 to-gray-950 py-20 px-6"></section> */}
       {/* <section className="relative bg-gradient-to-br from-gray-600 via-gray-900 to-gray-950 py-20 px-6"> */}
       <div className="max-w-4xl mx-auto text-center px-4">
-        <h2 className="text-3xl sm:text-4xl font-bold text-white mb-2 drop-shadow-md">
+        <h2 className="flex items-center justify-center gap-2 text-3xl sm:text-4xl font-bold text-white mb-2 drop-shadow-md">
+          {/* <ContactRound className="w-8 h-8 md:w-10 md:h-10 lg:w-10 lg:h-12 text-purple-700" /> */}
           ¿Quién está detrás de
         </h2>
         <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-4xl font-extrabold tracking-wide">
@@ -90,7 +93,7 @@ export default function Home() {
           {/* Imagen de perfil */}
           <div className="w-36 h-36 md:w-48 md:h-48 rounded-full overflow-hidden border-4 border-purple-500 shadow-md">
             <img
-              src="./foto.png" 
+              src="./foto.png"
               alt="Mariana Arredondo Ortiz"
               className="object-cover w-full h-full"
             />

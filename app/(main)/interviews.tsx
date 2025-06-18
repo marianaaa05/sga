@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Clapperboard } from "lucide-react";
 
 const videos = [
   "https://www.youtube.com/embed/kAbrnfx7axc",
@@ -19,7 +20,8 @@ export default function VideoGrid() {
 
   return (
     <div className="relative max-w-6xl mx-auto px-4 py-8">
-      <h2 className="text-2xl md:text-3xl font-bold text-white text-center mb-6">
+      <h2 className="flex items-center justify-center gap-2 text-2xl md:text-3xl font-bold text-white text-center mb-6">
+         <Clapperboard className="w-8 h-8 md:w-10 md:h-10 lg:w-10 lg:h-12 text-purple-700" />
         ENTREVISTAS
       </h2>
 
