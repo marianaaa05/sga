@@ -4,10 +4,11 @@ import Link from "next/link";
 
 export const Footer = () => {
   return (
-    <footer className="hidden lg:block w-full bg-gradient-to-r from-gray-400 via-gray-700 to-gray-400">
+    // <footer className="hidden lg:block w-full bg-gradient-to-r from-gray-400 via-gray-700 to-gray-400">
+    <footer className="w-full lg:w-full mx-auto items-center justify-between h-full bg-gradient-to-r from-gray-400 via-gray-700 to-gray-400">
+      {/* Contenedor principal */}
       <div
-        className="max-w-screen mx-auto flex 
-       items-center justify-center p-2"
+        className="max-w-screen mx-auto flex items-center justify-start sm:justify-center p-2"
       >
         <Button size="lg" variant="link">
           <Image
@@ -39,7 +40,7 @@ export const Footer = () => {
           ></Image>
         </Button>
 
-        <Button size="lg" variant="link">
+        <Button size="lg" variant="link" className="hidden sm:block">
           <Link
             href="https://www.aunar.edu.co/"
             target="_blank"
@@ -55,7 +56,7 @@ export const Footer = () => {
           </Link>
         </Button>
 
-        <Button size="lg" variant="link">
+        <Button size="lg" variant="link" className="hidden sm:block">
           <Image
             src="/logo_aunar.svg"
             alt=""

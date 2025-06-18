@@ -3,6 +3,7 @@ import Image from "next/image";
 // import Link from "next/link";
 //  import { Code, Database, Server } from "lucide-react";
 import ImageCarousel from "./carousel";
+import VideoGrid from "./interviews";
 // import VideoComponent from "@/components/video";
 
 export default function Home() {
@@ -20,12 +21,12 @@ export default function Home() {
        </div> */}
 
       <div className="max-w-screen-lg mx-auto flex flex-col lg:flex-row items-center justify-center p-6 gap-6 lg:gap-12">
-        <div className="relative w-60 md:w-80 md:h-80 lg:w-96 lg:h-0 mb-6 lg:mb-0 flex flex-col items-center">
+        <div className="relative w-60 md:w-80 md:h-80 lg:w-130 lg:h-0 mb-6 lg:mb-0 flex flex-col items-center">
           {/* <h2 className="text-lg md:text-xl lg:text-2xl font-bold text-neutral-100 text-center mb-4">
              Semilleros de Investigación
            </h2> */}
-          <h2 className="text-4xl md:text-2xl lg:text-3xl font-extrabold text-center mb-4 text-fuchsia-100 drop-shadow-[0_0_10px_#ff00ff] drop-shadow-[2px_2px_10px_#00ffff]">
-            SEMILLEROS DE INVESTIGACIÓN
+          <h2 className="text-4xl md:text-2xl lg:text-3xl font-extrabold text-center mb-4 text-fuchsia-100 drop-shadow-[0_0_10px_#ff00ff] drop-shadow-[2px_2px_10px_#000fff]">
+            SEMILLEROS DE INVESTIGACIÓN: INGENIERÍA INFORMÁTICA AUNAR
           </h2>
 
           <div className="flex flex-row justify-center gap-6 lg:gap-8">
@@ -58,7 +59,7 @@ export default function Home() {
       {/*centra el texto*/}
       <div className="mb-8 mt-8">
         <div className="min-h w-full text-center  md:p-8 lg:p-25 lg:h-4">
-          <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-neutral-100 mb-6 mt-20">
+          <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-neutral-100 mb-6 mt-0 md:mt-20 p-0">
             EVENTOS
           </h1>
           {/* <div className="flex justify-center gap-6 md:gap-8 text-white">
@@ -70,6 +71,7 @@ export default function Home() {
       </div>
 
       <ImageCarousel />
+      <VideoGrid />
 
       {/* <section className="relative bg-gradient-to-br from-gray-600 via-gray-900 to-gray-950 py-20 px-6"></section> */}
       {/* <section className="relative bg-gradient-to-br from-gray-600 via-gray-900 to-gray-950 py-20 px-6"> */}
@@ -84,11 +86,11 @@ export default function Home() {
           <span className="text-white">verse</span>
         </h1>
 
-        <div className="relative bg-white/10 backdrop-blur-md rounded-3xl border border-white/20 shadow-xl px-6 py-12 md:px-12 flex flex-col md:flex-row items-center gap-8 bg-gradient-to-br from-gray-500 via-gray-900 to-gray-500">
+        <div className="relative bg-white/10 backdrop-blur-md rounded-2xl border border-white/80 shadow-xl px-6 py-12 md:px-12 flex flex-col md:flex-row items-center gap-8 bg-gradient-to-br from-gray-300 via-gray-700 to-gray-300">
           {/* Imagen de perfil */}
           <div className="w-36 h-36 md:w-48 md:h-48 rounded-full overflow-hidden border-4 border-purple-500 shadow-md">
             <img
-              src="./foto.png" // ⚠️ Asegúrate de que la imagen esté en la carpeta /public
+              src="./foto.png" 
               alt="Mariana Arredondo Ortiz"
               className="object-cover w-full h-full"
             />
@@ -101,7 +103,7 @@ export default function Home() {
             </h3>
             <p className="text-gray-300 mb-4 leading-relaxed">
               Soy estudiante de{" "}
-              <span className="text-blue-400 font-medium">
+              <span className="text-sky-500 font-medium">
                 Ingeniería Informática
               </span>
               , creadora de SKAHverse. Este proyecto representa mi compromiso

@@ -8,7 +8,8 @@ const images = [
     url: "./maquinarte2025-1.jpg",
     alt: "Imagen 1",
     title: "BATALLA DE ROBOTS EN MAQUINARTE",
-    description: "Participación en la batalla de robots del evento Maquinarte 2025-I",
+    description:
+      "Participación en la batalla de robots del evento Maquinarte 2025-I",
   },
   {
     url: "./maquinarte2025.jpg",
@@ -51,6 +52,7 @@ export default function ImageCarousel() {
   const nextSlide = () =>
     setCurrent((prev) => (prev === total - 1 ? 0 : prev + 1));
 
+  // Cambia la imagen cada 5 segundos
   useEffect(() => {
     const interval = setInterval(nextSlide, 5000);
     return () => clearInterval(interval);
@@ -61,7 +63,7 @@ export default function ImageCarousel() {
       <h2 className="text-lg md:text-xl lg:text-2xl font-bold text-neutral-100 text-center mb-4">
         Algunas de nuestras actividades
       </h2>
-      <div className="relative overflow-hidden rounded-lg shadow-lg">
+      <div className="relative overflow-hidden rounded-lg border border-white/80 shadow-xl">
         <img
           src={images[current].url}
           alt={images[current].alt}
