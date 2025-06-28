@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { IconInsign } from "@/components/icon-insign";
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
@@ -6,13 +5,21 @@ import { PanelsLeftBottom } from "lucide-react";
 import { redirect } from "next/navigation";
 import { FormTitle } from "./_components/form-title";
 
-const CourseIdPage = async ({
-  params,
-}: {
+interface CourseIdPageProps {
   params: {
     courseId: string;
   };
-}) => {
+}
+
+const CourseIdPage = async ({ 
+  params,
+  }: CourseIdPageProps) => {
+    const courseId = params.courseId;
+  
+  if (!courseId) {
+    return redirect("/dashboard");
+  }
+
   const { userId } = await auth();
 
   if (!userId) {
@@ -21,7 +28,7 @@ const CourseIdPage = async ({
 
   const course = await db.course.findUnique({
     where: {
-      id: params.courseId,
+      id: courseId,
     },
   });
 
@@ -45,7 +52,7 @@ const CourseIdPage = async ({
     <div className="p-6">
       <div className="flex items-center justify-between">
         <div className="flex flex-col gap-y-2">
-          <h1 className="text-2xl font-bold">Curso en construcción</h1>
+          <h1 className="text-2xl font-bold text-slate-700">Curso en construcción</h1>
           <span className="text-sm text-slate-600">
             🎯Complete todos los campos requeridos para publicar el curso{" "}
             {completedText}
@@ -56,12 +63,14 @@ const CourseIdPage = async ({
         <div>
           <div className="flex items-center gap-x-2">
             <IconInsign icon={PanelsLeftBottom} variant="success" size="sm" />
-            <h2 className="text-sm font-semibold text-slate-900">
+            <h2 className="text-sm font-semibold text-slate-800">
               Personaliza tu curso para que sea único y atractivo para tus
               estudiantes.
             </h2>
           </div>
-          <FormTitle initialData={{title: "Curso"}} courseId={params.courseId} />
+          <FormTitle 
+            initialData={{title: ""}} 
+            courseId={courseId} />
         </div>
       </div>
     </div>
