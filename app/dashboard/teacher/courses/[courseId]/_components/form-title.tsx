@@ -12,9 +12,12 @@ import {
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
 import { UserPen } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { z } from "zod";
 
 interface FormTitleProps {
@@ -38,6 +41,8 @@ export const FormTitle = ({ initialData, courseId }: FormTitleProps) => {
     setIsEditing((current) => !current);
   };
 
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: initialData,
@@ -46,11 +51,19 @@ export const FormTitle = ({ initialData, courseId }: FormTitleProps) => {
   const { isSubmitting, isValid } = form.formState;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log("Título del formulario enviado", values);
+    // console.log("Título del formulario enviado", values);
+    try {
+      await axios.post(`/api/courses/${courseId})`, values);
+      toast.success("Curso actualizado correctamente");
+      toggleEditing();
+      router.refresh();
+    } catch {
+      toast.error("Error al guardar el título");
+    }
   };
 
   return (
-    <div className="mt-6 border bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-700 p-4 rounded-md shadow-sm">
+    <div className="mt-6 border bg-gradient-to-br from-slate-100 to-slate-300 dark:from-slate-800 dark:to-slate-700 p-4 rounded-md shadow-sm">
       <div className="font-bold flex items-center justify-between text-slate-800">
         Nombre del curso
         <Button
@@ -85,7 +98,7 @@ export const FormTitle = ({ initialData, courseId }: FormTitleProps) => {
                       placeholder="Nombre del curso"
                       {...field}
                       className={cn("bg-white text-slate-800")}
-                     
+                      variant="white"
                     />
                   </FormControl>
                   <FormMessage />

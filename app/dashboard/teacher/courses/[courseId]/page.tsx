@@ -51,7 +51,7 @@ export default async function CourseIdPage({ params }: CourseIdPageProps) {
   const completedText = `${completedFields} / ${totalFields}`;
 
   return (
-    <div className="p-6">
+    <div className="p-16">
       <div className="flex items-center justify-between">
         <div className="flex flex-col gap-y-2">
           <h1 className="text-2xl font-bold text-slate-700">Curso en construcción</h1>
