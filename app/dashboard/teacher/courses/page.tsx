@@ -4,7 +4,8 @@ import Link from "next/link";
 const CoursesPage = () => {
   return ( 
       <div className="p-5">
-       <Link href="/dashboard/teacher/create">
+        {/* ruta para crear un curso */}
+       <Link href="/dashboard/teacher/courses/create">
          <Button variant={"neonPurple"} size="sm">
            Nuevo Curso
          </Button>

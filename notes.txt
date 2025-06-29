@@ -38,3 +38,5 @@ https://www.prisma.io/docs/getting-started
 -> npx prisma generate
 -> npx prisma db push
 -> mpx prisma studio
+
+-> npm install @vercel/fonts

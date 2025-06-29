@@ -11,9 +11,11 @@ interface CourseIdPageProps {
   };
 }
 
-const CourseIdPage = async ({ 
-  params,
-  }: CourseIdPageProps) => {
+// const CourseIdPage = async ({ 
+//   params,
+//   }: CourseIdPageProps) => {
+export default async function CourseIdPage({ params }: CourseIdPageProps) {
+  // Extract courseId from params
     const courseId = params.courseId;
   
   if (!courseId) {
@@ -77,4 +79,4 @@ const CourseIdPage = async ({
   );
 };
 
-export default CourseIdPage;
+// export default CourseIdPage;

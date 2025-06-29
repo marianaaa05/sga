@@ -10,6 +10,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { UserPen } from "lucide-react";
 import { useState } from "react";
@@ -49,7 +50,7 @@ export const FormTitle = ({ initialData, courseId }: FormTitleProps) => {
   };
 
   return (
-    <div className="mt-6 border bg-blue-200 p-4 rounded-md shadow-sm">
+    <div className="mt-6 border bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-700 p-4 rounded-md shadow-sm">
       <div className="font-bold flex items-center justify-between text-slate-800">
         Nombre del curso
         <Button
@@ -83,6 +84,8 @@ export const FormTitle = ({ initialData, courseId }: FormTitleProps) => {
                       disabled={isSubmitting}
                       placeholder="Nombre del curso"
                       {...field}
+                      className={cn("bg-white text-slate-800")}
+                     
                     />
                   </FormControl>
                   <FormMessage />
@@ -90,7 +93,7 @@ export const FormTitle = ({ initialData, courseId }: FormTitleProps) => {
               )}
             />
             <div className="flex items-center gap-x-2">
-              <Button disabled={!isValid || isSubmitting} type="submit">
+              <Button disabled={!isValid || isSubmitting} type="submit" variant={"linkLms"}>
                 Guardar
               </Button>
             </div>

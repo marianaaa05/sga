@@ -52,7 +52,7 @@ const CreatePage = () => {
         <h1 className="text-2xl font-bold">
           Nombre del Curso
         </h1>
-        <p className="text-center text-muted-foreground">
+        <p className="text-center">
           Crea un nuevo curso para tus alumnos
         </p>
         <Form {...form}>
