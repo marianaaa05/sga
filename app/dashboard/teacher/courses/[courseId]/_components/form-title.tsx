@@ -64,7 +64,7 @@ export const FormTitle = ({ initialData, courseId }: FormTitleProps) => {
 
   return (
     <div className="mt-6 border bg-gradient-to-br from-slate-100 to-slate-300 dark:from-slate-800 dark:to-slate-700 p-4 rounded-md shadow-sm">
-      <div className="font-bold flex items-center justify-between text-slate-800">
+      <div className="font-bold flex flex-wrap items-center justify-between gap-1text-slate-800">
         Nombre del curso
         <Button
           onClick={toggleEditing}
@@ -106,7 +106,11 @@ export const FormTitle = ({ initialData, courseId }: FormTitleProps) => {
               )}
             />
             <div className="flex items-center gap-x-2">
-              <Button disabled={!isValid || isSubmitting} type="submit" variant={"linkLms"}>
+              <Button 
+                disabled={!isValid || isSubmitting} 
+                type="submit" 
+                variant={"linkLms"}
+                >
                 Guardar
               </Button>
             </div>
