@@ -16,7 +16,8 @@ interface CourseIdPageProps {
 //   }: CourseIdPageProps) => {
 export default async function CourseIdPage({ params }: CourseIdPageProps) {
   // Extract courseId from params
-    const courseId = params.courseId;
+  
+    const courseId = params?.courseId;
   
   if (!courseId) {
     return redirect("/dashboard");

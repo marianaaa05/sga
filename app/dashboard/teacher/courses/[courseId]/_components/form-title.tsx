@@ -53,7 +53,7 @@ export const FormTitle = ({ initialData, courseId }: FormTitleProps) => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     // console.log("Título del formulario enviado", values);
     try {
-      await axios.post(`/api/courses/${courseId})`, values);
+      await axios.patch(`/api/courses/${courseId}`, values);
       toast.success("Curso actualizado correctamente");
       toggleEditing();
       router.refresh();
