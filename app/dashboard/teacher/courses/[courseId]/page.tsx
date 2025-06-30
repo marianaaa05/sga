@@ -4,6 +4,7 @@ import { auth } from "@clerk/nextjs/server";
 import { PanelsLeftBottom } from "lucide-react";
 import { redirect } from "next/navigation";
 import { FormTitle } from "./_components/form-title";
+import { FormDescription } from "./_components/form-description";
 
 interface CourseIdPageProps {
   params: {
@@ -72,8 +73,13 @@ export default async function CourseIdPage({ params }: CourseIdPageProps) {
             </h2>
           </div>
           <FormTitle 
-            initialData={{title: ""}} 
-            courseId={courseId} />
+            initialData={course} 
+            courseId={courseId} 
+            />
+            <FormDescription 
+              initialData={{ description: course.description ?? "" }} 
+              courseId={courseId} 
+            />
         </div>
       </div>
     </div>

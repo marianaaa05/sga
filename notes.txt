@@ -39,4 +39,4 @@ https://www.prisma.io/docs/getting-started
 -> npx prisma db push
 -> mpx prisma studio
 
--> npm install @vercel/fonts
+-> npx shadcn-ui@latest add textarea -> npx shadcn@latest add textarea
