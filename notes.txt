@@ -40,3 +40,5 @@ https://www.prisma.io/docs/getting-started
 -> mpx prisma studio
 
 -> npx shadcn-ui@latest add textarea -> npx shadcn@latest add textarea
+-> Crear una cuenta en https://docs.uploadthing.com/getting-started/appdir con un usuario de github Add commentMore actions
+-> npm install uploadthing @uploadthing/react 
