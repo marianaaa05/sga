@@ -5,6 +5,7 @@ import { PanelsLeftBottom } from "lucide-react";
 import { redirect } from "next/navigation";
 import { FormTitle } from "./_components/form-title";
 import { FormDescription } from "./_components/form-description";
+import { FormImage } from "./_components/form-image";
 
 interface CourseIdPageProps {
   params: {
@@ -12,14 +13,14 @@ interface CourseIdPageProps {
   };
 }
 
-// const CourseIdPage = async ({ 
+// const CourseIdPage = async ({
 //   params,
 //   }: CourseIdPageProps) => {
 export default async function CourseIdPage({ params }: CourseIdPageProps) {
   // Extract courseId from params
-  
-    const courseId = params?.courseId;
-  
+
+  const courseId = params?.courseId;
+
   if (!courseId) {
     return redirect("/dashboard");
   }
@@ -56,7 +57,9 @@ export default async function CourseIdPage({ params }: CourseIdPageProps) {
     <div className="p-16">
       <div className="flex items-center justify-between">
         <div className="flex flex-col gap-y-2">
-          <h1 className="text-2xl font-bold text-slate-700">Curso en construcción</h1>
+          <h1 className="text-2xl font-bold text-slate-700">
+            Curso en construcción
+          </h1>
           <span className="text-sm text-slate-600">
             🎯Complete todos los campos requeridos para publicar el curso{" "}
             {completedText}
@@ -72,18 +75,13 @@ export default async function CourseIdPage({ params }: CourseIdPageProps) {
               estudiantes.
             </h2>
           </div>
-          <FormTitle 
-            initialData={course} 
-            courseId={courseId} 
-            />
-            <FormDescription 
-              initialData={{ description: course.description ?? "" }} 
-              courseId={courseId} 
-            />
+          <FormTitle initialData={course} courseId={courseId} />
+          <FormDescription initialData={course} courseId={courseId} />
+          <FormImage initialData={course} courseId={courseId} />
         </div>
       </div>
     </div>
   );
-};
+}
 
 // export default CourseIdPage;

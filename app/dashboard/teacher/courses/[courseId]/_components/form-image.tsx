@@ -8,44 +8,48 @@ import {
   FormMessage,
   FormControl,
 } from "@/components/ui/form";
-import { Textarea } from "@/components/ui/textarea";
+import { FileUpload } from "@/components/file-upload";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Course } from "@prisma/client";
 import axios from "axios";
-import { UserPen } from "lucide-react";
+import { ImagePlay, Upload } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
 
-interface FormDescriptionProps {
-  initialData: Course,
+interface FormImageProps {
+  initialData: Course;
   courseId: string;
 }
+// interface FormImageProps{
+//   initialData: {
+//     title: string;
+//   };
+//   courseId: string;
+// }
 
 const formSchema = z.object({
-  description: z.string().min(3, {
-    message: "La descripción del curso es requerida",
+  imageUrl: z.string().min(1, {
+    message: "La imagen del curso es requerida",
   }),
 });
 
-export const FormDescription = ({
-  initialData,
-  courseId,
-}: FormDescriptionProps) => {
+export const FormImage = ({ initialData, courseId }: FormImageProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const toggleEditing = () => {
     setIsEditing((current) => !current);
   };
+
   const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      description: initialData.description || "",
-    }
+      imageUrl: initialData.imageUrl || "",
+    },
   });
 
   const { isSubmitting, isValid } = form.formState;
@@ -57,7 +61,7 @@ export const FormDescription = ({
       toggleEditing();
       router.refresh();
     } catch {
-      toast.error("Error al guardar la descripción del curso");
+      toast.error("Error al guardar la imagen del curso");
     }
   };
 
@@ -65,7 +69,7 @@ export const FormDescription = ({
     <div className="mt-6 border bg-gradient-to-br from-slate-100 to-slate-300 dark:from-slate-800 dark:to-slate-700 p-4 rounded-md shadow-sm">
       {/* <div className="font-bold flex items-center justify-between text-slate-800"> */}
       <div className="font-bold flex flex-wrap items-center justify-between gap-1text-slate-800">
-        Descripción del curso
+        Imagen del curso
         <Button
           onClick={toggleEditing}
           variant="cyberGradient"
@@ -73,13 +77,18 @@ export const FormDescription = ({
           className="font-bold"
         >
           {isEditing ? (
-            <>
-              Cancelar
-            </>
+            <>Cancelar</>
           ) : (
             <>
-              <UserPen size={4} />
-            Agregar descripción</>
+              <Upload size={4} />
+              Subir imagen
+            </>
+          )}
+          {!isEditing && initialData.imageUrl && (
+            <>
+              <ImagePlay size={4} />
+              Cambiar imagen
+            </>
           )}
         </Button>
       </div>
@@ -87,10 +96,10 @@ export const FormDescription = ({
         <p
           className={cn(
             "text-sm mt-2",
-            !initialData.description && "text-slate-600 italic"
+            !initialData.imageUrl && "text-slate-600 italic"
           )}
         >
-          {initialData.description || "No hay descripción disponible"}
+          {initialData.imageUrl || "No hay imagen disponible"}
         </p>
       )}
       {isEditing && (
@@ -101,16 +110,20 @@ export const FormDescription = ({
           >
             <FormField
               control={form.control}
-              name="description"
+              name="imageUrl"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Textarea
-                      disabled={isSubmitting}
-                      placeholder="Descripción del curso"
-                      {...field}
-                      className={cn("bg-white text-slate-800")}
+                    <FileUpload
+                      endpoint="courseImage"
+                      onChange={field.onChange}
+                       
+                      // disabled={isSubmitting}
+                      // placeholder="Imagen del curso"
+                      // {...field}
+                      // className={cn("bg-white text-slate-800")}
                     />
+                    
                   </FormControl>
                   <FormMessage />
                 </FormItem>
