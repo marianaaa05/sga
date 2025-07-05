@@ -45,3 +45,5 @@ https://www.prisma.io/docs/getting-started
    ubicar en .env  uploadthing_secret y uploadthing_app_id LEGACY
 
 -> npm i react-dropzone
+dropdown
+->  npx shadcn@latest add select

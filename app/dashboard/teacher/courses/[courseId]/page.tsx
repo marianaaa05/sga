@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import { FormTitle } from "./_components/form-title";
 import { FormDescription } from "./_components/form-description";
 import { FormImage } from "./_components/form-image";
+import { FormCategory } from "./_components/form-category";
 
 interface CourseIdPageProps {
   params: {
@@ -40,6 +41,8 @@ export default async function CourseIdPage({ params }: CourseIdPageProps) {
   if (!course) {
     return redirect("/dashboard");
   }
+
+  const categories = await db.category.findMany();
 
   const requiredFields = [
     course.title,
@@ -78,6 +81,11 @@ export default async function CourseIdPage({ params }: CourseIdPageProps) {
           <FormTitle initialData={course} courseId={courseId} />
           <FormDescription initialData={course} courseId={courseId} />
           <FormImage initialData={course} courseId={courseId} />
+          <FormCategory
+            initialData={{ categoryId: course.categoryId || "" }}
+            courseId={courseId}
+            categories={categories}
+          />
         </div>
       </div>
     </div>
