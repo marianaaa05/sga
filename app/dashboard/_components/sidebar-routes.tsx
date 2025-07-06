@@ -1,5 +1,5 @@
 'use client'
- import { TextSearch, NotebookText, GraduationCap, ChartColumnIncreasing } from "lucide-react";
+ import { TextSearch, NotebookText, GraduationCap, ChartColumnIncreasing, Tags } from "lucide-react";
  import { SidebarItem } from "./sidebar-item"
  import { usePathname } from "next/navigation";
 
@@ -21,6 +21,11 @@
     icon: GraduationCap,
     label: "Cursos",
     href: "/dashboard/teacher/courses"
+  },
+  {
+    icon: Tags,
+    label: "Categorías",
+    href: "/dashboard/teacher/categories"
   },
   {
     icon: ChartColumnIncreasing,
