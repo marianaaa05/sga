@@ -64,7 +64,7 @@ export const FormCategory = ({
     if (!newCategoryName) return;
 
     try {
-      const res = await axios.post("/api/categories", { name: newCategoryName });
+      const res = await axios.post("/api/courses/categories", { name: newCategoryName });
       const nuevaCategoria = res.data;
       setCategories((prev) => [...prev, nuevaCategoria]);
       form.setValue("categoryId", nuevaCategoria.id);
@@ -156,7 +156,7 @@ export const FormCategory = ({
                 />
                 <Button
                   type="button"
-                  variant="outline"
+                  variant="linkLms"
                   onClick={handleCreateCategory}
                   disabled={!newCategoryName}
                 >
