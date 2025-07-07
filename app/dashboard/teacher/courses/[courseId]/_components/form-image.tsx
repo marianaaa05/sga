@@ -9,7 +9,7 @@ import {
   FormControl,
 } from "@/components/ui/form";
 import { FileUpload } from "@/components/file-upload";
-import { cn } from "@/lib/utils";
+// import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Course } from "@prisma/client";
 import axios from "axios";
@@ -93,15 +93,19 @@ export const FormImage = ({ initialData, courseId }: FormImageProps) => {
         </Button>
       </div>
       {!isEditing && (
-        <p
-          className={cn(
-            "text-sm mt-2",
-            !initialData.imageUrl && "text-slate-600 italic"
+        <div className="text-sm mt-2">
+          {initialData.imageUrl ? (
+            <img
+              src={initialData.imageUrl}
+              alt="Imagen del curso"
+              className="w-full h-80 object-cover rounded-md mb-3"
+            />
+          ) : (
+            <p className="text-slate-600 italic">No hay imagen disponible</p>
           )}
-        >
-          {initialData.imageUrl || "No hay imagen disponible"}
-        </p>
+        </div>
       )}
+
       {isEditing && (
         <Form {...form}>
           <form
@@ -117,13 +121,12 @@ export const FormImage = ({ initialData, courseId }: FormImageProps) => {
                     <FileUpload
                       endpoint="courseImage"
                       onChange={field.onChange}
-                       
+
                       // disabled={isSubmitting}
                       // placeholder="Imagen del curso"
                       // {...field}
                       // className={cn("bg-white text-slate-800")}
                     />
-                    
                   </FormControl>
                   <FormMessage />
                 </FormItem>
