@@ -1,5 +1,5 @@
 'use client'
- import { TextSearch, NotebookText, GraduationCap, ChartColumnIncreasing, Tags } from "lucide-react";
+ import { TextSearch, NotebookText, GraduationCap, ChartColumnIncreasing, Tags, LibraryBig } from "lucide-react";
  import { SidebarItem } from "./sidebar-item"
  import { usePathname } from "next/navigation";
 
@@ -32,6 +32,12 @@
     label: "Analíticas",
     href: "/dashboard/teacher/analytics"
   },
+  {
+    icon: LibraryBig,
+    label: "Contenidos",
+    href: "/dashboard/teacher/attachments"
+  },
+
 ]
  
  export const SidebarRoutes = () => {

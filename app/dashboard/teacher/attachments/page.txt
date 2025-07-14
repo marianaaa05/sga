@@ -1,0 +1,47 @@
+import { db } from "@/lib/db";
+import { auth } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
+import Link from "next/link";
+
+export default async function AttachmentsBasePage() {
+  const { userId } = await auth();
+
+  if (!userId) return redirect("/");
+
+  const courses = await db.course.findMany({
+    where: {
+      userId,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
+  return (
+    <div className="p-16">
+      <h1 className="text-2xl font-bold text-slate-700 mb-2">Selecciona un curso</h1>
+      <p className="text-slate-500 mb-6">
+        Selecciona el curso al que deseas subir archivos adjuntos (PDF, imágenes, Word, etc.).
+      </p>
+
+      {courses.length === 0 ? (
+        <p className="text-slate-500 italic">No tienes cursos creados aún.</p>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          {courses.map((course) => (
+            <Link
+              key={course.id}
+              href={`/dashboard/teacher/attachments/${course.id}`}
+              className="p-4 border rounded-md shadow-sm hover:shadow-md transition bg-white dark:bg-slate-800 dark:text-white"
+            >
+              <h2 className="text-lg font-semibold">{course.title}</h2>
+              <p className="text-sm text-slate-600 mt-1">
+                Ver archivos adjuntos
+              </p>
+            </Link>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}

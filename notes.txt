@@ -47,3 +47,7 @@ https://www.prisma.io/docs/getting-started
 -> npm i react-dropzone
 dropdown
 ->  npx shadcn@latest add select
+
+archivos con nombre unico
+-> npm install uuid
+-> npm install --save-dev @types/uuid
