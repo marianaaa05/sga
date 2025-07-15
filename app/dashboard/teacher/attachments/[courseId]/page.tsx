@@ -32,13 +32,12 @@ export default async function AttachmentsPage({ params }: AttachmentsPageProps) 
 
   if (!course) return redirect("/dashboard");
 
-  console.log("🟢 Archivos encontrados:", course.attachments);
 
   return (
     <div className="p-16">
       <div className="flex items-center justify-between">
         <div className="flex flex-col gap-y-2">
-          <h1 className="text-2xl font-bold text-slate-700">Archivos adjuntos</h1>
+          <h1 className="text-2xl font-bold text-slate-700">📍Estás en el curso: {course.title}</h1>
           <span className="text-sm text-slate-600">
             📎 Sube archivos PDF, imágenes, Word, ZIP u otros documentos útiles para el curso.
           </span>
@@ -67,6 +66,8 @@ export default async function AttachmentsPage({ params }: AttachmentsPageProps) 
                 id={file.id}
                 name={file.name}
                 url={file.url}
+                createdAt={file.createdAt.toISOString()}
+                updatedAt={file.updatedAt.toISOString()}
               />
             ))
           ) : (
