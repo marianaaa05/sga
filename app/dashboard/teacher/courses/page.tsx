@@ -22,7 +22,7 @@ import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
-import { UserPen } from "lucide-react";
+import { UserPen, FilePlus2, Eye } from "lucide-react";
 import Link from "next/link";
 
 const CoursesPage = async () => {
@@ -85,12 +85,38 @@ const CoursesPage = async () => {
                 <Button 
                    variant="cyberGradient" 
                    size="sm" 
-                   className="font-bold">
+                   className="font-bold w-full">
                   <UserPen size={4} />
                   Editar
                 </Button>
               </Link>
             </div>
+
+            <div className="mt-3">
+                <Link href={`/dashboard/teacher/attachments/${course.id}`}>
+                  <Button 
+                    variant="cyberGradient" 
+                    size="sm" 
+                    className="font-bold w-full"
+                  >
+                    <FilePlus2 className="mr-2 w-4 h-4" />
+                    Subir Archivos
+                  </Button>
+                </Link>
+              </div>
+              {/* boton para ver contenidos del curso */}
+              <div className="mt-3">
+                <Link href={`/dashboard/teacher/courses/${course.id}/contents`}>
+                  <Button 
+                    variant="cyberGradient" 
+                    size="sm" 
+                    className="font-bold w-full"
+                  >
+                  <Eye className="mr-2 w-4 h-4" />
+                    Ver contenido
+                  </Button>
+                </Link>
+                </div>
           </div>
         ))}
       </div>

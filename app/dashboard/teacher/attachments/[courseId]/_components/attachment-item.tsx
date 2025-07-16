@@ -7,7 +7,7 @@ import {
   FileImage,
   FileArchive,
   FileCode,
-  FileVideo,
+  Youtube,
   ArrowDownUp,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -45,7 +45,7 @@ const getIconByExtension = (name: string) => {
     case "json":
       return <FileCode className="text-purple-600 w-5 h-5" />;
     default:
-      return <FileVideo className="text-red-600 w-5 h-5" />;
+      return <Youtube className="text-red-600 w-5 h-5" />;
   }
 };
 

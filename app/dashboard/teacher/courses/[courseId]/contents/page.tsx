@@ -1,0 +1,143 @@
+//contenidos del curso
+
+import { db } from "@/lib/db";
+import { auth } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
+import {
+  FileText,
+  FileImage,
+  FileArchive,
+  FileCode,
+  Youtube,
+  FilePlus2,
+} from "lucide-react";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+
+interface ContentsPageProps {
+  params: {
+    courseId: string;
+  };
+}
+
+const getIconByExtension = (name: string) => {
+  const ext = name.split(".").pop()?.toLowerCase();
+
+  switch (ext) {
+    case "pdf":
+      return <FileText className="text-red-600 w-5 h-5" />;
+    case "doc":
+    case "docx":
+      return <FileText className="text-blue-600 w-5 h-5" />;
+    case "png":
+    case "jpg":
+    case "jpeg":
+      return <FileImage className="text-green-600 w-5 h-5" />;
+    case "zip":
+    case "rar":
+      return <FileArchive className="text-yellow-600 w-5 h-5" />;
+    case "js":
+    case "ts":
+    case "json":
+      return <FileCode className="text-purple-600 w-5 h-5" />;
+    default:
+      return <Youtube className="text-red-600 w-5 h-5" />;
+  }
+};
+
+export default async function CourseContentsPage({
+  params,
+}: ContentsPageProps) {
+  const { userId } = await auth();
+
+  if (!userId) {
+    return redirect("/dashboard");
+  }
+
+  const course = await db.course.findUnique({
+    where: {
+      id: params.courseId,
+      userId,
+    },
+    include: {
+      attachments: {
+        orderBy: {
+          createdAt: "desc",
+        },
+      }
+    },
+  });
+
+  if (!course) {
+    return redirect("/dashboard");
+  }
+
+  return (
+  <div className="p-6 space-y-6">
+    <div className="space-y-1">
+      <h1 className="text-2xl font-bold text-slate-800 dark:text-white">
+        📄Contenido de: {course.title}
+      </h1>
+      <p className="text-sm text-slate-600 dark:text-slate-300">
+        👩‍💻Aquí puedes visualizar los archivos y recursos del curso.
+      </p>
+    </div>
+
+    {/* boton agregar contenido */}
+    <div className="flex justify-end">
+      <Link href={`/dashboard/teacher/attachments/${course.id}`}>
+        <Button 
+          variant="neonPurple"
+          size="sm" 
+          className="font-bold w-full"
+        >
+          <FilePlus2 className="mr-2 w-4 h-4" />
+          Subir Archivos
+        </Button>
+      </Link>
+      </div>
+
+    {course.attachments.length === 0 ? (
+      <p className="italic text-slate-500">
+        Este curso no tiene contenido aún.
+      </p>
+    ) : (
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        {course.attachments.map((file) => (
+          <div
+            key={file.id}
+            className="border bg-gradient-to-br from-slate-100 to-slate-300 dark:from-slate-800 dark:to-slate-700 p-4 rounded-md shadow-sm"
+          >
+            {/* Icono + nombre */}
+            <div className="flex items-center gap-x-2 mb-2">
+              <div className="w-6 h-6 flex-shrink-0">
+                {getIconByExtension(file.name)}
+              </div>
+              <h2 className="text-base font-semibold truncate text-slate-800 dark:text-white">
+                {file.name}
+              </h2>
+            </div>
+
+            {/* Fechas */}
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Subido el {new Date(file.createdAt).toLocaleDateString()}
+              <br />
+              Actualizado el {new Date(file.updatedAt).toLocaleDateString()}
+            </p>
+
+            {/* Link para ver/descargar */}
+            <Link
+              href={file.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-blue-600 hover:underline block mt-2"
+            >
+              Ver o descargar archivo
+            </Link>
+          </div>
+        ))}
+      </div>
+    )}
+  </div>
+);
+} 
