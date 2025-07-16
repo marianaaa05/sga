@@ -25,6 +25,7 @@ import { Button } from "@/components/ui/button";
 import { UserPen, FilePlus2, Eye } from "lucide-react";
 import Link from "next/link";
 
+
 const CoursesPage = async () => {
   const { userId } = await auth();
 

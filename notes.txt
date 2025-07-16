@@ -51,3 +51,7 @@ dropdown
 archivos con nombre unico
 -> npm install uuid
 -> npm install --save-dev @types/uuid
+
+para control por roles
+npm install @clerk/clerk-sdk-node
+

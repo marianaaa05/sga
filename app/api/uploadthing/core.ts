@@ -27,11 +27,22 @@ export const ourFileRouter = {
     .onUploadComplete(() => {
       console.log("file uploaded");
     }),
-
+    
     courseAttachment: f(["text", "image", "audio", "pdf"])
     .middleware(handleAuth)
     .onUploadComplete(() => {
       console.log("file uploaded");
+    }),
+
+    researchGroupImage: f({
+    image: {
+      maxFileSize: "4MB",
+      maxFileCount: 1,
+    },
+  })
+    .middleware(handleAuth)
+    .onUploadComplete(() => {
+      console.log("research group image uploaded");
     }),
   } satisfies FileRouter;
 

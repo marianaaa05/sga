@@ -1,5 +1,5 @@
 'use client'
- import { TextSearch, NotebookText, GraduationCap, ChartColumnIncreasing, Tags, LibraryBig } from "lucide-react";
+ import { TextSearch, NotebookText, GraduationCap, ChartColumnIncreasing, Tags, LibraryBig, Users } from "lucide-react";
  import { SidebarItem } from "./sidebar-item"
  import { usePathname } from "next/navigation";
 
@@ -28,15 +28,21 @@
     href: "/dashboard/teacher/categories"
   },
   {
+    icon: LibraryBig,
+    label: "Contenidos",
+    href: "/dashboard/teacher/attachments"
+  },
+  {
     icon: ChartColumnIncreasing,
     label: "Analíticas",
     href: "/dashboard/teacher/analytics"
   },
   {
-    icon: LibraryBig,
-    label: "Contenidos",
-    href: "/dashboard/teacher/attachments"
-  },
+    icon: Users,
+    label: "Grupos de Investigación",
+    href: "/dashboard/teacher/research-groups"
+  }
+  
 
 ]
  
@@ -55,7 +61,7 @@
            href={route.href}
          />
        ))}
-       <h1 className="text-center">Demos de usuarios</h1>
+       {/* <h1 className="text-center">Demos de usuarios</h1> */}
      </div>
    )
  }
