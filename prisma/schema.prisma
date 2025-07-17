@@ -52,6 +52,9 @@ model Attachment {
   courseId String
   course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
+  researchGroupId String?
+  researchGroup   ResearchGroup? @relation(fields: [researchGroupId], references: [id], onDelete: Cascade)
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -69,6 +72,8 @@ model ResearchGroup {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  attachments Attachment[]
 }
 
 model ResearchGroupMember {
