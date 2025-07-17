@@ -15,7 +15,6 @@ export default function AttachmentsLayout({ children }: LayoutProps) {
   );
 }
 
-// ✅ NO marques el parámetro como `async`, porque no necesitas operaciones asíncronas aquí
 export function generateMetadata({
   params,
 }: {

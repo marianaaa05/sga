@@ -36,7 +36,7 @@ export default async function ResearchGroupsPage() {
             </p>
 
             <div className="mt-3">
-              <Link href={`/dashboard/research-groups/${group.id}`}>
+              <Link href={`/dashboard/teacher/research-group/${group.id}`}>
                 <Button
                   variant="cyberGradient"
                   size="sm"
@@ -49,7 +49,7 @@ export default async function ResearchGroupsPage() {
             </div>
 
             <div className="mt-3">
-              <Link href={`/dashboard/research-groups/${group.id}/view`}>
+              <Link href={`/dashboard/teacher/research-group/${group.id}/view`}>
                 <Button
                   variant="cyberGradient"
                   size="sm"

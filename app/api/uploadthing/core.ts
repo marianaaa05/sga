@@ -25,7 +25,7 @@ export const ourFileRouter = {
     // Set permissions and file types for this FileRoute
     .middleware(handleAuth)
     .onUploadComplete(() => {
-      console.log("file uploaded");
+      console.log("Imagen subida");
     }),
     
     courseAttachment: f(["text", "image", "audio", "pdf"])
@@ -42,7 +42,7 @@ export const ourFileRouter = {
   })
     .middleware(handleAuth)
     .onUploadComplete(() => {
-      console.log("research group image uploaded");
+      console.log("Logo subido");
     }),
   } satisfies FileRouter;
 

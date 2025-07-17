@@ -58,7 +58,7 @@ export default async function ResearchGroupViewPage({ params }: ResearchGroupVie
       </div>
 
       <div className="flex justify-end">
-        <Link href={`/dashboard/research-groups/${group.id}/attachments`}>
+        <Link href={`/dashboard/research-group/${group.id}/attachments`}>
           <Button variant="neonPurple" size="sm" className="font-bold">
             <FilePlus2 className="mr-2 w-4 h-4" />
             Subir Archivos

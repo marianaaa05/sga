@@ -40,7 +40,7 @@
   {
     icon: Users,
     label: "Grupos de Investigación",
-    href: "/dashboard/teacher/research-groups"
+    href: "/dashboard/teacher/research-group"
   }
   
 
