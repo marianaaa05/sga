@@ -74,7 +74,7 @@ export const UploadForm = ({ researchGroupId }: UploadFormProps) => {
       }
 
       if (values.type === "video") {
-          const res = await fetch(`/api/research-group/${researchGroupId}/attachments`, {
+          const res = await fetch(`/api/research-group/${researchGroupId}/video`, {
           method: "POST",
           body: JSON.stringify({
             videoUrl: values.videoUrl,

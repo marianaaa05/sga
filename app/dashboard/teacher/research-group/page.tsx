@@ -1,6 +1,6 @@
 import { db } from "@/lib/db";
 import { Button } from "@/components/ui/button";
-import { Eye, UserPen } from "lucide-react";
+import { Eye, UserPen, FilePlus2 } from "lucide-react";
 import Link from "next/link";
 
 export default async function ResearchGroupsPage() {
@@ -11,7 +11,9 @@ export default async function ResearchGroupsPage() {
   return (
     <div className="p-5 space-y-6">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-xl font-bold text-slate-800">Semilleros de Investigación</h1>
+        <h1 className="text-xl font-bold text-slate-800">
+          Semilleros de Investigación
+        </h1>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -32,7 +34,8 @@ export default async function ResearchGroupsPage() {
               {group.description || "Sin descripción"}
             </p>
             <p className="text-xs text-slate-500">
-              Fecha de creación: {new Date(group.createdAt).toLocaleDateString()}
+              Fecha de creación:{" "}
+              {new Date(group.createdAt).toLocaleDateString()}
             </p>
 
             <div className="mt-3">
@@ -44,6 +47,21 @@ export default async function ResearchGroupsPage() {
                 >
                   <UserPen size={4} />
                   Editar
+                </Button>
+              </Link>
+            </div>
+
+            <div className="mt-3">
+              <Link
+                href={`/dashboard/teacher/research-group/${group.id}/attachments`}
+              >
+                <Button 
+                  variant="cyberGradient" 
+                  size="sm" 
+                  className="font-bold w-full"
+                  >
+                  <FilePlus2 className="mr-2 w-4 h-4" />
+                  Subir Archivos
                 </Button>
               </Link>
             </div>
