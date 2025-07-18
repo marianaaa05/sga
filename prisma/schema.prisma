@@ -52,9 +52,6 @@ model Attachment {
   courseId String
   course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
-  researchGroupId String?
-  researchGroup   ResearchGroup? @relation(fields: [researchGroupId], references: [id], onDelete: Cascade)
-
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -69,11 +66,10 @@ model ResearchGroup {
 
   courses Course[]
   members ResearchGroupMember[]
+  attachments ResearchGroupAttachment[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
-  attachments Attachment[]
 }
 
 model ResearchGroupMember {
@@ -89,3 +85,18 @@ model ResearchGroupMember {
   @@unique([userId, researchGroupId])
   @@index([researchGroupId])
 }
+
+model ResearchGroupAttachment {
+  id              String         @id @default(uuid())
+  name            String
+  url             String         @db.Text
+
+  researchGroupId String
+  researchGroup   ResearchGroup  @relation(fields: [researchGroupId], references: [id], onDelete: Cascade)
+
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  @@index([researchGroupId])
+}
+

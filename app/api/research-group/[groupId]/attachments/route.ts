@@ -115,3 +115,53 @@ export async function PATCH(
     return new NextResponse("Error al actualizar el archivo", { status: 500 });
   }
 }
+
+
+export async function POST(
+  req: Request,
+  { params }: { params: { groupId: string } }
+) {
+  try {
+    const { userId } = await auth();
+    if (!userId) return new NextResponse("No autorizado", { status: 401 });
+
+    const formData = await req.formData();
+    const file = formData.get("file") as File;
+
+    if (!file) {
+      return new NextResponse("Archivo no proporcionado", { status: 400 });
+    }
+
+    const buffer = Buffer.from(await file.arrayBuffer());
+    const uniqueName = `${crypto.randomUUID()}-${file.name}`;
+    const filePath = `${params.groupId}/${uniqueName}`;
+
+    const { error: uploadError } = await supabase.storage
+      .from("attachments")
+      .upload(filePath, buffer, {
+        contentType: file.type,
+      });
+
+    if (uploadError) {
+      console.error("Error al subir archivo:", uploadError);
+      return new NextResponse("Error al subir archivo", { status: 500 });
+    }
+
+    const { data } = supabase.storage
+      .from("attachments")
+      .getPublicUrl(filePath);
+
+    const attachment = await db.attachment.create({
+      data: {
+        name: file.name,
+        url: data.publicUrl,
+        researchGroupId: params.groupId,
+      },
+    });
+
+    return NextResponse.json(attachment);
+  } catch (error) {
+    console.error("[ATTACHMENTS_POST]", error);
+    return new NextResponse("Error al subir archivo", { status: 500 });
+  }
+}
