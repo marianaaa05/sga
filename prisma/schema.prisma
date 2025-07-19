@@ -42,6 +42,7 @@ model Category {
   id      String   @id @default(uuid())
   name    String   @unique
   courses Course[]
+  projects ResearchProject[]
 }
 
 model Attachment {
@@ -67,6 +68,8 @@ model ResearchGroup {
   courses Course[]
   members ResearchGroupMember[]
   attachments ResearchGroupAttachment[]
+  projects ResearchProject[]
+
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -98,5 +101,39 @@ model ResearchGroupAttachment {
   updatedAt       DateTime       @updatedAt
 
   @@index([researchGroupId])
+}
+
+model ResearchProject {
+  id              String   @id @default(uuid())
+  title           String   @db.Text
+  description     String?  @db.Text
+
+  researchGroupId String
+  researchGroup   ResearchGroup @relation(fields: [researchGroupId], references: [id], onDelete: Cascade)
+
+  categoryId      String
+  category        Category @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+
+  attachments     ResearchProjectAttachment[]
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([researchGroupId])
+  @@index([categoryId])
+}
+
+model ResearchProjectAttachment {
+  id           String   @id @default(uuid())
+  name         String
+  url          String   @db.Text
+
+  projectId    String
+  project      ResearchProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([projectId])
 }
 

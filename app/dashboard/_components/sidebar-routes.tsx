@@ -18,6 +18,11 @@
 
  const teacherRoutes = [
   {
+    icon: Users,
+    label: "Grupos de Investigación",
+    href: "/dashboard/teacher/research-group"
+  },
+  {
     icon: GraduationCap,
     label: "Cursos",
     href: "/dashboard/teacher/courses"
@@ -37,11 +42,7 @@
     label: "Analíticas",
     href: "/dashboard/teacher/analytics"
   },
-  {
-    icon: Users,
-    label: "Grupos de Investigación",
-    href: "/dashboard/teacher/research-group"
-  }
+  
   
 
 ]

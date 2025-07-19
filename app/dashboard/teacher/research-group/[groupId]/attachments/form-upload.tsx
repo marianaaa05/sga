@@ -190,5 +190,6 @@ export const UploadForm = ({ researchGroupId }: UploadFormProps) => {
         </Form>
       )}
     </div>
+   
   );
 };

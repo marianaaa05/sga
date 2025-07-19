@@ -22,6 +22,7 @@ interface AttachmentItemProps {
   url: string;
   createdAt: string;
   updatedAt: string;
+  groupId: string;
 }
 
 const getIconByExtension = (name: string) => {
@@ -55,6 +56,7 @@ export const AttachmentItem = ({
   url,
   createdAt,
   updatedAt,
+  groupId,
 }: AttachmentItemProps) => {
   const router = useRouter();
   const [isDeleting, setIsDeleting] = useState(false);
@@ -65,7 +67,7 @@ export const AttachmentItem = ({
 
     try {
       setIsDeleting(true);
-      await axios.delete(`/api/attachments/${id}`);
+      await axios.delete(`/api/research-group/${groupId}/attachments/${id}`);
       toast.success("Archivo eliminado");
       router.refresh();
     } catch {
@@ -132,7 +134,7 @@ export const AttachmentItem = ({
                 formData.append("file", file);
 
                 try {
-                  await axios.patch(`/api/attachments/${id}`, formData, {
+                  await axios.patch(`/api/research-group/${groupId}/attachments/${id}`, formData, {
                     headers: {
                       "Content-Type": "multipart/form-data",
                     },

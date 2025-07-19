@@ -40,8 +40,8 @@ export const NavbarRoutes = () => {
             Salir
           </Button>
         </Link>
-      ) : role !== "TEACHER" ? ( // 👈 Solo si no es teacher
-        <Link href={"/dashboard/teacher/courses"}>
+      ) : role !== "TEACHER" ? ( 
+        <Link href={"/dashboard/teacher/research-group"}>
           <Button className="text-xs items-end" variant="ghostLms">
             INSTRUCTOR
           </Button>
