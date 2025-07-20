@@ -66,6 +66,7 @@ export default async function ResearchGroupViewPage({ params }: ResearchGroupVie
         </Link>
       </div>
 
+
       {group.attachments.length === 0 ? (
         <p className="italic text-slate-500">
           Este semillero aún no tiene archivos.

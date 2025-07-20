@@ -65,6 +65,22 @@ export default async function ResearchGroupsPage() {
                 </Button>
               </Link>
             </div>
+            {/* crear proyecto */}
+            <div className="mt-3">
+              <Link
+                href={`/dashboard/teacher/research-group/${group.id}/projects/create`}
+              >
+                <Button
+                  variant="neonPurple"
+                  size="sm"
+                  className="font-bold w-full"
+                >
+                  <FilePlus2 className="mr-2 w-4 h-4" />
+                  Crear Proyecto
+                </Button>
+              </Link>
+            </div>
+              
 
             <div className="mt-3">
               <Link href={`/dashboard/teacher/research-group/${group.id}/view`}>
