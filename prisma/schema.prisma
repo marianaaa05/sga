@@ -113,6 +113,8 @@ model ResearchProject {
 
   categoryId      String
   category        Category @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  
+  createdBy       String?
 
   attachments     ResearchProjectAttachment[]
 

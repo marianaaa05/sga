@@ -26,7 +26,7 @@ interface FormTitleProps {
   };
   courseId: string;
 }
-// zod valida los datos del formulario
+
 const formSchema = z.object({
   title: z.string().min(3, {
     message: "El nombre del curso es obligatorio",
@@ -34,9 +34,9 @@ const formSchema = z.object({
 });
 
 export const FormTitle = ({ initialData, courseId }: FormTitleProps) => {
-  //controla si el formulario esta en edicion o no
+ 
   const [isEditing, setIsEditing] = useState(false);
-  //al hacer clic, se activa toggleEditing() y cambia a un input de edición
+  
   const toggleEditing = () => {
     setIsEditing((current) => !current);
   };

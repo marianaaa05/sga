@@ -18,7 +18,7 @@ interface CourseIdPageProps {
 //   params,
 //   }: CourseIdPageProps) => {
 export default async function CourseIdPage({ params }: CourseIdPageProps) {
-  // Extract courseId from params
+ 
 
   const courseId = params?.courseId;
 
