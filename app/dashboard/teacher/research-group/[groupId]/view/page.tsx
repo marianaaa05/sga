@@ -103,14 +103,14 @@ export default async function ResearchGroupViewPage({ params }: ResearchGroupVie
         )}
       </div>
 
-      {/* Archivos por Proyecto */}
       {group.projects.map((project) => (
         <div key={project.id} className="space-y-4">
           <div className="flex items-center justify-between">
             <h2 className="text-xl font-semibold text-slate-800 dark:text-white">
               📌 Proyecto: {project.title}
             </h2>
-            <Link href={`/dashboard/teacher/research-group/${group.id}/projects/${project.id}/attachments`}>
+            {/* app\dashboard\teacher\research-group\[groupId]\projects\[projectId]\attachments\form-upload.tsx */}
+            <Link href={`/dashboard/teacher/research-group/${group.id}/projects/${project.id}/attachments/form-upload`}>
               <Button size="sm" variant="ghost" className="text-sm text-blue-600 underline">
                 Subir archivo al proyecto
               </Button>
