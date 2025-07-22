@@ -37,7 +37,7 @@ export default async function ResearchGroupPage({ params }: ResearchGroupPagePro
       },
     },
     include: {
-      project: true, // 👈 Necesario para agrupar por proyecto
+      project: true, 
     },
     orderBy: {
       createdAt: "desc",
