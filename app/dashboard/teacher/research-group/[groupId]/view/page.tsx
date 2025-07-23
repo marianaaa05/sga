@@ -9,6 +9,7 @@ import {
   FileCode,
   Youtube,
   FilePlus2,
+  Anchor,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -75,9 +76,14 @@ export default async function ResearchGroupViewPage({
             {group.name}
           </span>
         </h1>
+        {/* descripcion del semillero con lettering adecuado */}
+        <p className="text-sm font-bold text-slate-600 dark:text-white flex items-center gap-2">
+          {group.description}
+        </p>
+
         <p className="text-sm text-slate-600 dark:text-slate-300">
           Aquí puedes visualizar o subir archivos relacionados directamente al
-          semillero.
+          semillero o un proyecto.
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
@@ -85,8 +91,8 @@ export default async function ResearchGroupViewPage({
             href={`/dashboard/teacher/research-group/${group.id}/attachments`}
           >
             <Button variant="neonPurple" size="sm" className="w-full font-bold">
-              <FilePlus2 className="mr-2 w-4 h-4" />
-              Subir Archivos
+              <Anchor className="mr-2 w-4 h-4" />
+              Gestionar Archivos Anclados
             </Button>
           </Link>
 
@@ -99,6 +105,10 @@ export default async function ResearchGroupViewPage({
             </Button>
           </Link>
         </div>
+
+        <h2 className="text-xl font-semibold text-slate-800 dark:text-white">
+          ⚓ Archivos anclados
+        </h2>
 
         {group.attachments.length === 0 ? (
           <p className="italic text-slate-500">
@@ -153,7 +163,7 @@ export default async function ResearchGroupViewPage({
                 variant="ghost"
                 className="text-sm text-blue-600 underline"
               >
-                Subir archivo al proyecto
+                Gestionar archivos del proyecto..
               </Button>
             </Link>
           </div>

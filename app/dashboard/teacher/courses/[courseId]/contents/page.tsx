@@ -64,7 +64,7 @@ export default async function CourseContentsPage({
         orderBy: {
           createdAt: "desc",
         },
-      }
+      },
     },
   });
 
@@ -73,71 +73,85 @@ export default async function CourseContentsPage({
   }
 
   return (
-  <div className="p-6 space-y-6">
-    <div className="space-y-1">
-      <h1 className="text-2xl font-bold text-slate-800 dark:text-white">
-        📄Contenido de: {course.title}
-      </h1>
-      <p className="text-sm text-slate-600 dark:text-slate-300">
-        👩‍💻Aquí puedes visualizar los archivos y recursos del curso.
-      </p>
-    </div>
+    <div className="p-6 space-y-8">
+      <div className="space-y-3">
+        <h1 className="text-2xl font-bold text-slate-800 dark:text-white flex items-center gap-2">
+          🧑‍🎓 Curso
+          <span className="text-purple-700 dark:text-purple-400">
+            {course.title}
+          </span>
+        </h1>
+        <p className="text-sm text-slate-600 dark:text-slate-300">
+          😊 Aquí puedes visualizar los archivos y recursos del curso.
+        </p>
 
-    {/* boton agregar contenido */}
-    <div className="flex justify-end">
-      <Link href={`/dashboard/teacher/attachments/${course.id}`}>
-        <Button 
-          variant="neonPurple"
-          size="sm" 
-          className="font-bold w-full"
-        >
-          <FilePlus2 className="mr-2 w-4 h-4" />
-          Subir Archivos
-        </Button>
-      </Link>
-      </div>
-
-    {course.attachments.length === 0 ? (
-      <p className="italic text-slate-500">
-        Este curso no tiene contenido aún.
-      </p>
-    ) : (
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        {course.attachments.map((file) => (
-          <div
-            key={file.id}
-            className="border bg-gradient-to-br from-slate-100 to-slate-300 dark:from-slate-800 dark:to-slate-700 p-4 rounded-md shadow-sm"
-          >
-            {/* Icono + nombre */}
-            <div className="flex items-center gap-x-2 mb-2">
-              <div className="w-6 h-6 flex-shrink-0">
-                {getIconByExtension(file.name)}
-              </div>
-              <h2 className="text-base font-semibold truncate text-slate-800 dark:text-white">
-                {file.name}
-              </h2>
-            </div>
-
-            {/* Fechas */}
-            <p className="text-xs text-slate-500 dark:text-slate-400">
-              Subido el {new Date(file.createdAt).toLocaleDateString()}
-              <br />
-              Actualizado el {new Date(file.updatedAt).toLocaleDateString()}
-            </p>
-
-            {/* Link para ver/descargar */}
-            <Link
-              href={file.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm text-blue-600 hover:underline block mt-2"
-            >
-              Ver o descargar archivo
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
+          {/* <div className="mt-4"> */}
+            <Link href={`/dashboard/teacher/attachments/${course.id}`}>
+              <Button
+                variant="neonPurple"
+                size="sm"
+                className="w-full font-bold"
+              >
+                <FilePlus2 className="mr-2 w-4 h-4" />
+                Subir Archivos
+              </Button>
+            </Link>
+            <Link href={`/dashboard/teacher/attachments/${course.id}`}>
+              <Button
+                variant="neonPurple"
+                size="sm"
+                className="w-full font-bold"
+              >
+                <FilePlus2 className="mr-2 w-4 h-4" />
+                Subir Archivos
+              </Button>
             </Link>
           </div>
-        ))}
-      </div>
-    )}
-  </div>
-);
-} 
+        </div>
+      {/* </div> */}
+
+      {course.attachments.length === 0 ? (
+        <p className="italic text-slate-500">
+          Este curso no tiene contenido aún.
+        </p>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          {course.attachments.map((file) => (
+            <div
+              key={file.id}
+              className="border bg-gradient-to-br from-slate-100 to-slate-300 dark:from-slate-800 dark:to-slate-700 p-4 rounded-md shadow-sm"
+            >
+              {/* Icono + nombre */}
+              <div className="flex items-center gap-x-2 mb-2">
+                <div className="w-6 h-6 flex-shrink-0">
+                  {getIconByExtension(file.name)}
+                </div>
+                <h2 className="text-base font-semibold truncate text-slate-800 dark:text-white">
+                  {file.name}
+                </h2>
+              </div>
+
+              {/* Fechas */}
+              <p className="text-xs text-slate-500 dark:text-slate-400">
+                Subido el {new Date(file.createdAt).toLocaleDateString()}
+                <br />
+                Actualizado el {new Date(file.updatedAt).toLocaleDateString()}
+              </p>
+
+              {/* Link para ver/descargar */}
+              <Link
+                href={file.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm text-blue-600 hover:underline block mt-2"
+              >
+                Ver o descargar archivo
+              </Link>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
