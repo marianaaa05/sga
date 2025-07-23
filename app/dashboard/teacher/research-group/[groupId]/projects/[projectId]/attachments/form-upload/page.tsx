@@ -46,7 +46,7 @@ const ResearchGroupViewPage = () => {
     <div className="p-6 space-y-8">
       <div>
         <h1 className="text-2xl font-bold text-slate-800 dark:text-white">
-          🗃️ Archivos del proyecto
+          🗃️ Gestionar archivos del proyecto
         </h1>
         <p className="text-muted-foreground text-sm">
           Sube, gestiona y consulta los documentos asociados al proyecto dentro del grupo de investigación.

@@ -48,7 +48,7 @@ const CoursesPage = async () => {
   return (
     <div className="p-5 space-y-6">
       <div className="flex justify-between items-center mb-6 ">
-        <h1 className="text-xl font-bold text-slate-800">Cursos creados</h1>
+        <h1 className="text-xl font-bold text-slate-800">🤖 Cursos AUNAR</h1>
         <Link href="/dashboard/teacher/courses/create">
           <Button variant={"neonPurple"} size="sm">
             Nuevo Curso

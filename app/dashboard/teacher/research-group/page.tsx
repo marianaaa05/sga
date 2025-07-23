@@ -12,7 +12,7 @@ export default async function ResearchGroupsPage() {
     <div className="p-5 space-y-6">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-xl font-bold text-slate-800">
-          Semilleros de Investigación
+          📍 Semilleros de Investigación de Ingeniería Informática AUNAR
         </h1>
       </div>
 
@@ -38,61 +38,60 @@ export default async function ResearchGroupsPage() {
               {new Date(group.createdAt).toLocaleDateString()}
             </p>
 
-            <div className="mt-3">
-              <Link href={`/dashboard/teacher/research-group/${group.id}`}>
-                <Button
-                  variant="cyberGradient"
-                  size="sm"
-                  className="font-bold w-full"
-                >
-                  <UserPen size={4} />
-                  Editar
-                </Button>
-              </Link>
-            </div>
-
-            <div className="mt-3">
-              <Link
-                href={`/dashboard/teacher/research-group/${group.id}/attachments`}
-              >
-                <Button 
-                  variant="cyberGradient" 
-                  size="sm" 
-                  className="font-bold w-full"
+            <div className="mt-3 space-y-2">
+             
+              <div className="flex flex-col md:flex-row gap-2">
+                <Link href={`/dashboard/teacher/research-group/${group.id}`}>
+                  <Button
+                    variant="cyberGradient"
+                    size="sm"
+                    className="font-bold w-full md:w-auto"
                   >
-                  <FilePlus2 className="mr-2 w-4 h-4" />
-                  Subir Archivos
-                </Button>
-              </Link>
-            </div>
-            {/* crear proyecto */}
-            <div className="mt-3">
-              <Link
-                href={`/dashboard/teacher/research-group/${group.id}/projects/create`}
-              >
-                <Button
-                  variant="neonPurple"
-                  size="sm"
-                  className="font-bold w-full"
+                    <UserPen className="mr-2 w-4 h-4" />
+                    Editar
+                  </Button>
+                </Link>
+                <Link
+                  href={`/dashboard/teacher/research-group/${group.id}/view`}
                 >
-                  <FilePlus2 className="mr-2 w-4 h-4" />
-                  Crear Proyecto
-                </Button>
-              </Link>
-            </div>
-              
+                  <Button
+                    variant="cyberGradient"
+                    size="sm"
+                    className="font-bold w-full md:w-auto"
+                  >
+                    <Eye className="mr-2 w-4 h-4" />
+                    Ver semillero
+                  </Button>
+                </Link>
+              </div>
 
-            <div className="mt-3">
-              <Link href={`/dashboard/teacher/research-group/${group.id}/view`}>
-                <Button
-                  variant="cyberGradient"
-                  size="sm"
-                  className="font-bold w-full"
+             
+              <div className="flex flex-col md:flex-row gap-2">
+                <Link
+                  href={`/dashboard/teacher/research-group/${group.id}/attachments`}
                 >
-                  <Eye className="mr-2 w-4 h-4" />
-                  Ver semillero
-                </Button>
-              </Link>
+                  <Button
+                    variant="cyberGradient"
+                    size="sm"
+                    className="font-bold w-full md:w-auto"
+                  >
+                    <FilePlus2 className="mr-2 w-4 h-4" />
+                    Subir Archivos
+                  </Button>
+                </Link>
+                <Link
+                  href={`/dashboard/teacher/research-group/${group.id}/projects/create`}
+                >
+                  <Button
+                    variant="cyberGradient"
+                    size="sm"
+                    className="font-bold w-full md:w-auto"
+                  >
+                    <FilePlus2 className="mr-2 w-4 h-4" />
+                    Crear Proyecto
+                  </Button>
+                </Link>
+              </div>
             </div>
           </div>
         ))}
