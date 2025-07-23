@@ -30,7 +30,8 @@ export async function POST(
       .from("attachments")
       .upload(`projects/${params.projectId}/${fileName}`, buffer, {
         contentType: file.type,
-      });
+      }
+    );
 
     if (error) {
       console.error("Error subiendo archivo a Supabase:", error.message);
@@ -40,7 +41,7 @@ export async function POST(
     const urlResponse = supabase.storage
       .from("attachments")
       .getPublicUrl(data.path);
-
+      
     const attachment = await db.researchProjectAttachment.create({
       data: {
         name: file.name,
@@ -55,3 +56,28 @@ export async function POST(
     return new NextResponse("Error interno del servidor", { status: 500 });
   }
 }
+
+
+export async function GET(
+  req: Request,
+  { params }: { params: { projectId: string } }
+) {
+  try {
+    const { projectId } = params;
+
+    if (!projectId) {
+      return new NextResponse("Falta el ID del proyecto", { status: 400 });
+    }
+
+    const attachments = await db.researchProjectAttachment.findMany({
+      where: { projectId },
+      orderBy: { createdAt: "desc" },
+    });
+
+    return NextResponse.json(attachments);
+  } catch (error) {
+    console.error("[GET_PROJECT_ATTACHMENTS]", error);
+    return new NextResponse("Error al obtener archivos", { status: 500 });
+  }
+}
+

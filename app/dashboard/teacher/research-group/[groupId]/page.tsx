@@ -40,7 +40,7 @@ export default async function ResearchGroupPage({ params }: ResearchGroupPagePro
       project: true, 
     },
     orderBy: {
-      createdAt: "desc",
+      createdAt: "asc",
     },
   });
 

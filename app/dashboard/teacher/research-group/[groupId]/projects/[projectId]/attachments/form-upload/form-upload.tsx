@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -18,16 +18,20 @@ import {
 } from "@/components/ui/form";
 import { Upload, Video } from "lucide-react";
 
-
 const formSchema = z
   .object({
     type: z.enum(["file", "video"]),
     file: z.any().optional(),
-    videoUrl: z.string().url("Debe ser una URL válida").optional().or(z.literal("")),
+    videoUrl: z
+      .string()
+      .url("Debe ser una URL válida")
+      .optional()
+      .or(z.literal("")),
   })
   .refine(
     (data) => {
-      if (data.type === "file") return data.file && typeof data.file === "object";
+      if (data.type === "file")
+        return data.file && typeof data.file === "object";
       if (data.type === "video") return !!data.videoUrl;
       return false;
     },
@@ -39,14 +43,15 @@ const formSchema = z
 
 interface UploadFormProps {
   projectId: string;
+  onUploadComplete?: () => void;
 }
 
-export const UploadForm = ({ projectId }: UploadFormProps) => {
+export const UploadForm = ({ projectId, onUploadComplete }: UploadFormProps) => {
   const [isUploading, setIsUploading] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const toggleEditing = () => setIsEditing((prev) => !prev);
 
-  const router = useRouter();
+  // const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -92,7 +97,8 @@ export const UploadForm = ({ projectId }: UploadFormProps) => {
       toast.success("Material agregado correctamente");
       form.reset();
       toggleEditing();
-      router.refresh();
+      // router.refresh();
+      onUploadComplete?.();
     } catch (error) {
       console.error(error);
       toast.error("Error inesperado");
@@ -108,15 +114,29 @@ export const UploadForm = ({ projectId }: UploadFormProps) => {
       <div className="bg-gradient-to-br from-slate-100 to-slate-300 dark:from-slate-800 dark:to-slate-700 p-4 rounded-md shadow-sm border">
         <div className="font-bold flex flex-wrap items-center justify-between gap-1 text-slate-800 mb-2">
           Material del proyecto
-          <Button onClick={toggleEditing} variant="cyberGradient" size="sm" className="font-bold">
-            {isEditing ? "Cancelar" : (<><Upload size={16} className="mr-1" /> Subir archivo</>)}
+          <Button
+            onClick={toggleEditing}
+            variant="cyberGradient"
+            size="sm"
+            className="font-bold"
+          >
+            {isEditing ? (
+              "Cancelar"
+            ) : (
+              <>
+                <Upload size={16} className="mr-1" /> Subir archivo
+              </>
+            )}
           </Button>
         </div>
       </div>
 
       {isEditing && (
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 mt-6">
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="space-y-4 mt-6"
+          >
             <FormField
               control={form.control}
               name="type"
@@ -147,7 +167,8 @@ export const UploadForm = ({ projectId }: UploadFormProps) => {
                         type="file"
                         accept=".pdf,.doc,.docx,.zip,.rar,.png,.jpg,.jpeg"
                         onChange={(e) => {
-                          if (e.target.files?.[0]) field.onChange(e.target.files[0]);
+                          if (e.target.files?.[0])
+                            field.onChange(e.target.files[0]);
                         }}
                         disabled={isUploading}
                       />
