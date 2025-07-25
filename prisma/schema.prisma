@@ -30,6 +30,7 @@ model Course {
   researchGroup   ResearchGroup? @relation(fields: [researchGroupId], references: [id], onDelete: SetNull)
 
   attachments Attachment[]
+  members     Membership[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -66,7 +67,7 @@ model ResearchGroup {
   imageUrl    String? @db.Text
 
   courses Course[]
-  members ResearchGroupMember[]
+  members Membership[]
   attachments ResearchGroupAttachment[]
   projects ResearchProject[]
 
@@ -75,19 +76,38 @@ model ResearchGroup {
   updatedAt DateTime @updatedAt
 }
 
-model ResearchGroupMember {
-  id     String @id @default(uuid())
-  userId String @db.Text
-  role   String @default("STUDENT") // rol
+// model ResearchGroupMember {
+//   id     String @id @default(uuid())
+//   userId String @db.Text
+//   role   String @default("STUDENT") // rol
 
-  researchGroupId String
-  researchGroup   ResearchGroup @relation(fields: [researchGroupId], references: [id], onDelete: Cascade)
+//   researchGroupId String
+//   researchGroup   ResearchGroup @relation(fields: [researchGroupId], references: [id], onDelete: Cascade)
 
-  createdAt DateTime @default(now())
+//   createdAt DateTime @default(now())
 
-  @@unique([userId, researchGroupId])
+//   @@unique([userId, researchGroupId])
+//   @@index([researchGroupId])
+// }
+
+model Membership {
+  id               String   @id @default(uuid())
+  userId           String
+  role             String   @default("STUDENT")    // o enum de roles
+  researchGroupId  String?  
+  courseId         String?
+  createdAt        DateTime @default(now())
+
+  // Relaciones opcionales según el tipo de pertenencia
+  researchGroup   ResearchGroup? @relation(fields: [researchGroupId], references: [id])
+  course          Course?        @relation(fields: [courseId],      references: [id])
+
+  @@unique([userId, researchGroupId], map: "unique_rg_member")
+  @@unique([userId, courseId],       map: "unique_course_member")
   @@index([researchGroupId])
+  @@index([courseId])
 }
+
 
 model ResearchGroupAttachment {
   id              String         @id @default(uuid())

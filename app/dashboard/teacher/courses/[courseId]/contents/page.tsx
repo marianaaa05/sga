@@ -1,7 +1,5 @@
-//contenidos del curso
-
 import { db } from "@/lib/db";
-import { auth } from "@clerk/nextjs/server";
+import { auth, currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import {
   FileText,
@@ -15,14 +13,11 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
 interface ContentsPageProps {
-  params: {
-    courseId: string;
-  };
+  params: { courseId: string };
 }
 
 const getIconByExtension = (name: string) => {
   const ext = name.split(".").pop()?.toLowerCase();
-
   switch (ext) {
     case "pdf":
       return <FileText className="text-red-600 w-5 h-5" />;
@@ -45,38 +40,51 @@ const getIconByExtension = (name: string) => {
   }
 };
 
-export default async function CourseContentsPage({
-  params,
-}: ContentsPageProps) {
+export default async function CourseContentsPage({ params }: ContentsPageProps) {
   const { userId } = await auth();
+  if (!userId) return redirect("/dashboard");
 
-  if (!userId) {
-    return redirect("/dashboard");
-  }
+  const user = await currentUser();
+  const role = user?.publicMetadata?.role as string | undefined;
 
   const course = await db.course.findUnique({
-    where: {
-      id: params.courseId,
-      userId,
-    },
-    include: {
+    where: { id: params.courseId },
+    select: {
+      id: true,
+      title: true,
+      userId: true,
+      isPublished: true,
       attachments: {
-        orderBy: {
-          createdAt: "desc",
+        orderBy: { createdAt: "desc" },
+        select: {
+          id: true,
+          name: true,
+          url: true,
+          createdAt: true,
+          updatedAt: true,
         },
       },
     },
   });
+  if (!course) return redirect("/dashboard");
 
-  if (!course) {
-    return redirect("/dashboard");
+  if (course.userId !== userId) {
+    const membership = await db.membership.findUnique({
+      where: {
+        userId_courseId: {
+          userId,
+          courseId: course.id,
+        },
+      },
+    });
+    if (!membership) return redirect("/dashboard");
   }
 
   return (
     <div className="p-6 space-y-8">
       <div className="space-y-3">
         <h1 className="text-2xl font-bold text-slate-800 dark:text-white flex items-center gap-2">
-          🧑‍🎓 Curso
+          🧑‍🎓 Curso{" "}
           <span className="text-purple-700 dark:text-purple-400">
             {course.title}
           </span>
@@ -85,18 +93,8 @@ export default async function CourseContentsPage({
           😊 Aquí puedes visualizar los archivos y recursos del curso.
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
-          {/* <div className="mt-4"> */}
-            <Link href={`/dashboard/teacher/attachments/${course.id}`}>
-              <Button
-                variant="neonPurple"
-                size="sm"
-                className="w-full font-bold"
-              >
-                <FilePlus2 className="mr-2 w-4 h-4" />
-                Subir Archivos
-              </Button>
-            </Link>
+        {(role === "TEACHER" || role === "WEB_MASTER" || course.userId === userId) && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
             <Link href={`/dashboard/teacher/attachments/${course.id}`}>
               <Button
                 variant="neonPurple"
@@ -108,8 +106,8 @@ export default async function CourseContentsPage({
               </Button>
             </Link>
           </div>
-        </div>
-      {/* </div> */}
+        )}
+      </div>
 
       {course.attachments.length === 0 ? (
         <p className="italic text-slate-500">
@@ -122,7 +120,6 @@ export default async function CourseContentsPage({
               key={file.id}
               className="border bg-gradient-to-br from-slate-100 to-slate-300 dark:from-slate-800 dark:to-slate-700 p-4 rounded-md shadow-sm"
             >
-              {/* Icono + nombre */}
               <div className="flex items-center gap-x-2 mb-2">
                 <div className="w-6 h-6 flex-shrink-0">
                   {getIconByExtension(file.name)}
@@ -131,15 +128,11 @@ export default async function CourseContentsPage({
                   {file.name}
                 </h2>
               </div>
-
-              {/* Fechas */}
               <p className="text-xs text-slate-500 dark:text-slate-400">
                 Subido el {new Date(file.createdAt).toLocaleDateString()}
                 <br />
                 Actualizado el {new Date(file.updatedAt).toLocaleDateString()}
               </p>
-
-              {/* Link para ver/descargar */}
               <Link
                 href={file.url}
                 target="_blank"

@@ -75,7 +75,7 @@ export const Footer = () => {
       </div>
 
       <p className="w-full text-xs text-center text-slate-700 p-2 lg:w-full mx-auto items-center justify-between h-full border bg-gradient-to-br from-slate-100 to-slate-300 dark:from-slate-800 dark:to-slate-700 shadow-sm">
-        © 2025 Semilleros de Investigación en Ingeniería Informática. Todos los
+        © 2025 Semilleros de Investigación de Ingeniería Informática AUNAR. Todos los
         derechos reservados.
       </p>
     </footer>
