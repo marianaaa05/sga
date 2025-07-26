@@ -1,6 +1,6 @@
 "use client";
 
-import { ProjectList } from "./project-list";
+// import { ProjectList } from "./project-list";
 import { Button } from "@/components/ui/button";
 import { FileTextIcon } from "lucide-react";
 // import Link from "next/link";
@@ -28,17 +28,17 @@ interface ProjectSectionProps {
 }
 
 export const ProjectSection = ({
-  projects,
+  // projects,
   attachments,
-  groupId,
+  // groupId,
 }: ProjectSectionProps) => {
   return (
     <div className="space-y-10">
       {/* Sección de Proyectos */}
-      <div>
+      {/* <div>
         <h2 className="text-xl font-bold mb-4">Proyectos de Investigación</h2>
         <ProjectList projects={projects} groupId={groupId} />
-      </div>
+      </div> */}
 
       {/* Sección de Archivos */}
       <div>

@@ -5,8 +5,8 @@ import { redirect } from "next/navigation";
 import { FormName } from "./_components/form-name";
 import { FormDescription } from "./_components/form-description";
 import { FormImage } from "./_components/form-image";
-import { ProjectList } from "./projects/project-list";
-import { AttachmentList } from "./attachments/attachment-list";
+// import { ProjectList } from "./projects/project-list";
+// import { AttachmentList } from "./attachments/attachment-list";
 
 interface ResearchGroupPageProps {
   params: {
@@ -23,26 +23,26 @@ export default async function ResearchGroupPage({ params }: ResearchGroupPagePro
   });
   if (!group) return redirect("/dashboard");
 
-  const groupId = params.groupId;
+  // const groupId = params.groupId;
 
-  const projects = await db.researchProject.findMany({
-    where: { researchGroupId: groupId },
-    orderBy: { createdAt: "desc" },
-  });
+  // const projects = await db.researchProject.findMany({
+  //   where: { researchGroupId: groupId },
+  //   orderBy: { createdAt: "desc" },
+  // });
 
-  const attachments = await db.researchProjectAttachment.findMany({
-    where: {
-      projectId: {
-        in: projects.map((project) => project.id),
-      },
-    },
-    include: {
-      project: true, 
-    },
-    orderBy: {
-      createdAt: "asc",
-    },
-  });
+  // const attachments = await db.researchProjectAttachment.findMany({
+  //   where: {
+  //     projectId: {
+  //       in: projects.map((project) => project.id),
+  //     },
+  //   },
+  //   include: {
+  //     project: true, 
+  //   },
+  //   orderBy: {
+  //     createdAt: "asc",
+  //   },
+  // });
 
   return (
     <div className="p-8 space-y-6">
@@ -54,15 +54,15 @@ export default async function ResearchGroupPage({ params }: ResearchGroupPagePro
       <FormDescription initialData={{ description: group.description || "" }} groupId={group.id} />
       <FormImage initialData={group} groupId={group.id} />
 
-      <div>
+      {/* <div>
         <h2 className="text-xl font-semibold mt-8 mb-4 text-slate-700 dark:text-white">Proyectos</h2>
         <ProjectList projects={projects} groupId={groupId} />
-      </div>
+      </div> */}
 
-      <div>
+      {/* <div>
         <h2 className="text-xl font-semibold mt-8 mb-4 text-slate-700 dark:text-white">Archivos por proyecto</h2>
         <AttachmentList attachments={attachments} />
-      </div>
+      </div> */}
     </div>
   );
 }
