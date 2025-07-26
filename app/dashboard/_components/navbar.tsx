@@ -1,7 +1,15 @@
+"use client";
+
 import { NavbarRoutes } from "@/components/navbar-routes";
 import { MobileSidebar } from "./mobile-sidebar";
+import { RoleBadge } from "@/components/role-badge"; 
+import { useUser } from "@clerk/nextjs";
 
 const Navbar = () => {
+  const { user } = useUser();
+
+  const role = user?.publicMetadata?.role as string | undefined;
+
   return (
     <div className="p-4 border-b h-full flex items-center justify-between border bg-gradient-to-br from-slate-100 to-slate-300 dark:from-slate-800 dark:to-slate-700 shadow-sm">
       <div className="flex items-center gap-4">
@@ -14,7 +22,10 @@ const Navbar = () => {
         </h1>
       </div>
 
-      <NavbarRoutes />
+      <div className="flex items-center gap-4">
+        <RoleBadge role={role ?? null} />
+        <NavbarRoutes />
+      </div>
     </div>
   );
 };
