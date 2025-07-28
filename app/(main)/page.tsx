@@ -3,6 +3,7 @@ import VideoGrid from "./interviews";
 import Logos from "./logos";
 import Title from "./title";
 import Who from "./who";
+import AboutPage from "./whoweare";
 
 export default function Home() {
   return (
@@ -21,6 +22,10 @@ export default function Home() {
 
       <section className="py-4 px-4 max-w-screen-xl mx-auto">
         <VideoGrid />
+      </section>
+
+      <section className="py-4 px-4 max-w-screen-xl mx-auto"> 
+        <AboutPage />
       </section>
 
       <section className="py-4 px-4 max-w-screen-xl mx-auto">

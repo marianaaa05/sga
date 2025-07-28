@@ -48,7 +48,7 @@ export const Header = () => {
                 variant="cyberGradient"
                 className="text-xs sm:text-sm px-2 sm:px-4 py-1"
               >
-                <Link href="/dashboard">Ir al contenido</Link>
+                <Link href="/dashboard/teacher/research-group">Ir al contenido</Link>
               </Button>
               <UserButton />
             </div>

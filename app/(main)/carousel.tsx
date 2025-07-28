@@ -43,7 +43,6 @@ const images = [
   },
 ];
 
-
 export default function ImageCarousel() {
   const [current, setCurrent] = useState(0);
   const total = images.length;
@@ -59,52 +58,56 @@ export default function ImageCarousel() {
     return () => clearInterval(interval);
   }, [current]);
 
-
   return (
-    <div className="text-center">
+    <div className="text-center" id="events">
       <h2 className="flex items-center justify-center gap-2 text-3xl md:text-4xl lg:text-4xl lg:mb-0 font-bold text-neutral-100">
         <Calendar1 className="w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12" />
         EVENTOS
       </h2>
-   
-    <div className="max-w-screen-xl mx-auto px-4 py-2 text-center">
-      <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-neutral-100 mb-4">
 
-        Algunas de nuestras actividades
-      </h2>
+      <div className="max-w-screen-xl mx-auto px-4 py-2 text-center">
+        <h3 className="text-2xl md:text-3xl lg:text-3xl font-bold text-neutral-100 mb-4">
+          Algunas de nuestras actividades:
+        </h3>
 
-      <div className="relative overflow-hidden rounded-2xl border border-white/80 shadow-xl">
-        <img
-          src={images[current].url}
-          alt={images[current].alt}
-          title={images[current].title}
-          className="w-full h-[300px] md:h-[450px] lg:h-[650px] object-cover transition-all duration-700"
-        />
-        <p className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-white text-sm md:text-base bg-black/60 px-4 py-2 rounded">
-          {images[current].description}
-        </p>
-
-        {/* Botones */}
-        <button onClick={prevSlide} className="absolute left-4 top-1/2 -translate-y-1/2 bg-[#9900ff] text-white p-2 rounded-full hover:bg-[#9900ff]/60">
-          <ChevronLeft />
-        </button>
-        <button onClick={nextSlide} className="absolute right-4 top-1/2 -translate-y-1/2 bg-[#9900ff] text-white p-2 rounded-full hover:bg-[#9900ff]/60">
-          <ChevronRight />
-        </button>
-      </div>
-
-      <div className="flex justify-center mt-4 gap-2 h-10">
-        {images.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => setCurrent(index)}
-            className={`w-3 h-3 rounded-full ${
-              current === index ? "bg-[#9900ff]" : "bg-[#9900ff]/60"
-            }`}
+        <div className="relative overflow-hidden rounded-2xl border border-white/80 shadow-xl">
+          <img
+            src={images[current].url}
+            alt={images[current].alt}
+            title={images[current].title}
+            className="w-full h-[300px] md:h-[450px] lg:h-[650px] object-cover transition-all duration-700"
           />
-        ))}
+          <p className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-white text-sm md:text-base bg-black/60 px-4 py-2 rounded">
+            {images[current].description}
+          </p>
+
+          {/* Botones */}
+          <button
+            onClick={prevSlide}
+            className="absolute left-4 top-1/2 -translate-y-1/2 bg-[#9900ff] text-white p-2 rounded-full hover:bg-[#9900ff]/60"
+          >
+            <ChevronLeft />
+          </button>
+          <button
+            onClick={nextSlide}
+            className="absolute right-4 top-1/2 -translate-y-1/2 bg-[#9900ff] text-white p-2 rounded-full hover:bg-[#9900ff]/60"
+          >
+            <ChevronRight />
+          </button>
+        </div>
+
+        <div className="flex justify-center mt-4 gap-2 h-10">
+          {images.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrent(index)}
+              className={`w-3 h-3 rounded-full ${
+                current === index ? "bg-[#9900ff]" : "bg-[#9900ff]/60"
+              }`}
+            />
+          ))}
+        </div>
       </div>
-    </div>
     </div>
   );
 }

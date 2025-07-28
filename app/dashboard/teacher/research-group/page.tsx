@@ -1,4 +1,3 @@
-// app/dashboard/teacher/research-group/page.tsx
 import { currentUser } from "@clerk/nextjs/server";
 import { db } from "@/lib/db";
 import { JoinButton } from "@/components/join-button";
@@ -9,6 +8,7 @@ import Link from "next/link";
 export default async function ResearchGroupsPage() {
   const user = await currentUser();
   const userId = user?.id;
+  const role = user?.publicMetadata.role as string | undefined;
 
   const groups = await db.researchGroup.findMany({
     orderBy: { createdAt: "desc" },
@@ -28,8 +28,6 @@ export default async function ResearchGroupsPage() {
     membershipRecs.map((m) => m.researchGroupId!)
   );
 
-  const role = user?.publicMetadata.role as string | undefined;
-
   return (
     <div className="p-5 space-y-6">
       <div className="flex justify-between items-center mb-6">
@@ -41,6 +39,7 @@ export default async function ResearchGroupsPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {groups.map((group) => {
           const joinedToGroup = joinedToGroupIds.has(group.id);
+          const formattedDate = group.createdAt.toISOString().split("T")[0]; // yyyy-mm-dd
 
           return (
             <div
@@ -59,16 +58,13 @@ export default async function ResearchGroupsPage() {
                 <p className="text-sm text-slate-600 mb-2">
                   {group.description || "Sin descripción"}
                 </p>
-               
+
                 <div className="space-y-1 text-xs text-slate-500">
-                  <p>
-                    Fecha de creación:{" "}
-                    {new Date(group.createdAt).toLocaleDateString()}
-                  </p>
+                  <p>Fecha de creación: {formattedDate}</p>
                 </div>
               </div>
 
-              <div className="">
+              <div>
                 <JoinButton
                   entity="researchGroup"
                   id={group.id}
@@ -77,62 +73,37 @@ export default async function ResearchGroupsPage() {
                 />
 
                 <div className="space-y-2 pt-2 border-t border-slate-400/30 mt-4">
-                  <Link
-                    href={`/dashboard/teacher/research-group/${group.id}/view`}
-                  >
-                    <Button
-                      variant="cyberGradient"
-                      size="sm"
-                      className="w-full"
-                    >
+                  <Link href={`/dashboard/teacher/research-group/${group.id}/view`}>
+                    <Button variant="cyberGradient" size="sm" className="w-full">
                       <Eye className="mr-2 w-4 h-4" />
                       Ver semillero
                     </Button>
                   </Link>
 
-                  {/* {role !== "STUDENT" && (
-                    <> */}
-                    {role === "TEACHER" && (
-                      <Link
-                        href={`/dashboard/teacher/research-group/${group.id}`}
-                      >
-                        <Button
-                          variant="cyberGradient"
-                          size="sm"
-                          className="w-full mt-4 space-y-4"
-                        >
+                  {role === "TEACHER" && (
+                    <>
+                      <Link href={`/dashboard/teacher/research-group/${group.id}`}>
+                        <Button variant="cyberGradient" size="sm" className="w-full mt-2">
                           <UserPen className="mr-2 w-4 h-4" />
                           Editar
                         </Button>
                       </Link>
-                      // </>
-                    )}
-                      <Link
-                        href={`/dashboard/teacher/research-group/${group.id}/attachments`}
-                      >
-                        <Button
-                          variant="cyberGradient"
-                          size="sm"
-                          className="w-full mt-4 space-y-4"
-                        >
+
+                      <Link href={`/dashboard/teacher/research-group/${group.id}/attachments`}>
+                        <Button variant="cyberGradient" size="sm" className="w-full mt-2">
                           <FilePlus2 className="mr-2 w-4 h-4" />
                           Subir Archivos
                         </Button>
                       </Link>
-                      <Link
-                        href={`/dashboard/teacher/research-group/${group.id}/projects/create`}
-                      >
-                        <Button
-                          variant="cyberGradient"
-                          size="sm"
-                          className="w-full mt-4 space-y-4"
-                        >
+
+                      <Link href={`/dashboard/teacher/research-group/${group.id}/projects/create`}>
+                        <Button variant="cyberGradient" size="sm" className="w-full mt-2">
                           <FilePlus2 className="mr-2 w-4 h-4" />
                           Crear Proyecto
                         </Button>
                       </Link>
-                    {/* </>
-                  )} */}
+                    </>
+                  )}
                 </div>
               </div>
             </div>

@@ -1,5 +1,7 @@
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
+import { clerkClient } from "@clerk/clerk-sdk-node";
+import type { User } from "@clerk/clerk-sdk-node";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import {
@@ -52,14 +54,10 @@ export default async function ResearchGroupViewPage({
   const group = await db.researchGroup.findUnique({
     where: { id: params.groupId },
     include: {
-      attachments: {
-        orderBy: { createdAt: "desc" },
-      },
+      attachments: { orderBy: { createdAt: "desc" } },
       projects: {
         include: {
-          attachments: {
-            orderBy: { createdAt: "desc" },
-          },
+          attachments: { orderBy: { createdAt: "desc" } },
         },
       },
     },
@@ -67,38 +65,48 @@ export default async function ResearchGroupViewPage({
 
   if (!group) return redirect("/dashboard");
 
+  const creatorIds = Array.from(
+    new Set(group.projects.map((p) => p.createdBy).filter((id): id is string => !!id))
+  );
+
+  const creators: User[] = await Promise.all(
+    creatorIds.map((id) => clerkClient.users.getUser(id))
+  );
+
+  const creatorNames = new Map<string, string>();
+  creators.forEach((u) => {
+    const fullName = [u.firstName, u.lastName].filter(Boolean).join(" ");
+    creatorNames.set(u.id, fullName || "Usuario desconocido");
+  });
+
   return (
     <div className="p-6 space-y-8">
       <div className="space-y-3">
         <h1 className="text-2xl font-bold text-slate-800 dark:text-white flex items-center gap-2">
-          👾 Semillero
+          👾 Semillero{" "}
           <span className="text-purple-700 dark:text-purple-400">
             {group.name}
           </span>
         </h1>
-        {/* descripcion del semillero con lettering adecuado */}
+
         <p className="text-sm font-bold text-slate-600 dark:text-white flex items-center gap-2">
           {group.description}
         </p>
 
         <p className="text-sm text-slate-600 dark:text-slate-300">
-          Aquí puedes visualizar o subir archivos relacionados directamente al
+          Aquí puedes visualizar o gestionar archivos relacionados directamente al
           semillero o un proyecto.
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
-          <Link
-            href={`/dashboard/teacher/research-group/${group.id}/attachments`}
-          >
+          <Link href={`/dashboard/teacher/research-group/${group.id}/attachments`}>
             <Button variant="neonPurple" size="sm" className="w-full font-bold">
               <Anchor className="mr-2 w-4 h-4" />
               Gestionar Archivos Anclados
             </Button>
           </Link>
 
-          <Link
-            href={`/dashboard/teacher/research-group/${group.id}/projects/create`}
-          >
+          <Link href={`/dashboard/teacher/research-group/${group.id}/projects/create`}>
             <Button variant="neonPurple" size="sm" className="w-full font-bold">
               <FilePlus2 className="mr-2 w-4 h-4" />
               Crear Proyecto
@@ -112,7 +120,7 @@ export default async function ResearchGroupViewPage({
 
         {group.attachments.length === 0 ? (
           <p className="italic text-slate-500">
-            Este semillero aún no tiene archivos.
+            Este semillero aún no tiene archivos anclados.
           </p>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
@@ -153,8 +161,16 @@ export default async function ResearchGroupViewPage({
           <div className="flex items-center justify-between">
             <h2 className="text-xl font-semibold text-slate-800 dark:text-white">
               📌 Proyecto: {project.title}
+              <br />
+              <span className="text-sm text-slate-600 font-normal">
+                Descripción: {project.description}
+                <br />
+                Creador:{" "}
+                {project.createdBy
+                  ? creatorNames.get(project.createdBy) || "Usuario desconocido"
+                  : "Desconocido"}
+              </span>
             </h2>
-            {/* app\dashboard\teacher\research-group\[groupId]\projects\[projectId]\attachments\form-upload.tsx */}
             <Link
               href={`/dashboard/teacher/research-group/${group.id}/projects/${project.id}/attachments/form-upload`}
             >
@@ -163,14 +179,14 @@ export default async function ResearchGroupViewPage({
                 variant="ghost"
                 className="text-sm text-blue-600 underline"
               >
-                Gestionar archivos del proyecto..
+                Gestionar archivos del proyecto
               </Button>
             </Link>
           </div>
 
           {project.attachments.length === 0 ? (
             <p className="text-sm italic text-slate-500">
-              Este proyecto no tiene archivos aún.
+              Este proyecto aún no tiene archivos.
             </p>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
@@ -190,8 +206,7 @@ export default async function ResearchGroupViewPage({
                   <p className="text-xs text-slate-500 dark:text-slate-400">
                     Subido el {new Date(file.createdAt).toLocaleDateString()}
                     <br />
-                    Actualizado el{" "}
-                    {new Date(file.updatedAt).toLocaleDateString()}
+                    Actualizado el {new Date(file.updatedAt).toLocaleDateString()}
                   </p>
                   <Link
                     href={file.url}

@@ -1,50 +1,51 @@
 'use client';
 
 import {
-  TextSearch,
-  NotebookText,
   GraduationCap,
-  ChartColumnIncreasing,
+  // ChartColumnIncreasing,
   Tags,
   LibraryBig,
   Users,
+  BadgeInfo,
+  Video,
+  LocateIcon,
 } from 'lucide-react';
 import { SidebarItem } from './sidebar-item';
 import { useUser } from '@clerk/nextjs';
 
 type Role = 'STUDENT' | 'TEACHER' | 'WEB_MASTER';
 
-const guestRoutes = [
-  { icon: NotebookText,   label: 'Centro de Control', href: '/dashboard' },
-  { icon: TextSearch,     label: 'Explorador',       href: '/dashboard/search' },
-];
-
 const researchGroupRoutes = [
-  { icon: Users,           label: 'Semilleros',       href: '/dashboard/teacher/research-group' },
+  { icon: Users, label: 'Semilleros', href: '/dashboard/teacher/research-group' },
 ];
 
 const courseRoutes = [
-  { icon: GraduationCap,   label: 'Cursos',           href: '/dashboard/teacher/courses' },
+  { icon: GraduationCap, label: 'Cursos', href: '/dashboard/teacher/courses' },
 ];
 
 const courseOtherRoutes = [
-  { icon: Tags,            label: 'Categorías',       href: '/dashboard/teacher/categories' },
-  { icon: LibraryBig,      label: 'Contenidos',       href: '/dashboard/teacher/attachments' },
+  { icon: LibraryBig, label: 'Contenidos', href: '/dashboard/teacher/attachments' },
 ];
 
 const analyticsRoutes = [
-  { icon: ChartColumnIncreasing, label: 'Analíticas', href: '/dashboard/teacher/analytics' },
+  { icon: Tags, label: 'Categorías', href: '/dashboard/teacher/categories' },
+  // { icon: ChartColumnIncreasing, label: 'Analíticas', href: '/dashboard/teacher/analytics' },
+];
+
+// 📌 Nuevas rutas accesibles para todos
+const publicRoutes = [
+  { icon: BadgeInfo, label: '¿Quiénes somos?', href: '/#about' },
+  { icon: Video, label: 'Entrevistas', href: '/#interviews' },
+  { icon: LocateIcon, label: 'Eventos', href: '/#events' },
 ];
 
 export const SidebarRoutes = () => {
   const { user } = useUser();
-  // const pathname = usePathname();
   const role = (user?.publicMetadata?.role as Role) ?? 'STUDENT';
 
-  const routes: Array<typeof guestRoutes[0] | { divider: string }> = [
-    ...guestRoutes
-  ];
+  const routes: Array<typeof researchGroupRoutes[0] | { divider: string }> = [];
 
+  // Rutas por rol
   if (role === 'STUDENT') {
     routes.push({ divider: 'Semilleros de Investigación' });
     routes.push(...researchGroupRoutes);
@@ -57,11 +58,13 @@ export const SidebarRoutes = () => {
     routes.push(...researchGroupRoutes);
     routes.push({ divider: 'Cursos' });
     routes.push(...courseRoutes);
-    // routes.push({ divider: 'Otras rutas de cursos' });
     routes.push(...courseOtherRoutes);
     routes.push({ divider: 'Otros' });
     routes.push(...analyticsRoutes);
   }
+
+  routes.push({ divider: 'Explorar' });
+  routes.push(...publicRoutes);
 
   return (
     <div className="flex flex-col w-full">
@@ -74,12 +77,7 @@ export const SidebarRoutes = () => {
             {r.divider}
           </p>
         ) : (
-          <SidebarItem
-            key={r.href}
-            icon={r.icon}
-            label={r.label}
-            href={r.href}
-          />
+          <SidebarItem key={r.href} icon={r.icon} label={r.label} href={r.href} />
         )
       )}
     </div>

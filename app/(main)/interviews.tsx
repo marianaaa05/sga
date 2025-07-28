@@ -21,7 +21,7 @@ export default function VideoGrid() {
   return (
     <div
       className="max-w-screen-xl mx-auto px-4 pt-0 pb-6 text-center"
-      id="video-section"
+      id="interviews"
     >
       <h2 className="flex items-center justify-center gap-2 text-3xl md:text-3xl lg:text-4xl lg:mb-0 font-bold text-neutral-100">
         <Clapperboard className="w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12" />

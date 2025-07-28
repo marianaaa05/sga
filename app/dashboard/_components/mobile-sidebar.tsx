@@ -1,3 +1,4 @@
+ "use client";
  import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
  import { Logs } from "lucide-react";
  import Sidebar from "./sidebar";
