@@ -19,18 +19,20 @@ export default function VideoGrid() {
   const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
 
   return (
-    <div className="relative max-w-6xl mx-auto px-4 py-8">
-      <h2 className="flex items-center justify-center gap-2 text-2xl md:text-3xl font-bold text-white text-center mb-6">
-         <Clapperboard className="w-8 h-8 md:w-10 md:h-10 lg:w-10 lg:h-12 text-purple-700" />
+    <div
+      className="max-w-screen-xl mx-auto px-4 pt-0 pb-6 text-center"
+      id="video-section"
+    >
+      <h2 className="flex items-center justify-center gap-2 text-3xl md:text-3xl lg:text-4xl lg:mb-0 font-bold text-neutral-100">
+        <Clapperboard className="w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12" />
         ENTREVISTAS
       </h2>
 
-      {/* Grid 3x3 */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
         {videos.map((videoUrl, index) => (
           <div
             key={index}
-            className="aspect-video overflow-hidden rounded-lg cursor-pointer border border-white/80 shadow-xl hover:scale-105 transition"
+            className="aspect-video overflow-hidden rounded-lg border border-white/80 shadow-lg cursor-pointer hover:scale-105 transition"
             onClick={() => setSelectedVideo(videoUrl)}
           >
             <iframe
@@ -43,13 +45,12 @@ export default function VideoGrid() {
         ))}
       </div>
 
-      {/* Modal expandido */}
       {selectedVideo && (
-        <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4">
           <div className="relative w-full h-full max-w-4xl aspect-video">
             <iframe
               src={selectedVideo + "?autoplay=1"}
-              title={`video-${selectedVideo}`}
+              title="video"
               className="w-full h-full rounded-lg"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             />

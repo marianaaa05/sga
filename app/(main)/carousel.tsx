@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Calendar1 } from "lucide-react";
 
 const images = [
   {
@@ -59,35 +59,40 @@ export default function ImageCarousel() {
     return () => clearInterval(interval);
   }, [current]);
 
+
   return (
-    <div className="relative w-full max-w-4xl mx-auto ">
-      <h2 className="text-lg md:text-xl lg:text-2xl font-bold text-neutral-100 text-center mb-4">
+    <div className="text-center">
+      <h2 className="flex items-center justify-center gap-2 text-3xl md:text-4xl lg:text-4xl lg:mb-0 font-bold text-neutral-100">
+        <Calendar1 className="w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12" />
+        EVENTOS
+      </h2>
+   
+    <div className="max-w-screen-xl mx-auto px-4 py-2 text-center">
+      <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-neutral-100 mb-4">
+
         Algunas de nuestras actividades
       </h2>
-      <div className="relative overflow-hidden rounded-lg border border-white/80 shadow-xl">
+
+      <div className="relative overflow-hidden rounded-2xl border border-white/80 shadow-xl">
         <img
           src={images[current].url}
           alt={images[current].alt}
           title={images[current].title}
-          className="w-full h-[400px] md:h-[500px] object-cover transition-all duration-700"
+          className="w-full h-[300px] md:h-[450px] lg:h-[650px] object-cover transition-all duration-700"
         />
-        <p className="absolute text-center bottom-4 left-1/2 transform -translate-x-1/2 text-white text-sm md:text-base bg-black/60 px-4 py-2 rounded">
+        <p className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-white text-sm md:text-base bg-black/60 px-4 py-2 rounded">
           {images[current].description}
         </p>
 
-        <button
-          onClick={prevSlide}
-          className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-[#9900ff] text-white p-2 rounded-full hover:bg-[#9900ff]/60"
-        >
+        {/* Botones */}
+        <button onClick={prevSlide} className="absolute left-4 top-1/2 -translate-y-1/2 bg-[#9900ff] text-white p-2 rounded-full hover:bg-[#9900ff]/60">
           <ChevronLeft />
         </button>
-        <button
-          onClick={nextSlide}
-          className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-[#9900ff] text-white p-2 rounded-full hover:bg-[#9900ff]/60"
-        >
+        <button onClick={nextSlide} className="absolute right-4 top-1/2 -translate-y-1/2 bg-[#9900ff] text-white p-2 rounded-full hover:bg-[#9900ff]/60">
           <ChevronRight />
         </button>
       </div>
+
       <div className="flex justify-center mt-4 gap-2 h-10">
         {images.map((_, index) => (
           <button
@@ -99,6 +104,7 @@ export default function ImageCarousel() {
           />
         ))}
       </div>
+    </div>
     </div>
   );
 }

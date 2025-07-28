@@ -4,7 +4,6 @@ import Link from "next/link";
 
 export const Footer = () => {
   return (
-    // <footer className="hidden lg:block w-full bg-gradient-to-r from-gray-400 via-gray-700 to-gray-400">
     <footer className="w-full border-t bg-gradient-to-br from-slate-100 to-slate-300 dark:from-slate-800 dark:to-slate-700 shadow-sm">
       <div className="max-w-screen-xl mx-auto flex flex-wrap items-center justify-center lg:justify-end gap-4 lg:gap-28 px-4 lg:px-20 lg:pl-32 py-4">
         <Button size="lg" variant="link" className="p-0">
@@ -54,7 +53,7 @@ export const Footer = () => {
             rel="noopener noreferrer"
           >
             <Image
-              src="/aunar.svg"
+              src="/autonoma-de-narino-AUNAR.png"
               alt="Corporación Universitaria Autónoma de Nariño"
               height={45}
               width={45}
@@ -67,8 +66,8 @@ export const Footer = () => {
           <Image
             src="/logo_aunar.svg"
             alt="Logo AUNAR"
-            height={130}
-            width={120}
+            height={140}
+            width={130}
             className="object-contain"
           />
         </Button>
