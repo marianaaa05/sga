@@ -122,39 +122,11 @@ const supabase = createClient(
 // Eliminar archivo
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { attachmentId: string } }
+  { params }: { params: { id: string } }
 ) {
-  try {
-    const { userId } = await auth();
-    if (!userId) return new NextResponse("No autorizado", { status: 401 });
-
-    const { attachmentId } = params;
-
-    const attachment = await db.attachment.findUnique({
-      where: { id: attachmentId },
-    });
-
-    if (!attachment) return new NextResponse("Archivo no encontrado", { status: 404 });
-
-    const pathInStorage = attachment.url.split("/attachments/")[1];
-
-    const { error: storageError } = await supabase.storage
-      .from("attachments")
-      .remove([pathInStorage]);
-
-    if (storageError) {
-      console.error("Error al eliminar de Supabase:", storageError);
-      return new NextResponse("Error al eliminar archivo en Supabase", { status: 500 });
-    }
-
-    await db.attachment.delete({ where: { id: attachmentId } });
-
-    return new NextResponse("Archivo eliminado correctamente", { status: 200 });
-  } catch (error) {
-    console.error("[DELETE_ATTACHMENT_ERROR]", error);
-    return new NextResponse("Error al eliminar archivo", { status: 500 });
-  }
+  return new NextResponse(`ID recibido: ${params.id}`, { status: 200 });
 }
+
 
 // Reemplazar archivo
 export async function PATCH(
