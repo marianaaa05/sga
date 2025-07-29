@@ -15,12 +15,6 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-interface ResearchGroupViewPageProps {
-  params: {
-    groupId: string;
-  };
-}
-
 const getIconByExtension = (name: string) => {
   const ext = name.split(".").pop()?.toLowerCase();
   switch (ext) {
@@ -45,14 +39,17 @@ const getIconByExtension = (name: string) => {
   }
 };
 
-export default async function ResearchGroupViewPage({
-  params,
-}: ResearchGroupViewPageProps) {
+export default async function ResearchGroupViewPage({ 
+  params 
+}: { 
+  params: Promise<{ groupId: string }> 
+}) {
+  const { groupId } = await params;
   const { userId } = await auth();
   if (!userId) return redirect("/dashboard");
 
   const group = await db.researchGroup.findUnique({
-    where: { id: params.groupId },
+    where: { id: groupId },
     include: {
       attachments: { orderBy: { createdAt: "desc" } },
       projects: {
@@ -99,14 +96,14 @@ export default async function ResearchGroupViewPage({
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
-          <Link href={`/dashboard/teacher/research-group/${group.id}/attachments`}>
+          <Link href={`/dashboard/teacher/research-group/${groupId}/attachments`}>
             <Button variant="neonPurple" size="sm" className="w-full font-bold">
               <Anchor className="mr-2 w-4 h-4" />
               Gestionar Archivos Anclados
             </Button>
           </Link>
 
-          <Link href={`/dashboard/teacher/research-group/${group.id}/projects/create`}>
+          <Link href={`/dashboard/teacher/research-group/${groupId}/projects/create`}>
             <Button variant="neonPurple" size="sm" className="w-full font-bold">
               <FilePlus2 className="mr-2 w-4 h-4" />
               Crear Proyecto
@@ -172,7 +169,7 @@ export default async function ResearchGroupViewPage({
               </span>
             </h2>
             <Link
-              href={`/dashboard/teacher/research-group/${group.id}/projects/${project.id}/attachments/form-upload`}
+              href={`/dashboard/teacher/research-group/${groupId}/projects/${project.id}/attachments/form-upload`}
             >
               <Button
                 size="sm"
