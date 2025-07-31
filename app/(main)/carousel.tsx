@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight, Calendar1 } from "lucide-react";
+import Image from "next/image";
 
 const images = [
   {
@@ -71,7 +72,7 @@ export default function ImageCarousel() {
         </h3>
 
         <div className="relative overflow-hidden rounded-2xl border border-white/80 shadow-xl">
-          <img
+          <Image
             src={images[current].url}
             alt={images[current].alt}
             title={images[current].title}
