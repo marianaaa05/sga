@@ -1,13 +1,13 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { ReactNode } from "react";
 
 interface LayoutProps {
   children: ReactNode;
-  params: {
-    courseId: string;
-  };
+  params: Promise<{ courseId: string }>;
 }
 
-export default function CourseLayout({ children }: LayoutProps) {
+export default async function CourseLayout({ children, params }: LayoutProps) {
+  const { courseId } = await params;
   return (
     <div>
       {children}
