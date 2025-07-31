@@ -4,10 +4,12 @@ import { auth } from "@clerk/nextjs/server";
 import { NextRequest,NextResponse } from "next/server";
 
 
-export async function PATCH(request: NextRequest, context: { params: { courseId: string } }) {
+export async function PATCH(
+  request: NextRequest, 
+  {params}: { params: Promise<{ courseId: string }> }) {
   try {
     const { userId } = await auth();
-    const { courseId } = context.params;
+    const { courseId } = await params;
     const values = await request.json();
 
     // Validar que el usuario esté autenticado
