@@ -20,8 +20,10 @@ export default function Who() {
       <div className="relative w-full bg-white/10 backdrop-blur-md rounded-2xl border border-white/80 shadow-xl px-6 py-10 md:py-12 md:px-12 flex flex-col md:flex-row items-center md:items-start gap-8 bg-gradient-to-br from-slate-100 to-slate-300 dark:from-slate-800 dark:to-slate-700 overflow-hidden">
         <div className="w-36 h-36 md:w-48 md:h-48 rounded-full overflow-hidden shadow-2xl shrink-0">
           <Image
-            src="./foto-mariana.png"
+            src="/foto-mariana.png"
             alt="Mariana Arredondo Ortiz"
+            width={400}
+            height={400}
             className="object-cover w-full h-full"
           />
         </div>

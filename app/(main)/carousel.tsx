@@ -6,38 +6,37 @@ import Image from "next/image";
 
 const images = [
   {
-    url: "./maquinarte2025-1.jpg",
+    src: "/maquinarte2025-1.jpg",
     alt: "Imagen 1",
     title: "BATALLA DE ROBOTS EN MAQUINARTE",
-    description:
-      "Participación en la batalla de robots del evento Maquinarte 2025-I",
+    description: "Participación en la batalla de robots del evento Maquinarte 2025-I",
   },
   {
-    url: "./maquinarte2025.jpg",
+    src: "/maquinarte2025.jpg",
     alt: "Imagen 2",
     title: "INTERNET MAS SEGURO",
     description: "Promoviendo un internet más seguro para todos",
   },
   {
-    url: "https://global.tiffin.edu/img/article/uso-de-la-inteligencia-artificial-en-ciberseguridad.webp",
+    src: "/maquinarte2025-1.jpg",
     alt: "Imagen 3",
     title: "USO DE LA INTELIGENCIA ARTIFICIAL EN CIBERSEGURIDAD",
     description: "Explorando el impacto de la IA en la seguridad cibernética",
   },
   {
-    url: "https://img.freepik.com/vector-gratis/ilustracion-concepto-redes-sociales_53876-37557.jpg",
+    src: "/maquinarte2025.jpg",
     alt: "Imagen 4",
     title: "ILUSTRACION CONCEPTO TECNOLOGÍA",
     description: "Conectando el mundo a través de la tecnología",
   },
   {
-    url: "https://img.freepik.com/vector-gratis/tecnologia-inteligencia-artificial-robotica-aprendizaje-inteligente-bigdata_1150-48136.jpg",
+    src: "/maquinarte2025-1.jpg",
     alt: "Imagen 5",
     title: "INTELIGENCIA ARTIFICIAL",
     description: "La revolución de la inteligencia artificial en la tecnología",
   },
   {
-    url: "https://img.freepik.com/vector-gratis/ilustracion-concepto-mecanografia-codigo_114360-3581.jpg",
+    src: "/maquinarte2025.jpg",
     alt: "Imagen 6",
     title: "ILUSTRACIÓN CONCEPTO PROGRAMACIÓN",
     description: "El arte de programar: creando el futuro digital",
@@ -48,16 +47,16 @@ export default function ImageCarousel() {
   const [current, setCurrent] = useState(0);
   const total = images.length;
 
-  const prevSlide = () =>
-    setCurrent((prev) => (prev === 0 ? total - 1 : prev - 1));
-  const nextSlide = () =>
-    setCurrent((prev) => (prev === total - 1 ? 0 : prev + 1));
+  const prevSlide = () => setCurrent((prev) => (prev === 0 ? total - 1 : prev - 1));
+  const nextSlide = () => setCurrent((prev) => (prev === total - 1 ? 0 : prev + 1));
 
-  // Cambia la imagen cada 5 segundos
   useEffect(() => {
     const interval = setInterval(nextSlide, 5000);
     return () => clearInterval(interval);
   }, [current]);
+
+  const currentImage = images[current];
+  const imageSrc = currentImage.src || currentImage.src || "";
 
   return (
     <div className="text-center" id="events">
@@ -73,13 +72,16 @@ export default function ImageCarousel() {
 
         <div className="relative overflow-hidden rounded-2xl border border-white/80 shadow-xl">
           <Image
-            src={images[current].url}
-            alt={images[current].alt}
-            title={images[current].title}
+            src={imageSrc}
+            alt={currentImage.alt}
+            title={currentImage.title}
+            width={1920}
+            height={1080}
             className="w-full h-[300px] md:h-[450px] lg:h-[650px] object-cover transition-all duration-700"
+            priority
           />
           <p className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-white text-sm md:text-base bg-black/60 px-4 py-2 rounded">
-            {images[current].description}
+            {currentImage.description}
           </p>
 
           {/* Botones */}

@@ -15,8 +15,9 @@ export default function CourseLayout({ children }: LayoutProps) {
   );
 }
 
-export async function generateMetadata({ params }: { params: { courseId: string } }) {
+export async function generateMetadata({ params }: { params: Promise<{ courseId: string }> }) {
+  const { courseId } = await params;
   return {
-    title: `Editando curso ${params.courseId}`,
+    title: `Editando curso ${courseId}`,
   };
 }

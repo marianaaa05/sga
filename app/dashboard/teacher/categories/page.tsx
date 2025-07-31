@@ -1,26 +1,24 @@
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
-// import { getUserRole } from "@/lib/get-user-role";
 import { redirect } from "next/navigation";
-
 import { IconInsign } from "@/components/icon-insign";
 import { Tags } from "lucide-react";
 import { FormCategory } from "./[categoriesId]/_components/form-category";
 
-export default async function CategoriesPage() {
+export default async function CategoriesPage({ params }: { params: Promise<{ categoryId: string }> }) {
+  const { categoryId } = await params;
+
   const { userId } = await auth();
 
   if (!userId) return redirect("/");
 
-  // const role = await getUserRole();
-
-  // if (role !== "TEACHER" && role !== "WEB_MASTER") {
-  //   return redirect("/dashboard"); // 👈 O muestra un mensaje de acceso denegado
-  // }
-
   const categories = await db.category.findMany({
     orderBy: { name: "asc" },
   });
+
+  if (!categoryId) {
+    return redirect("/")
+  }
 
   const courses = await db.course.findMany({
     select: {
