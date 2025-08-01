@@ -1,13 +1,13 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { ReactNode } from "react";
 
 interface LayoutProps {
   children: ReactNode;
-  params: {
-    courseId: string;
-  };
+  params: Promise<{categoriesId: string}>;
 }
 
-export default function CourseLayout({ children }: LayoutProps) {
+export default async function CourseLayout({ children, params }: LayoutProps) {
+  const { categoriesId } = await params;
   return (
     <div>
       {children}
@@ -15,9 +15,9 @@ export default function CourseLayout({ children }: LayoutProps) {
   );
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ courseId: string }> }) {
-  const { courseId } = await params;
+export async function generateMetadata({ params }: { params: Promise<{ categoriesId: string }> }) {
+  const { categoriesId } = await params;
   return {
-    title: `Editando curso ${courseId}`,
+    title: `Editando curso ${categoriesId}`,
   };
 }

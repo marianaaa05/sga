@@ -21,7 +21,7 @@ export default function Logos() {
           alt="Sinapsis"
         />
         <Image
-          src="/animus.png"
+          src="/Animus.png"
           width={120}
           height={120}
           className="w-32 h-32 object-contain drop-shadow-2xl"
