@@ -97,6 +97,8 @@ export const FormImage = ({ initialData, courseId }: FormImageProps) => {
         <div className="text-sm mt-2">
           {initialData.imageUrl ? (
             <Image
+              width={300}
+              height={200}
               src={initialData.imageUrl}
               alt="Imagen del curso"
               className="w-full h-80 object-cover rounded-md mb-3"

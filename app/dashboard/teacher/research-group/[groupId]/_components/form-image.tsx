@@ -17,6 +17,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
+import Image from "next/image";
 
 interface FormImageProps {
   initialData: {
@@ -80,7 +81,9 @@ export const FormImage = ({ initialData, groupId }: FormImageProps) => {
       {!isEditing && (
         <div className="text-sm mt-2">
           {initialData.imageUrl ? (
-            <img
+            <Image
+              width={300}
+              height={200}
               src={initialData.imageUrl}
               alt="Imagen del semillero"
               className="w-full h-80 object-cover rounded-md mb-3"

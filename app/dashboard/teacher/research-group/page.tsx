@@ -4,6 +4,7 @@ import { JoinButton } from "@/components/join-button";
 import { Button } from "@/components/ui/button";
 import { Eye, UserPen, FilePlus2 } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default async function ResearchGroupsPage() {
   const user = await currentUser();
@@ -47,7 +48,9 @@ export default async function ResearchGroupsPage() {
               className="border bg-gradient-to-br from-slate-100 to-slate-300 dark:from-slate-800 dark:to-slate-700 rounded-md shadow-sm p-4 flex flex-col justify-between"
             >
               <div>
-                <img
+                <Image
+                  width={300}
+                  height={200}
                   src={group.imageUrl || "/default.png"}
                   alt={group.name}
                   className="w-full h-72 object-cover rounded-md mb-4"

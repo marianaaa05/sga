@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { FilePlus2 } from "lucide-react";
+import Image from "next/image";
 
 export default async function AttachmentsBasePage() {
   const { userId } = await auth();
@@ -45,7 +46,9 @@ export default async function AttachmentsBasePage() {
               key={course.id}
               className="border bg-gradient-to-br from-slate-100 to-slate-300 dark:from-slate-800 dark:to-slate-700 rounded-md shadow-sm bg-white p-4"
             >
-              <img
+              <Image
+                width={300}
+                height={200}
                 src={course.imageUrl ?? "/default.png"}
                 alt={course.title}
                 className="w-full h-60 object-cover rounded-md mb-3"

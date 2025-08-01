@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { UserPen, FilePlus2, Eye } from "lucide-react";
 import Link from "next/link";
 import { JoinButton } from "@/components/join-button";
+import Image from "next/image";
 
 const CoursesPage = async () => {
   const { userId } = await auth();
@@ -61,7 +62,9 @@ const CoursesPage = async () => {
               className="border bg-gradient-to-br from-slate-100 to-slate-300 dark:from-slate-800 dark:to-slate-700 rounded-md shadow-sm p-4 flex flex-col justify-between"
             >
               <div>
-                <img
+                <Image
+                  width={300}
+                  height={200}
                   src={course.imageUrl ?? "/default.png"}
                   alt={course.title}
                   className="w-full h-72 object-cover rounded-md mb-4"
