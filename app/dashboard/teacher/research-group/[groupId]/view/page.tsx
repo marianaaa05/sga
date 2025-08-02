@@ -55,6 +55,7 @@ export default async function ResearchGroupViewPage({
       projects: {
         include: {
           attachments: { orderBy: { createdAt: "desc" } },
+          category: true,
         },
       },
     },
@@ -162,7 +163,9 @@ export default async function ResearchGroupViewPage({
               <span className="text-sm text-slate-600 font-normal">
                 Descripción: {project.description}
                 <br />
-                Creador:{" "}
+                Categoría: {project.category?.name || "Sin categoría"}
+                <br />
+                Creado por {" "}
                 {project.createdBy
                   ? creatorNames.get(project.createdBy) || "Usuario desconocido"
                   : "Desconocido"}
@@ -176,7 +179,7 @@ export default async function ResearchGroupViewPage({
                 variant="ghost"
                 className="text-sm text-blue-600 underline"
               >
-                Gestionar archivos del proyecto
+                Gestionar contenido del proyecto
               </Button>
             </Link>
           </div>

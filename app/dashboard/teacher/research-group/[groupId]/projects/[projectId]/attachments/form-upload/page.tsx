@@ -1,11 +1,14 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import { UploadForm } from "./form-upload"; 
+import { UploadForm } from "./form-upload";
 import { useEffect, useState } from "react";
 import { AttachmentItem } from "./attachment-item";
+
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 interface Attachment {
   id: string;
@@ -43,17 +46,27 @@ const ResearchGroupViewPage = () => {
   const params = useParams();
 
   return (
-    <div className="p-6 space-y-8">
-      <div>
-        <h1 className="text-2xl font-bold text-slate-800 dark:text-white">
-          🗃️ Gestionar archivos del proyecto
-        </h1>
-        <p className="text-muted-foreground text-sm">
-          Sube, gestiona y consulta los documentos asociados al proyecto dentro del grupo de investigación.
-        </p>
+    <div className="p-5 space-y-6">
+      <div className="flex justify-between items-start mb-6">
+        <div>
+          <h1 className="text-xl font-bold text-slate-800">
+            🗃️ Gestionar archivos del proyecto
+          </h1>
+          <p className="text-sm text-slate-600">
+            Sube, gestiona y consulta los documentos asociados al proyecto
+            dentro del grupo de investigación
+          </p>
+        </div>
+
+        <Link
+          href={`/dashboard/teacher/research-group/${params.groupId}/projects/${params.projectId}/edit`}
+        >
+          <Button variant="neonPurple" size="sm">
+            Editar proyecto
+          </Button>
+        </Link>
       </div>
 
-      
       <UploadForm projectId={params.projectId as string} />
 
       <div className="mt-10">
@@ -61,14 +74,13 @@ const ResearchGroupViewPage = () => {
         {loading ? (
           <p className="text-sm text-muted-foreground">Cargando archivos...</p>
         ) : attachments.length === 0 ? (
-          <p className="text-sm text-muted-foreground">No hay archivos todavía.</p>
+          <p className="text-sm text-muted-foreground">
+            No hay archivos todavía.
+          </p>
         ) : (
           <div className="space-y-4">
             {attachments.map((attachment) => (
-              <AttachmentItem
-                key={attachment.id}
-                {...attachment}
-              />
+              <AttachmentItem key={attachment.id} {...attachment} />
             ))}
           </div>
         )}

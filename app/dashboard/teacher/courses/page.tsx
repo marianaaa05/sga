@@ -64,10 +64,10 @@ const CoursesPage = async () => {
               <div>
                 <Image
                   width={300}
-                  height={200}
+                  height={300}
                   src={course.imageUrl ?? "/default.png"}
                   alt={course.title}
-                  className="w-full h-72 object-cover rounded-md mb-4"
+                  className="w-full h-90 object-cover rounded-md mb-4"
                 />
                 <h2 className="text-lg font-semibold text-slate-800">
                   {course.title}

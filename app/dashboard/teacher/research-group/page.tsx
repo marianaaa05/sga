@@ -50,10 +50,10 @@ export default async function ResearchGroupsPage() {
               <div>
                 <Image
                   width={300}
-                  height={200}
+                  height={300}
                   src={group.imageUrl || "/default.png"}
                   alt={group.name}
-                  className="w-full h-72 object-cover rounded-md mb-4"
+                  className="w-full h-90 object-cover rounded-md mb-4"
                 />
                 <h2 className="text-lg font-semibold text-slate-800">
                   {group.name}
@@ -88,21 +88,21 @@ export default async function ResearchGroupsPage() {
                       <Link href={`/dashboard/teacher/research-group/${group.id}`}>
                         <Button variant="cyberGradient" size="sm" className="w-full mt-2">
                           <UserPen className="mr-2 w-4 h-4" />
-                          Editar
+                          Editar semillero
                         </Button>
                       </Link>
 
                       <Link href={`/dashboard/teacher/research-group/${group.id}/attachments`}>
                         <Button variant="cyberGradient" size="sm" className="w-full mt-2">
                           <FilePlus2 className="mr-2 w-4 h-4" />
-                          Subir Archivos
+                          Anclar archivos
                         </Button>
                       </Link>
 
                       <Link href={`/dashboard/teacher/research-group/${group.id}/projects/create`}>
                         <Button variant="cyberGradient" size="sm" className="w-full mt-2">
                           <FilePlus2 className="mr-2 w-4 h-4" />
-                          Crear Proyecto
+                          Crear proyecto
                         </Button>
                       </Link>
                     </>

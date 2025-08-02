@@ -60,7 +60,7 @@ export const Header = () => {
                 variant="neonPurple"
                 className="text-xs sm:text-sm px-2 sm:px-4 py-1"
               >
-                Inicia sesión
+                Inicia sesión o regístrate
               </Button>
             </SignInButton>
           </SignedOut>
