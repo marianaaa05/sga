@@ -17,7 +17,7 @@ export const Header = () => {
       <div className="mx-auto max-w-screen-xl flex items-center justify-between md:justify-around h-full">
         <div className="flex items-center gap-x-2 sm:gap-x-3 overflow-hidden">
           <Image
-            src="/skahverse.png"
+            src="/SKAHverse.png"
             alt="Logo Inicial"
             width={80}
             height={80}

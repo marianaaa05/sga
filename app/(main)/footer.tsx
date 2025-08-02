@@ -8,8 +8,8 @@ export const Footer = () => {
       <div className="max-w-screen-xl mx-auto flex flex-wrap items-center justify-center lg:justify-end gap-4 lg:gap-28 px-4 lg:px-20 lg:pl-32 py-4">
         <Button size="lg" variant="link" className="p-0">
           <Image
-            src="/skahverse.png"
-            alt="Semillero de Inteligencia Artificial y Desarrollo de Software"
+            src="/SKAHverse.png"
+            alt="SKAHverse"
             height={70}
             width={70}
             className="object-contain"
