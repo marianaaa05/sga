@@ -8,6 +8,7 @@ import {
   FileCode,
   Youtube,
   FilePlus2,
+  Anchor,
 } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -113,7 +114,7 @@ export default async function CourseContentsPage({
           </span>
         </h1>
         <p className="text-sm text-slate-600 dark:text-slate-300">
-          😊 Aquí puedes visualizar los archivos y recursos del curso.
+          Aquí puedes visualizar los archivos y recursos del curso.
         </p>
 
         {(role === "TEACHER" ||
@@ -126,8 +127,8 @@ export default async function CourseContentsPage({
                 size="sm"
                 className="w-full font-bold"
               >
-                <FilePlus2 className="mr-2 w-4 h-4" />
-                Subir Archivos
+                <Anchor className="mr-2 w-4 h-4" />
+                Gestionar Archivos Anclados
               </Button>
             </Link>
             <Link
@@ -146,11 +147,16 @@ export default async function CourseContentsPage({
         )}
       </div>
 
+      <h2 className="text-xl font-medium text-slate-800 dark:text-white">
+        ⚓ Archivos anclados
+      </h2>
+
       {course.attachments.length === 0 ? (
         <p className="italic text-slate-500">
-          Este curso no tiene contenido aún.
+          Este curso aún no tiene archivos anclados.
         </p>
       ) : (
+        // titulo: archivos anclados
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {course.attachments.map((file) => (
             <div
@@ -196,7 +202,7 @@ export default async function CourseContentsPage({
                 </span>
               </h2>
               <Link
-              // ruta app\dashboard\teacher\courses\[courseId]\course-module\[moduleId]\attachments\form-upload\page.tsx
+                // ruta app\dashboard\teacher\courses\[courseId]\course-module\[moduleId]\attachments\form-upload\page.tsx
                 href={`/dashboard/teacher/courses/${courseId}/course-module/${module.id}/attachments/form-upload`}
               >
                 <Button

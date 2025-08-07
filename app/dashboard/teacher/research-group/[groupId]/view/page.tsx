@@ -141,7 +141,7 @@ export default async function ResearchGroupViewPage({
                   Actualizado el {new Date(file.updatedAt).toLocaleDateString()}
                 </p>
                 <Link
-                  href={file.url}
+                  href={`/api/generic-download?scope=research-group&attachmentId=${file.id}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-sm text-blue-600 hover:underline block mt-2"
