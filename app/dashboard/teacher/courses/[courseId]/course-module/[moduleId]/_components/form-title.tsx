@@ -23,8 +23,8 @@ interface FormTitleProps {
   initialData?: {
     title: string;
   };
-  moduleId?: string;  // ID del módulo si ya existe (para editar)
-  courseId: string;   // ID del curso al que pertenece el módulo
+  moduleId?: string; 
+  courseId?: string; 
 }
 
 const formSchema = z.object({
@@ -34,7 +34,7 @@ const formSchema = z.object({
 });
 
 export const FormTitle = ({ initialData, moduleId, courseId }: FormTitleProps) => {
-  const [isEditing, setIsEditing] = useState(!moduleId);
+  const [isEditing, setIsEditing] = useState(!moduleId); 
   const toggleEditing = () => setIsEditing((current) => !current);
 
   const router = useRouter();
@@ -49,18 +49,16 @@ export const FormTitle = ({ initialData, moduleId, courseId }: FormTitleProps) =
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       if (moduleId) {
-        // Editar módulo
-        await axios.patch(`/api/modules/${moduleId}`, values);
-        toast.success("Título del módulo actualizado");
+        await axios.patch(`/api/course-modules/${moduleId}`, values);
+        toast.success("Título actualizado correctamente");
       } else {
-        // Crear módulo
-        const response = await axios.post(`/api/modules`, {
+        const response = await axios.post(`/api/course-modules/`, {
           ...values,
-          courseId,
+           courseId
         });
 
         toast.success("Módulo creado correctamente");
-        router.push(`/dashboard/teacher/courses/${courseId}/modules/${response.data.id}`);
+        router.push(`/dashboard/teacher/courses/${courseId}/course-module/${response.data.id}`);
       }
 
       toggleEditing();

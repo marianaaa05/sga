@@ -61,7 +61,7 @@ export const FormDescription = ({
       if (isCreateMode && courseId) {
         const response = await axios.post("/api/course-modules", {
           ...values,
-          courseId,
+          moduleId: courseId,
         });
 
         const newModuleId = response.data.id;
@@ -70,8 +70,7 @@ export const FormDescription = ({
         if (onCreated) {
           onCreated(newModuleId);
         }
-
-        router.push(`/dashboard/teacher/courses/${courseId}/modules/${newModuleId}`);
+        router.push(`/dashboard/teacher/courses/${courseId}/course-module/${newModuleId}`);
         router.refresh();
       } else if (moduleId) {
         await axios.patch(`/api/course-modules/${moduleId}`, values);
@@ -128,7 +127,7 @@ export const FormDescription = ({
                   <FormControl>
                     <Textarea
                       disabled={isSubmitting}
-                      placeholder="Describe el propósito o contenido del módulo."
+                      placeholder="Describe el propósito, objetivos o contexto del módulo."
                       className={cn("bg-white text-slate-800 min-h-[120px]")}
                       {...field}
                     />

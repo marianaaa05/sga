@@ -23,17 +23,17 @@ interface FormTitleProps {
   initialData?: {
     title: string;
   };
-  projectId?: string; 
-  groupId: string; 
+  moduleId?: string;
 }
 
 const formSchema = z.object({
   title: z.string().min(3, {
-    message: "El título del proyecto es obligatorio",
+    message: "El título debe tener al menos 3 caracteres.",
   }),
 });
 
-export const FormTitle = ({ initialData, projectId, groupId }: FormTitleProps) => {const [isEditing, setIsEditing] = useState(!projectId); 
+export const FormTitle = ({ initialData, moduleId }: FormTitleProps) => {
+  const [isEditing, setIsEditing] = useState(!moduleId);
   const toggleEditing = () => setIsEditing((current) => !current);
 
   const router = useRouter();
@@ -47,33 +47,26 @@ export const FormTitle = ({ initialData, projectId, groupId }: FormTitleProps) =
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      if (projectId) {
-        // Editar
-        await axios.patch(`/api/research-projects/${projectId}`, values);
+      if (moduleId) {
+        await axios.patch(`/api/course-modules/${moduleId}`, values);
         toast.success("Título actualizado correctamente");
       } else {
-        // Crear
-        const response = await axios.post(`/api/research-projects/`, {
-          ...values,
-          groupId,
-        });
-
-        toast.success("Proyecto creado correctamente");
-        router.push(`/dashboard/teacher/research-group/${groupId}/projects/${response.data.id}`);
+        toast.error("No se proporcionó un ID de módulo");
+        return;
       }
 
       toggleEditing();
       router.refresh();
     } catch {
-      toast.error("Error al guardar el título del proyecto");
+      toast.error("Error al actualizar el título");
     }
   };
 
   return (
     <div className="mt-6 border bg-gradient-to-br from-slate-100 to-slate-300 dark:from-slate-800 dark:to-slate-700 p-4 rounded-md shadow-sm">
       <div className="font-bold flex flex-wrap items-center justify-between gap-1 text-slate-800">
-        Título del proyecto
-        {projectId && (
+        Título del módulo
+        {moduleId && (
           <Button
             onClick={toggleEditing}
             variant="cyberGradient"
@@ -105,7 +98,7 @@ export const FormTitle = ({ initialData, projectId, groupId }: FormTitleProps) =
                   <FormControl>
                     <Input
                       disabled={isSubmitting}
-                      placeholder="Título del proyecto"
+                      placeholder="Título del módulo"
                       {...field}
                       className={cn("bg-white text-slate-800")}
                       variant="white"
