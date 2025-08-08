@@ -1,5 +1,6 @@
 import { db } from "@/lib/db";
 import { auth, currentUser } from "@clerk/nextjs/server";
+import { clerkClient } from "@clerk/clerk-sdk-node";
 import { redirect } from "next/navigation";
 import {
   FileText,
@@ -58,6 +59,8 @@ export default async function CourseContentsPage({
       title: true,
       userId: true,
       isPublished: true,
+      description: true,
+      category: { select: { name: true } },
       attachments: {
         orderBy: { createdAt: "desc" },
         select: {
@@ -92,6 +95,8 @@ export default async function CourseContentsPage({
 
   if (!course) return redirect("/dashboard");
 
+  // Si el curso no fue creado por el usuario actual y no pertenece al usuario,
+  // validar membresía
   if (course.userId !== userId) {
     const membership = await db.membership.findUnique({
       where: {
@@ -104,41 +109,60 @@ export default async function CourseContentsPage({
     if (!membership) return redirect("/dashboard");
   }
 
+  // Obtener nombre del creador desde Clerk (si existe course.userId)
+  let creatorName = "Usuario desconocido";
+  if (course.userId) {
+    try {
+      const clerkUser = await clerkClient.users.getUser(course.userId);
+      const full = [clerkUser.firstName, clerkUser.lastName].filter(Boolean).join(" ");
+      creatorName =
+        full ||
+        clerkUser.username ||
+        clerkUser.emailAddresses?.[0]?.emailAddress ||
+        "Usuario desconocido";
+    } catch (err) {
+      // no queremos romper la página si Clerk falla
+      console.warn("No se pudo obtener el usuario creador desde Clerk:", err);
+      creatorName = "Usuario desconocido";
+    }
+  }
+
   return (
     <div className="p-6 space-y-8">
       <div className="space-y-3">
         <h1 className="text-2xl font-bold text-slate-800 dark:text-white flex items-center gap-2">
           🧑‍🎓 Curso{" "}
-          <span className="text-purple-700 dark:text-purple-400">
-            {course.title}
-          </span>
+          <span className="text-purple-700 dark:text-purple-400">{course.title}</span>
         </h1>
+
+        <p className="text-sm font-bold text-slate-600 dark:text-slate-300">
+          {course.description || "Sin descripción"}
+        </p>
+
+        <p className="text-sm text-slate-600 dark:text-slate-300 mt-2">
+          Categoría: {course.category?.name || "Sin categoría"}
+        </p>
+
+        {/* Mostrar creador */}
+        <p className="text-sm text-slate-600 dark:text-slate-300">
+          Creado por:{" "}
+          <span className="font-medium text-slate-800 dark:text-white">{creatorName}</span>
+        </p>
+
         <p className="text-sm text-slate-600 dark:text-slate-300">
           Aquí puedes visualizar los archivos y recursos del curso.
         </p>
 
-        {(role === "TEACHER" ||
-          role === "WEB_MASTER" ||
-          course.userId === userId) && (
+        {(role === "TEACHER" || role === "WEB_MASTER" || course.userId === userId) && (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
             <Link href={`/dashboard/teacher/attachments/${course.id}`}>
-              <Button
-                variant="neonPurple"
-                size="sm"
-                className="w-full font-bold"
-              >
+              <Button variant="neonPurple" size="sm" className="w-full font-bold">
                 <Anchor className="mr-2 w-4 h-4" />
                 Gestionar Archivos Anclados
               </Button>
             </Link>
-            <Link
-              href={`/dashboard/teacher/courses/${course.id}/course-module/create`}
-            >
-              <Button
-                variant="neonPurple"
-                size="sm"
-                className="w-full font-bold"
-              >
+            <Link href={`/dashboard/teacher/courses/${course.id}/course-module/create`}>
+              <Button variant="neonPurple" size="sm" className="w-full font-bold">
                 <FilePlus2 className="mr-2 w-4 h-4" />
                 Crear Módulo
               </Button>
@@ -147,16 +171,11 @@ export default async function CourseContentsPage({
         )}
       </div>
 
-      <h2 className="text-xl font-medium text-slate-800 dark:text-white">
-        ⚓ Archivos anclados
-      </h2>
+      <h2 className="text-xl font-medium text-slate-800 dark:text-white">⚓ Archivos anclados</h2>
 
       {course.attachments.length === 0 ? (
-        <p className="italic text-slate-500">
-          Este curso aún no tiene archivos anclados.
-        </p>
+        <p className="italic text-slate-500">Este curso aún no tiene archivos anclados.</p>
       ) : (
-        // titulo: archivos anclados
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {course.attachments.map((file) => (
             <div
@@ -164,9 +183,7 @@ export default async function CourseContentsPage({
               className="border bg-gradient-to-br from-slate-100 to-slate-300 dark:from-slate-800 dark:to-slate-700 p-4 rounded-md shadow-sm"
             >
               <div className="flex items-center gap-x-2 mb-2">
-                <div className="w-6 h-6 flex-shrink-0">
-                  {getIconByExtension(file.name)}
-                </div>
+                <div className="w-6 h-6 flex-shrink-0">{getIconByExtension(file.name)}</div>
                 <h2 className="text-base font-semibold truncate text-slate-800 dark:text-white">
                   {file.name}
                 </h2>
@@ -188,6 +205,10 @@ export default async function CourseContentsPage({
           ))}
         </div>
       )}
+      {/* si esta vacio, mostrar mensaje de no hay archivos */}
+      {course.modules.length === 0 && (
+        <p className="italic text-slate-500">Este curso aún no tiene módulos.</p>
+      )}
       <div className="space-y-8 mt-8">
         {course.modules.map((module, index) => (
           <div key={module.id} className="space-y-4">
@@ -201,24 +222,20 @@ export default async function CourseContentsPage({
                   Creado el: {new Date(module.createdAt).toLocaleDateString()}
                 </span>
               </h2>
-              <Link
-                // ruta app\dashboard\teacher\courses\[courseId]\course-module\[moduleId]\attachments\form-upload\page.tsx
-                href={`/dashboard/teacher/courses/${courseId}/course-module/${module.id}/attachments/form-upload`}
-              >
-                <Button
-                  size="sm"
-                  variant="ghost"
-                  className="text-sm text-blue-600 underline"
+
+              {(role === "TEACHER" || course.userId === userId) && (
+                <Link
+                  href={`/dashboard/teacher/courses/${courseId}/course-module/${module.id}/attachments/form-upload`}
                 >
-                  Gestionar contenido del módulo
-                </Button>
-              </Link>
+                  <Button size="sm" variant="ghost" className="text-sm text-blue-600 underline">
+                    Gestionar contenido del módulo
+                  </Button>
+                </Link>
+              )}
             </div>
 
             {module.attachments.length === 0 ? (
-              <p className="text-sm italic text-slate-500">
-                Este módulo aún no tiene archivos.
-              </p>
+              <p className="text-sm italic text-slate-500">Este módulo aún no tiene archivos.</p>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                 {module.attachments.map((file) => (
@@ -227,9 +244,7 @@ export default async function CourseContentsPage({
                     className="border bg-gradient-to-br from-slate-100 to-slate-300 dark:from-slate-800 dark:to-slate-700 p-4 rounded-md shadow-sm"
                   >
                     <div className="flex items-center gap-x-2 mb-2">
-                      <div className="w-6 h-6 flex-shrink-0">
-                        {getIconByExtension(file.name)}
-                      </div>
+                      <div className="w-6 h-6 flex-shrink-0">{getIconByExtension(file.name)}</div>
                       <h2 className="text-base font-semibold truncate text-slate-800 dark:text-white">
                         {file.name}
                       </h2>
@@ -237,8 +252,7 @@ export default async function CourseContentsPage({
                     <p className="text-xs text-slate-500 dark:text-slate-400">
                       Subido el {new Date(file.createdAt).toLocaleDateString()}
                       <br />
-                      Actualizado el{" "}
-                      {new Date(file.updatedAt).toLocaleDateString()}
+                      Actualizado el {new Date(file.updatedAt).toLocaleDateString()}
                     </p>
                     <Link
                       href={file.url}

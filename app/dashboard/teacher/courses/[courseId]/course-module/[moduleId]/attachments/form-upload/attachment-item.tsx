@@ -23,7 +23,7 @@ interface AttachmentItemProps {
   url: string;
   createdAt: string;
   updatedAt: string;
-  parentId: string; 
+  parentId: string;
   type: "project" | "module";
 }
 
@@ -31,6 +31,9 @@ const getIconByExtension = (name: string) => {
   const ext = name.split(".").pop()?.toLowerCase();
   switch (ext) {
     case "pdf":
+      return <FileText className="text-red-600 w-5 h-5" />;
+    case "pptx":
+      return <FileImage className="text-red-600 w-5 h-5" />;
     case "doc":
     case "docx":
       return <FileText className="text-blue-600 w-5 h-5" />;
@@ -69,7 +72,11 @@ export const AttachmentItem = ({
 
     try {
       setIsDeleting(true);
-      await axios.delete(`/api/${type === "project" ? "projects" : "course-modules"}/${parentId}/attachments/${id}`);
+      await axios.delete(
+        `/api/${
+          type === "project" ? "projects" : "course-modules"
+        }/${parentId}/attachments/${id}`
+      );
       toast.success("Archivo eliminado");
       router.refresh();
     } catch (error) {
@@ -90,7 +97,9 @@ export const AttachmentItem = ({
     try {
       setIsReplacing(true);
       await axios.patch(
-        `/api/${type === "project" ? "projects" : "course-modules"}/${parentId}/attachments/${id}`,
+        `/api/${
+          type === "project" ? "projects" : "course-modules"
+        }/${parentId}/attachments/${id}`,
         formData,
         { headers: { "Content-Type": "multipart/form-data" } }
       );
@@ -151,7 +160,7 @@ export const AttachmentItem = ({
             <input
               type="file"
               hidden
-              accept=".pdf,.doc,.docx,.zip,.rar,.png,.jpg,.jpeg"
+              accept=".pdf,.doc,.docx, .pptx,.zip,.rar,.png,.jpg,.jpeg"
               onChange={(e) => {
                 const file = e.target.files?.[0];
                 if (file) handleReplace(file);

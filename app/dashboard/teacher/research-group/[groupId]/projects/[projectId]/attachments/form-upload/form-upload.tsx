@@ -165,7 +165,7 @@ export const UploadForm = ({ projectId, onUploadComplete }: UploadFormProps) => 
                     <FormControl>
                       <Input
                         type="file"
-                        accept=".pdf,.doc,.docx,.zip,.rar,.png,.jpg,.jpeg"
+                        accept=".pdf,.doc,.docx,.pptx,.zip,.rar,.png,.jpg,.jpeg"
                         onChange={(e) => {
                           if (e.target.files?.[0])
                             field.onChange(e.target.files[0]);

@@ -20,6 +20,8 @@ const getIconByExtension = (name: string) => {
   switch (ext) {
     case "pdf":
       return <FileText className="text-red-600 w-5 h-5" />;
+    case "pptx":
+      return <FileImage className="text-red-600 w-5 h-5" />;
     case "doc":
     case "docx":
       return <FileText className="text-blue-600 w-5 h-5" />;

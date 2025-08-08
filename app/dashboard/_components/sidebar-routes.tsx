@@ -4,17 +4,25 @@ import {
   GraduationCap,
   Tags,
   LibraryBig,
-  // Users,
   BrainCircuit,
   BadgeInfo,
   Video,
   LocateIcon,
+  Search,
 } from 'lucide-react';
 import { SidebarItem } from './sidebar-item';
 import { useUser } from '@clerk/nextjs';
 import { useMemo } from 'react';
 
 type Role = 'STUDENT' | 'TEACHER' | 'WEB_MASTER';
+
+const search = [
+  {
+    icon: Search,
+    label: 'Buscar',
+    href: '/dashboard/teacher/category-filter',
+  }
+]
 
 const researchGroupRoutes = [
   { 
@@ -83,6 +91,8 @@ export const SidebarRoutes = () => {
 
     // Rutas por rol
     if (role === 'STUDENT') {
+      result.push({ divider: 'Buscar' });
+      result.push(...search);
       result.push({ divider: 'Semilleros de Investigación' });
       result.push(...researchGroupRoutes);
       result.push({ divider: 'Cursos' });
@@ -90,6 +100,8 @@ export const SidebarRoutes = () => {
     }
 
     if (role === 'TEACHER' || role === 'WEB_MASTER') {
+      result.push({ divider: 'Buscar' });
+      result.push(...search);
       result.push({ divider: 'Semilleros de Investigación' });
       result.push(...researchGroupRoutes);
       result.push({ divider: 'Cursos' });

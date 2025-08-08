@@ -30,6 +30,9 @@ const getIconByExtension = (name: string) => {
   const ext = name.split(".").pop()?.toLowerCase();
   switch (ext) {
     case "pdf":
+      return <FileText className="text-red-600 w-5 h-5" />;
+    case "pptx":
+      return <FileImage className="text-red-600 w-5 h-5" />;
     case "doc":
     case "docx":
       return <FileText className="text-blue-600 w-5 h-5" />;
@@ -143,7 +146,7 @@ export const AttachmentItem = ({
             <input
               type="file"
               hidden
-              accept=".pdf,.doc,.docx,.zip,.rar,.png,.jpg,.jpeg"
+              accept=".pdf,.doc,.docx,.pptx,.zip,.rar,.png,.jpg,.jpeg"
               onChange={(e) => {
                 const file = e.target.files?.[0];
                 if (file) handleReplace(file);
