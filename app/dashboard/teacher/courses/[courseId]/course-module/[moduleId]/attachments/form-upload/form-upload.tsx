@@ -42,10 +42,10 @@ const formSchema = z
 
 interface UploadFormProps {
   moduleId: string;
-  onUploadComplete?: () => void;
+  onUploaded: () => void;
 }
 
-export const UploadForm = ({ moduleId, onUploadComplete }: UploadFormProps) => {
+export const UploadForm = ({ moduleId, onUploaded }: UploadFormProps) => {
   const [isUploading, setIsUploading] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const toggleEditing = () => setIsEditing((prev) => !prev);
@@ -93,7 +93,7 @@ export const UploadForm = ({ moduleId, onUploadComplete }: UploadFormProps) => {
       toast.success("Material agregado correctamente");
       form.reset();
       toggleEditing();
-      onUploadComplete?.();
+      onUploaded();
     } catch (error) {
       console.error(error);
       toast.error("Error inesperado");

@@ -83,8 +83,10 @@ export default async function ResearchGroupViewPage({
 
   function AttachmentButton({
     att,
+    type,
   }: {
     att: { id: string; name: string; url: string };
+    type: "group" | "project";
   }) {
     const isFile = att.url.includes("/storage/v1/object/public/attachments/");
 
@@ -95,7 +97,9 @@ export default async function ResearchGroupViewPage({
         title="Descargar archivo"
         asChild
       >
-        <a href={`/api/generic-download/group/${att.id}/download`}>Descargar</a>
+        <a href={`/api/generic-download/${type}/${att.id}/download`}>
+          Descargar
+        </a>
       </Button>
     ) : (
       <Button
@@ -178,7 +182,7 @@ export default async function ResearchGroupViewPage({
                   <br />
                   Actualizado el {new Date(file.updatedAt).toLocaleDateString()}
                 </p>
-                <AttachmentButton att={file} />
+                <AttachmentButton att={file} type="group" />
               </div>
             ))}
           </div>
@@ -240,7 +244,7 @@ export default async function ResearchGroupViewPage({
                     Actualizado el{" "}
                     {new Date(file.updatedAt).toLocaleDateString()}
                   </p>
-                  <AttachmentButton att={file} />
+                  <AttachmentButton att={file} type="project" />
                 </div>
               ))}
             </div>

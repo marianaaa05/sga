@@ -14,7 +14,6 @@ import {
 import { Button } from "@/components/ui/button";
 import axios from "axios";
 import { toast } from "react-hot-toast";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 interface AttachmentItemProps {
@@ -25,6 +24,8 @@ interface AttachmentItemProps {
   updatedAt: string;
   groupId: string;
   projectId: string;
+  onDeleted: () => void;
+  onUpdated: () => void;
 }
 
 const getIconByExtension = (name: string) => {
@@ -59,11 +60,12 @@ export const AttachmentItem = ({
   url,
   createdAt,
   updatedAt,
-  // groupId,
   projectId,
+  onDeleted,
+  onUpdated,
 }: AttachmentItemProps) => {
-  const router = useRouter();
   const [isDeleting, setIsDeleting] = useState(false);
+  const [isReplacing, setIsReplacing] = useState(false);
 
   const handleDelete = async () => {
     const confirm = window.confirm(`¿Estás seguro de eliminar "${name}"?`);
@@ -75,7 +77,7 @@ export const AttachmentItem = ({
         `/api/research-projects/${projectId}/attachments/${id}`
       );
       toast.success("Archivo eliminado");
-      router.refresh();
+      onDeleted();
     } catch {
       toast.error("Error al eliminar el archivo");
     } finally {
@@ -91,6 +93,7 @@ export const AttachmentItem = ({
     formData.append("file", file);
 
     try {
+      setIsReplacing(true);
       await axios.patch(
         `/api/research-projects/${projectId}/attachments/${id}`,
         formData,
@@ -99,10 +102,13 @@ export const AttachmentItem = ({
         }
       );
       toast.success("Archivo actualizado");
-      router.refresh();
+      onUpdated();
+      setIsReplacing(false);
     } catch (error) {
       console.error(error);
       toast.error("Error al actualizar el archivo");
+    } finally {
+      setIsReplacing(false);
     }
   };
 
@@ -165,7 +171,11 @@ export const AttachmentItem = ({
           type="button"
         >
           <label className="cursor-pointer">
-            <ArrowDownUp className="w-5 h-5" />
+            {isReplacing ? (
+              <ArrowDownUp className="w-5 h-5 animate-spin" />
+            ) : (
+              <ArrowDownUp className="w-5 h-5" />
+            )}
             <input
               type="file"
               hidden
@@ -189,7 +199,11 @@ export const AttachmentItem = ({
           title="Eliminar archivo"
           type="button"
         >
-          <Trash2 className="w-5 h-5" />
+          {isDeleting ? (
+            <Trash2 className="w-5 h-5 animate-spin" />
+          ) : (
+            <Trash2 className="w-5 h-5" />
+          )}
         </Button>
       </div>
 

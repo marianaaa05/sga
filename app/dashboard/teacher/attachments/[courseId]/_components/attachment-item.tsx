@@ -61,6 +61,7 @@ export const AttachmentItem = ({
 }: AttachmentItemProps) => {
   const router = useRouter();
   const [isDeleting, setIsDeleting] = useState(false);
+  const [isReplacing, setIsReplacing] = useState(false);
 
   const handleDelete = async () => {
     const confirm = window.confirm(`¿Estás seguro de eliminar "${name}"?`);
@@ -137,7 +138,11 @@ export const AttachmentItem = ({
           type="button"
         >
           <label className="cursor-pointer">
-            <ArrowDownUp className="w-5 h-5" />
+            {isReplacing ? (
+              <ArrowDownUp className="w-5 h-5 animate-spin" />
+            ) : (
+              <ArrowDownUp className="w-5 h-5" />
+            )}
             <input
               type="file"
               hidden
@@ -155,6 +160,7 @@ export const AttachmentItem = ({
                 formData.append("file", file);
 
                 try {
+                  setIsReplacing(true);
                   await axios.patch(`/api/attachments/${id}`, formData, {
                     headers: {
                       "Content-Type": "multipart/form-data",
@@ -165,6 +171,8 @@ export const AttachmentItem = ({
                   router.refresh();
                 } catch {
                   toast.error("Error al actualizar");
+                } finally {
+                  setIsReplacing(false);
                 }
               }}
             />
@@ -182,7 +190,11 @@ export const AttachmentItem = ({
           title="Eliminar archivo"
           type="button"
         >
-          <Trash2 className="w-5 h-5" />
+          {isDeleting ? (
+            <Trash2 className="w-5 h-5 animate-spin" />
+          ) : (
+            <Trash2 className="w-5 h-5" />
+          )}
         </Button>
       </div>
 

@@ -4,8 +4,6 @@ import { useParams } from "next/navigation";
 import { UploadForm } from "./form-upload";
 import { useEffect, useState } from "react";
 import { AttachmentItem } from "./attachment-item";
-
-import { useRouter } from "next/navigation";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -25,21 +23,17 @@ const ResearchGroupViewPage = () => {
   const [attachments, setAttachments] = useState<Attachment[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const router = useRouter();
-
+  const fetchAttachments = async () => {
+    try {
+      const res = await axios.get(`/api/projects/${projectId}/attachments`);
+      setAttachments(res.data);
+    } catch (error) {
+      console.error("Error al obtener los archivos:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
   useEffect(() => {
-    const fetchAttachments = async () => {
-      try {
-        const res = await axios.get(`/api/projects/${projectId}/attachments`);
-        setAttachments(res.data);
-        router.refresh();
-      } catch (error) {
-        console.error("Error al obtener los archivos:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchAttachments();
   }, [projectId]);
 
@@ -67,7 +61,8 @@ const ResearchGroupViewPage = () => {
         </Link>
       </div>
 
-      <UploadForm projectId={params.projectId as string} />
+      <UploadForm projectId={params.projectId as string} 
+       onUploaded={fetchAttachments} />
 
       <div className="mt-10">
         <h2 className="text-lg font-semibold mb-4">Archivos subidos</h2>
@@ -80,7 +75,10 @@ const ResearchGroupViewPage = () => {
         ) : (
           <div className="space-y-4">
             {attachments.map((attachment) => (
-              <AttachmentItem key={attachment.id} {...attachment} />
+              <AttachmentItem key={attachment.id} 
+              {...attachment} 
+              onDeleted={fetchAttachments}
+              onUpdated={fetchAttachments} />
             ))}
           </div>
         )}

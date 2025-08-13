@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -38,14 +38,13 @@ const formSchema = z
 
 interface UploadFormProps {
   researchGroupId: string; // nuevo nombre más apropiado
+  onUploaded: () => void; 
 }
 
-export const UploadForm = ({ researchGroupId }: UploadFormProps) => {
+export const UploadForm = ({ researchGroupId, onUploaded }: UploadFormProps) => {
   const [isUploading, setIsUploading] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const toggleEditing = () => setIsEditing((prev) => !prev);
-
-  const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -91,7 +90,7 @@ export const UploadForm = ({ researchGroupId }: UploadFormProps) => {
       toast.success("Material agregado correctamente");
       form.reset();
       toggleEditing();
-      router.refresh();
+      onUploaded();
     } catch (error) {
       console.error(error);
       toast.error("Error inesperado");

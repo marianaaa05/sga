@@ -1,6 +1,6 @@
 "use client";
 
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { UploadForm } from "./form-upload";
 import { AttachmentItem } from "./attachment-item";
@@ -21,28 +21,25 @@ interface Attachment {
 
 const CourseModuleViewPage = () => {
   const { moduleId, courseId } = useParams();
-  const router = useRouter();
 
   const [attachments, setAttachments] = useState<Attachment[]>([]);
   const [loading, setLoading] = useState(true);
 
+  const fetchAttachments = async () => {
+    try {
+      const res = await axios.get(
+        `/api/course-modules/${moduleId}/attachments`
+      );
+      setAttachments(res.data);
+    } catch (error) {
+      console.error("Error al obtener los archivos del módulo ", error);
+    } finally {
+      setLoading(false);
+    }
+  };
   useEffect(() => {
-    const fetchAttachments = async () => {
-      try {
-        const res = await axios.get(
-          `/api/course-modules/${moduleId}/attachments`
-        );
-        setAttachments(res.data);
-        router.refresh();
-      } catch (error) {
-        console.error("Error al obtener los archivos del módulo ", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     if (moduleId) fetchAttachments();
-  }, [moduleId, router]);
+  }, [moduleId]);
 
   return (
     <div className="p-5 space-y-6">
@@ -52,18 +49,21 @@ const CourseModuleViewPage = () => {
             🗃️ Gestionar archivos del módulo
           </h1>
           <p className="text-sm text-slate-600">
-            Sube, gestiona y consulta los documentos asociados a este módulo
-            del curso.
+            Sube, gestiona y consulta los documentos asociados a este módulo del
+            curso.
           </p>
         </div>
-        <Link href={`/dashboard/teacher/courses/${courseId}/course-module/${moduleId}`}>
+        <Link
+          href={`/dashboard/teacher/courses/${courseId}/course-module/${moduleId}`}
+        >
           <Button variant="neonPurple" size="sm">
             Editar módulo
           </Button>
         </Link>
       </div>
 
-      <UploadForm moduleId={moduleId as string} />
+      <UploadForm moduleId={moduleId as string}
+      onUploaded={fetchAttachments} />
 
       <div className="mt-10">
         <h2 className="text-lg font-semibold mb-4">Archivos subidos</h2>
@@ -85,6 +85,8 @@ const CourseModuleViewPage = () => {
                 updatedAt={attachment.updatedAt}
                 parentId={attachment.moduleId}
                 type="module"
+                onDeleted={fetchAttachments}
+                onUpdated={fetchAttachments}
               />
             ))}
           </div>

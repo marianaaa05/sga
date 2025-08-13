@@ -43,15 +43,13 @@ const formSchema = z
 
 interface UploadFormProps {
   projectId: string;
-  onUploadComplete?: () => void;
+  onUploaded: () => void;
 }
 
-export const UploadForm = ({ projectId, onUploadComplete }: UploadFormProps) => {
+export const UploadForm = ({ projectId, onUploaded }: UploadFormProps) => {
   const [isUploading, setIsUploading] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const toggleEditing = () => setIsEditing((prev) => !prev);
-
-  // const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -97,8 +95,7 @@ export const UploadForm = ({ projectId, onUploadComplete }: UploadFormProps) => 
       toast.success("Material agregado correctamente");
       form.reset();
       toggleEditing();
-      // router.refresh();
-      onUploadComplete?.();
+      onUploaded();
     } catch (error) {
       console.error(error);
       toast.error("Error inesperado");

@@ -9,11 +9,11 @@ import {
   FileCode,
   Youtube,
   ArrowDownUp,
+  Eye,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { toast } from "react-hot-toast";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import axios from "axios";
 
@@ -25,6 +25,8 @@ interface AttachmentItemProps {
   updatedAt: string;
   parentId: string;
   type: "project" | "module";
+  onDeleted: () => void;
+  onUpdated: () => void;
 }
 
 const getIconByExtension = (name: string) => {
@@ -61,8 +63,9 @@ export const AttachmentItem = ({
   updatedAt,
   parentId,
   type,
+  onDeleted,
+  onUpdated,
 }: AttachmentItemProps) => {
-  const router = useRouter();
   const [isDeleting, setIsDeleting] = useState(false);
   const [isReplacing, setIsReplacing] = useState(false);
 
@@ -78,7 +81,7 @@ export const AttachmentItem = ({
         }/${parentId}/attachments/${id}`
       );
       toast.success("Archivo eliminado");
-      router.refresh();
+      onDeleted();
     } catch (error) {
       console.error("Error al eliminar el archivo:", error);
       toast.error("Error al eliminar el archivo");
@@ -104,7 +107,7 @@ export const AttachmentItem = ({
         { headers: { "Content-Type": "multipart/form-data" } }
       );
       toast.success("Archivo actualizado");
-      router.refresh();
+      onUpdated();
     } catch (error) {
       console.error("Error al reemplazar el archivo:", error);
       toast.error("Error al actualizar el archivo");
@@ -113,19 +116,40 @@ export const AttachmentItem = ({
     }
   };
 
-  const handleDownload = () => {
-    try {
-      const link = document.createElement("a");
-      link.href = url;
-      link.setAttribute("download", name);
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    } catch (error) {
-      console.error("Error al descargar el archivo:", error);
-      toast.error("Error al descargar el archivo");
-    }
-  };
+  function AttachmentButton({
+    att,
+  }: {
+    att: { id: string; name: string; url: string };
+  }) {
+    const isFile = att.url.includes("/storage/v1/object/public/attachments/");
+
+    return isFile ? (
+      <Button
+        size="icon"
+        variant="ghost"
+        className="text-blue-600"
+        title="Descargar archivo"
+        asChild
+      >
+        <a href={`/api/generic-download/module/${att.id}/download`}>
+          <Download className="w-5 h-5" />
+        </a>
+      </Button>
+    ) : (
+      <Button
+        size="icon"
+        variant="ghost"
+        className="text-blue-600"
+        title="Visualizar enlace"
+        asChild
+      >
+        <a href={att.url} target="_blank" rel="noopener noreferrer">
+          <Eye className="w-5 h-5" />
+        </a>
+      </Button>
+    );
+  }
+
 
   return (
     <div className="border bg-gradient-to-br from-slate-100 to-slate-300 dark:from-slate-800 dark:to-slate-700 flex flex-col sm:flex-row sm:items-center sm:justify-between px-4 py-6 rounded-md gap-4 flex-wrap">
@@ -160,7 +184,7 @@ export const AttachmentItem = ({
             <input
               type="file"
               hidden
-              accept=".pdf,.doc,.docx, .pptx,.zip,.rar,.png,.jpg,.jpeg"
+              accept=".pdf,.doc,.docx,.pptx,.zip,.rar,.png,.jpg,.jpeg"
               onChange={(e) => {
                 const file = e.target.files?.[0];
                 if (file) handleReplace(file);
@@ -169,16 +193,7 @@ export const AttachmentItem = ({
           </label>
         </Button>
 
-        <Button
-          onClick={handleDownload}
-          size="icon"
-          variant="ghost"
-          className="text-blue-600"
-          title="Descargar archivo"
-          type="button"
-        >
-          <Download className="w-5 h-5" />
-        </Button>
+        <AttachmentButton att={{ id, name, url }} />
 
         <Button
           size="icon"

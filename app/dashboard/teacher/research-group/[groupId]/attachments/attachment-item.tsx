@@ -14,7 +14,7 @@ import {
 import { Button } from "@/components/ui/button";
 import axios from "axios";
 import { toast } from "react-hot-toast";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 interface AttachmentItemProps {
@@ -24,6 +24,8 @@ interface AttachmentItemProps {
   createdAt: string;
   updatedAt: string;
   groupId: string;
+  onDeleted: () => void;
+  onUpdated: () => void;
 }
 
 const getIconByExtension = (name: string) => {
@@ -60,9 +62,11 @@ export const AttachmentItem = ({
   createdAt,
   updatedAt,
   groupId,
+  onDeleted,
+  onUpdated,
 }: AttachmentItemProps) => {
-  const router = useRouter();
   const [isDeleting, setIsDeleting] = useState(false);
+  const [isReplacing, setIsReplacing] = useState(false);
 
   const handleDelete = async () => {
     const confirm = window.confirm(`¿Estás seguro de eliminar "${name}"?`);
@@ -72,7 +76,7 @@ export const AttachmentItem = ({
       setIsDeleting(true);
       await axios.delete(`/api/research-group/${groupId}/attachments/${id}`);
       toast.success("Archivo eliminado");
-      router.refresh();
+      onDeleted();
     } catch {
       toast.error("Error al eliminar");
     } finally {
@@ -134,12 +138,16 @@ export const AttachmentItem = ({
           size="icon"
           variant="ghost"
           className="text-green-600"
-          disabled={isDeleting}
+          disabled={isReplacing}
           title="Reemplazar archivo"
           type="button"
         >
           <label className="cursor-pointer">
-            <ArrowDownUp className="w-5 h-5" />
+            {isReplacing ? (
+              <ArrowDownUp className="w-5 h-5 animate-spin" />
+            ) : (
+              <ArrowDownUp className="w-5 h-5" />
+            )}
             <input
               type="file"
               hidden
@@ -147,6 +155,7 @@ export const AttachmentItem = ({
               onChange={async (e) => {
                 const file = e.target.files?.[0];
                 if (!file) return;
+                setIsReplacing(true);
 
                 const confirm = window.confirm(
                   `¿Deseas reemplazar el archivo "${name}"?`
@@ -166,9 +175,9 @@ export const AttachmentItem = ({
                       },
                     }
                   );
-
                   toast.success("Archivo actualizado");
-                  router.refresh();
+                  onUpdated();
+                  setIsReplacing(false);
                 } catch {
                   toast.error("Error al actualizar");
                 }
@@ -188,7 +197,11 @@ export const AttachmentItem = ({
           title="Eliminar archivo"
           type="button"
         >
-          <Trash2 className="w-5 h-5" />
+          {isDeleting ? (
+            <Trash2 className="w-5 h-5 animate-spin" />
+          ) : (
+            <Trash2 className="w-5 h-5" />
+          )}
         </Button>
       </div>
 
