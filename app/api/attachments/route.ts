@@ -16,42 +16,50 @@ export async function POST(req: Request) {
     }
 
     const formData = await req.formData();
-    const file = formData.get("file") as File;
-    const courseId = formData.get("courseId") as string;
+    const file = formData.get("file") as File | null;
+    const courseId = formData.get("courseId") as string | null;
 
     if (!file || !courseId) {
       return new NextResponse("Archivo o courseId faltante", { status: 400 });
     }
 
+    const safeCourseId = courseId.replace(/[^a-zA-Z0-9-_]/g, "_");
+
+    const extMatch = file.name.match(/\.[^.\s]+$/);
+    const extension = extMatch ? extMatch[0] : "";
+
+    const safeKey = `${crypto.randomUUID()}${extension}`;
+
+    const filePath = `${safeCourseId}/${safeKey}`;
+
     const fileBuffer = Buffer.from(await file.arrayBuffer());
 
-    const fileName = `${crypto.randomUUID()}-${file.name}`;
-    const filePath = `${courseId}/${fileName}`; // Estructura en supabase: courseId/archivo
-
-    // Subida a Supabase
     const { error: uploadError } = await supabase.storage
       .from("attachments")
       .upload(filePath, fileBuffer, {
-        contentType: file.type,
+        contentType: file.type || undefined,
         upsert: false,
       });
 
     if (uploadError) {
       console.error("Error al subir a Supabase:", uploadError);
-      return new NextResponse("Fallo al subir archivo", { status: 500 });
+      return new NextResponse(
+        `Fallo al subir archivo: ${uploadError.message}`,
+        { status: 500 }
+      );
     }
 
-    // Obtener URL pública
     const { data: publicUrlData } = supabase.storage
       .from("attachments")
       .getPublicUrl(filePath);
 
     const publicUrl = publicUrlData.publicUrl;
 
-    // Guardar en Neon
+    const cleanedOriginalName = file.name.replace(/[\u0000-\u001F\u007F]/g, "");
+
     const attachment = await db.attachment.create({
       data: {
-        name: file.name,
+        name: cleanedOriginalName,
         url: publicUrl,
         courseId: courseId,
       },

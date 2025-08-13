@@ -41,10 +41,10 @@ const getIconByExtension = (name: string) => {
   }
 };
 
-export default async function ResearchGroupViewPage({ 
-  params 
-}: { 
-  params: Promise<{ groupId: string }> 
+export default async function ResearchGroupViewPage({
+  params,
+}: {
+  params: Promise<{ groupId: string }>;
 }) {
   const { groupId } = await params;
   const { userId } = await auth();
@@ -66,7 +66,9 @@ export default async function ResearchGroupViewPage({
   if (!group) return redirect("/dashboard");
 
   const creatorIds = Array.from(
-    new Set(group.projects.map((p) => p.createdBy).filter((id): id is string => !!id))
+    new Set(
+      group.projects.map((p) => p.createdBy).filter((id): id is string => !!id)
+    )
   );
 
   const creators: User[] = await Promise.all(
@@ -78,6 +80,36 @@ export default async function ResearchGroupViewPage({
     const fullName = [u.firstName, u.lastName].filter(Boolean).join(" ");
     creatorNames.set(u.id, fullName || "Usuario desconocido");
   });
+
+  function AttachmentButton({
+    att,
+  }: {
+    att: { id: string; name: string; url: string };
+  }) {
+    const isFile = att.url.includes("/storage/v1/object/public/attachments/");
+
+    return isFile ? (
+      <Button
+        variant="ghost"
+        className="text-blue-600 font-normal"
+        title="Descargar archivo"
+        asChild
+      >
+        <a href={`/api/generic-download/group/${att.id}/download`}>Descargar</a>
+      </Button>
+    ) : (
+      <Button
+        variant="ghost"
+        className="text-blue-600 font-normal"
+        title="Visualizar"
+        asChild
+      >
+        <a href={att.url} target="_blank" rel="noopener noreferrer">
+          Visualizar
+        </a>
+      </Button>
+    );
+  }
 
   return (
     <div className="p-6 space-y-8">
@@ -94,19 +126,23 @@ export default async function ResearchGroupViewPage({
         </p>
 
         <p className="text-sm text-slate-600 dark:text-slate-300">
-          Aquí puedes visualizar o gestionar archivos relacionados directamente al
-          semillero o un proyecto.
+          Aquí puedes visualizar o gestionar archivos relacionados directamente
+          al semillero o un proyecto.
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
-          <Link href={`/dashboard/teacher/research-group/${groupId}/attachments`}>
+          <Link
+            href={`/dashboard/teacher/research-group/${groupId}/attachments`}
+          >
             <Button variant="neonPurple" size="sm" className="w-full font-bold">
               <Anchor className="mr-2 w-4 h-4" />
               Gestionar Archivos Anclados
             </Button>
           </Link>
 
-          <Link href={`/dashboard/teacher/research-group/${groupId}/projects/create`}>
+          <Link
+            href={`/dashboard/teacher/research-group/${groupId}/projects/create`}
+          >
             <Button variant="neonPurple" size="sm" className="w-full font-bold">
               <FilePlus2 className="mr-2 w-4 h-4" />
               Crear Proyecto
@@ -142,14 +178,7 @@ export default async function ResearchGroupViewPage({
                   <br />
                   Actualizado el {new Date(file.updatedAt).toLocaleDateString()}
                 </p>
-                <Link
-                  href={`/api/generic-download?scope=research-group&attachmentId=${file.id}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-blue-600 hover:underline block mt-2"
-                >
-                  Ver o descargar archivo
-                </Link>
+                <AttachmentButton att={file} />
               </div>
             ))}
           </div>
@@ -167,7 +196,7 @@ export default async function ResearchGroupViewPage({
                 <br />
                 Categoría: {project.category?.name || "Sin categoría"}
                 <br />
-                Creado por {" "}
+                Creado por{" "}
                 {project.createdBy
                   ? creatorNames.get(project.createdBy) || "Usuario desconocido"
                   : "Desconocido"}
@@ -208,16 +237,10 @@ export default async function ResearchGroupViewPage({
                   <p className="text-xs text-slate-500 dark:text-slate-400">
                     Subido el {new Date(file.createdAt).toLocaleDateString()}
                     <br />
-                    Actualizado el {new Date(file.updatedAt).toLocaleDateString()}
+                    Actualizado el{" "}
+                    {new Date(file.updatedAt).toLocaleDateString()}
                   </p>
-                  <Link
-                    href={file.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm text-blue-600 hover:underline block mt-2"
-                  >
-                    Ver o descargar archivo
-                  </Link>
+                  <AttachmentButton att={file} />
                 </div>
               ))}
             </div>

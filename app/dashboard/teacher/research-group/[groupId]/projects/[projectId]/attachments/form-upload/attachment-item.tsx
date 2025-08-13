@@ -9,6 +9,7 @@ import {
   FileCode,
   Youtube,
   ArrowDownUp,
+  Eye,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
@@ -23,7 +24,7 @@ interface AttachmentItemProps {
   createdAt: string;
   updatedAt: string;
   groupId: string;
-  projectId: string; 
+  projectId: string;
 }
 
 const getIconByExtension = (name: string) => {
@@ -59,7 +60,7 @@ export const AttachmentItem = ({
   createdAt,
   updatedAt,
   // groupId,
-  projectId, 
+  projectId,
 }: AttachmentItemProps) => {
   const router = useRouter();
   const [isDeleting, setIsDeleting] = useState(false);
@@ -70,27 +71,15 @@ export const AttachmentItem = ({
 
     try {
       setIsDeleting(true);
-      await axios.delete(`/api/research-projects/${projectId}/attachments/${id}`);
+      await axios.delete(
+        `/api/research-projects/${projectId}/attachments/${id}`
+      );
       toast.success("Archivo eliminado");
       router.refresh();
     } catch {
       toast.error("Error al eliminar el archivo");
     } finally {
       setIsDeleting(false);
-    }
-  };
-
-  const handleDownload = () => {
-    try {
-      const link = document.createElement("a");
-      link.href = url;
-      link.setAttribute("download", name);
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    } catch (error) {
-      console.error("Error al descargar el archivo:", error);
-      toast.error("Error al descargar el archivo");
     }
   };
 
@@ -116,6 +105,40 @@ export const AttachmentItem = ({
       toast.error("Error al actualizar el archivo");
     }
   };
+
+  function AttachmentButton({
+    att,
+  }: {
+    att: { id: string; name: string; url: string };
+  }) {
+    const isFile = att.url.includes("/storage/v1/object/public/attachments/");
+
+    return isFile ? (
+      <Button
+        size="icon"
+        variant="ghost"
+        className="text-blue-600"
+        title="Descargar archivo"
+        asChild
+      >
+        <a href={`/api/generic-download/project/${att.id}/download`}>
+          <Download className="w-5 h-5" />
+        </a>
+      </Button>
+    ) : (
+      <Button
+        size="icon"
+        variant="ghost"
+        className="text-blue-600"
+        title="Visualizar enlace"
+        asChild
+      >
+        <a href={att.url} target="_blank" rel="noopener noreferrer">
+          <Eye className="w-5 h-5" />
+        </a>
+      </Button>
+    );
+  }
 
   return (
     <div className="border bg-gradient-to-br from-slate-100 to-slate-300 dark:from-slate-800 dark:to-slate-700 flex flex-col sm:flex-row sm:items-center sm:justify-between px-4 py-6 rounded-md gap-4 flex-wrap">
@@ -155,16 +178,7 @@ export const AttachmentItem = ({
           </label>
         </Button>
 
-        <Button
-          onClick={handleDownload}
-          size="icon"
-          variant="ghost"
-          className="text-blue-600"
-          title="Descargar archivo"
-          type="button"
-        >
-          <Download className="w-5 h-5" />
-        </Button>
+        <AttachmentButton att={{ id, name, url }} />
 
         <Button
           size="icon"

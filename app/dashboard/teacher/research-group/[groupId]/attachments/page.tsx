@@ -37,7 +37,10 @@ const AttachmentsPage = () => {
 
   return (
     <div className="space-y-8 p-6">
-      <h1 className="text-2xl font-bold">Material del Semillero</h1>
+      <h1 className="text-2xl font-bold text-slate-800">🗃️ Material anclado del Semillero</h1>
+      <p className="text-slate-500 text-sm">
+        Aquí puedes gestionar los archivos anclados de este semillero.
+      </p>
 
       <UploadForm researchGroupId={groupId as string} />
 

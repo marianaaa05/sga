@@ -1,5 +1,5 @@
 import { db } from "@/lib/db";
-import { auth } from "@clerk/nextjs/server"; // Cambiado a nextjs en lugar de nextjs/server
+import { auth } from "@clerk/nextjs/server"; 
 import { redirect } from "next/navigation";
 import { UploadForm } from "./_components/form-upload";
 import { AttachmentItem } from "./_components/attachment-item";
@@ -35,19 +35,19 @@ export default async function AttachmentsPage({ params }: AttachmentsPageProps) 
   if (!course) return redirect("/dashboard");
 
   return (
-    <div className="p-16">
+    <div className="space-y-8 p-6">
       <div className="flex items-center justify-between">
         <div className="flex flex-col gap-y-2">
           <h1 className="text-2xl font-bold text-slate-700">
             📍Estás en el curso: {course.title}
           </h1>
           <span className="text-sm text-slate-600">
-            📎 Sube archivos PDF, imágenes, Word, ZIP u otros documentos útiles para el curso.
+            Sube archivos PDF, imágenes, Word, ZIP u otros documentos útiles para el curso.
           </span>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
+      <div className="grid grid-cols-1 gap-6 mt-12">
         <div>
           <div className="flex items-center gap-x-2 mb-4">
             <IconInsign icon={Paperclip} variant="success" size="sm" />

@@ -25,8 +25,7 @@ const CreatePage = async ({ params }: CreatePageProps) => {
   });
 
   return (
-    <div className="p-6">
-      <div className="space-y-6">
+    <div className="space-y-8 p-6">
         <FormTitle groupId={groupId} />
         <FormDescription
           initialData={{ description: null }}
@@ -36,7 +35,6 @@ const CreatePage = async ({ params }: CreatePageProps) => {
           categories={categories}
           initialData={{ categoryId: null }}
         />
-      </div>
     </div>
   );
 };

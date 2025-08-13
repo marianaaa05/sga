@@ -9,6 +9,7 @@ import {
   FileCode,
   Youtube,
   ArrowDownUp,
+  Eye,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
@@ -77,19 +78,39 @@ export const AttachmentItem = ({
     }
   };
 
-  const handleDownload = () => {
-    try {
-      const link = document.createElement("a");
-      link.href = url;
-      link.setAttribute("download", name);
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    } catch (error) {
-      console.error("Error al descargar archivo", error);
-      toast.error("Error al descargar archivo");
-    }
-  };
+  function AttachmentButton({
+    att,
+  }: {
+    att: { id: string; name: string; url: string };
+  }) {
+    const isFile = att.url.includes("/storage/v1/object/public/attachments/");
+
+    return isFile ? (
+      <Button
+        size="icon"
+        variant="ghost"
+        className="text-blue-600"
+        title="Descargar archivo"
+        asChild
+      >
+        <a href={`/api/generic-download/course/${att.id}/download`}>
+          <Download className="w-5 h-5" />
+        </a>
+      </Button>
+    ) : (
+      <Button
+        size="icon"
+        variant="ghost"
+        className="text-blue-600"
+        title="Visualizar enlace"
+        asChild
+      >
+        <a href={att.url} target="_blank" rel="noopener noreferrer">
+          <Eye className="w-5 h-5" />
+        </a>
+      </Button>
+    );
+  }
 
   return (
     <div className="border bg-gradient-to-br from-slate-100 to-slate-300 dark:from-slate-800 dark:to-slate-700 flex flex-col sm:flex-row sm:items-center sm:justify-between px-4 py-6 bg-slate-100 dark:bg-slate-800 rounded-md gap-4 flex-wrap">
@@ -120,7 +141,7 @@ export const AttachmentItem = ({
             <input
               type="file"
               hidden
-              accept=".pdf,.doc,.docx, .pptx,.zip,.rar,.png,.jpg,.jpeg"
+              accept=".pdf,.doc,.docx,.pptx,.zip,.rar,.png,.jpg,.jpeg"
               onChange={async (e) => {
                 const file = e.target.files?.[0];
                 if (!file) return;
@@ -150,16 +171,7 @@ export const AttachmentItem = ({
           </label>
         </Button>
 
-        <Button
-          onClick={handleDownload}
-          size="icon"
-          variant="ghost"
-          className="text-blue-600"
-          title="Descargar archivo"
-          type="button"
-        >
-          <Download className="w-5 h-5" />
-        </Button>
+        <AttachmentButton att={{ id, name, url }} />
 
         <Button
           size="icon"

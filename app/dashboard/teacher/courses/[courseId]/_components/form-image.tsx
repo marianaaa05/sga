@@ -9,11 +9,10 @@ import {
   FormControl,
 } from "@/components/ui/form";
 import { FileUpload } from "@/components/file-upload";
-// import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Course } from "@prisma/client";
 import axios from "axios";
-import { ImagePlay, Upload } from "lucide-react";
+import { Upload } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -25,12 +24,6 @@ interface FormImageProps {
   initialData: Course;
   courseId: string;
 }
-// interface FormImageProps{
-//   initialData: {
-//     title: string;
-//   };
-//   courseId: string;
-// }
 
 const formSchema = z.object({
   imageUrl: z.string().min(1, {
@@ -68,8 +61,7 @@ export const FormImage = ({ initialData, courseId }: FormImageProps) => {
 
   return (
     <div className="mt-6 border bg-gradient-to-br from-slate-100 to-slate-300 dark:from-slate-800 dark:to-slate-700 p-4 rounded-md shadow-sm">
-      {/* <div className="font-bold flex items-center justify-between text-slate-800"> */}
-      <div className="font-bold flex flex-wrap items-center justify-between gap-1text-slate-800">
+      <div className="font-bold flex flex-wrap items-center justify-between gap-1 text-slate-800">
         Imagen del curso
         <Button
           onClick={toggleEditing}
@@ -81,14 +73,8 @@ export const FormImage = ({ initialData, courseId }: FormImageProps) => {
             <>Cancelar</>
           ) : (
             <>
-              <Upload size={4} />
+              <Upload size={4}  />
               Subir imagen
-            </>
-          )}
-          {!isEditing && initialData.imageUrl && (
-            <>
-              <ImagePlay size={4} />
-              Cambiar imagen
             </>
           )}
         </Button>
@@ -124,11 +110,6 @@ export const FormImage = ({ initialData, courseId }: FormImageProps) => {
                     <FileUpload
                       endpoint="courseImage"
                       onChange={field.onChange}
-
-                      // disabled={isSubmitting}
-                      // placeholder="Imagen del curso"
-                      // {...field}
-                      // className={cn("bg-white text-slate-800")}
                     />
                   </FormControl>
                   <FormMessage />

@@ -23,6 +23,8 @@ const getIconByExtension = (name: string) => {
   switch (ext) {
     case "pdf":
       return <FileText className="text-red-600 w-5 h-5" />;
+    case "pptx":
+      return <FileImage className="text-red-600 w-5 h-5" />;  
     case "doc":
     case "docx":
       return <FileText className="text-blue-600 w-5 h-5" />;
@@ -127,6 +129,37 @@ export default async function CourseContentsPage({
     }
   }
 
+  function AttachmentButton({
+    att, type,
+  }: {
+    att: { id: string; name: string; url: string };
+    type: "course" | "module";
+  }) {
+    const isFile = att.url.includes("/storage/v1/object/public/attachments/");
+
+    return isFile ? (
+      <Button
+        variant="ghost"
+        className="text-blue-600 font-normal"
+        title="Descargar archivo"
+        asChild
+      >
+        <a href={`/api/generic-download/${type}/${att.id}/download`}>Descargar</a>
+      </Button>
+    ) : (
+      <Button
+        variant="ghost"
+        className="text-blue-600 font-normal"
+        title="Visualizar"
+        asChild
+      >
+        <a href={att.url} target="_blank" rel="noopener noreferrer">
+          Visualizar
+        </a>
+      </Button>
+    );
+  }
+
   return (
     <div className="p-6 space-y-8">
       <div className="space-y-3">
@@ -193,14 +226,7 @@ export default async function CourseContentsPage({
                 <br />
                 Actualizado el {new Date(file.updatedAt).toLocaleDateString()}
               </p>
-              <Link
-                href={file.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm text-blue-600 hover:underline block mt-2"
-              >
-                Ver o descargar archivo
-              </Link>
+              <AttachmentButton att={file} type="course" />
             </div>
           ))}
         </div>
@@ -254,14 +280,7 @@ export default async function CourseContentsPage({
                       <br />
                       Actualizado el {new Date(file.updatedAt).toLocaleDateString()}
                     </p>
-                    <Link
-                      href={file.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-sm text-blue-600 hover:underline block mt-2"
-                    >
-                      Ver o descargar archivo
-                    </Link>
+                    <AttachmentButton att={file} type="module" />
                   </div>
                 ))}
               </div>

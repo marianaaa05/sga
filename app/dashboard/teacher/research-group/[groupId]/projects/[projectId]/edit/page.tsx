@@ -6,13 +6,6 @@ import { FormTitle } from "./form-title";
 import { FormDescription } from "./form-description";
 import { FormCategory } from "./form-category";
 
-// interface ProjectPageProps {
-//   params: {
-//     groupId: string;
-//     projectId: string;
-//   };
-// }
-
 export default async function ProjectPage({ params }: { params: { groupId: string; projectId: string } }) {
   const { groupId, projectId } = await params;
 
@@ -40,7 +33,7 @@ export default async function ProjectPage({ params }: { params: { groupId: strin
   });
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8">
+    <div className="space-y-8 p-6">
       <div>
         <h2 className="text-2xl font-bold text-slate-800">✨Editar proyecto: {project.title}</h2>
         <p className="text-sm text-slate-600">
