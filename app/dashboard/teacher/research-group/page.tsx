@@ -76,37 +76,60 @@ export default async function ResearchGroupsPage() {
                 />
 
                 <div className="space-y-2 pt-2 border-t border-slate-400/30 mt-4">
-                  <Link href={`/dashboard/teacher/research-group/${group.id}/view`}>
-                    <Button variant="cyberGradient" size="sm" className="w-full">
+                  <Link
+                    href={`/dashboard/teacher/research-group/${group.id}/view`}
+                  >
+                    <Button
+                      variant="cyberGradient"
+                      size="sm"
+                      className="w-full"
+                    >
                       <Eye className="mr-2 w-4 h-4" />
                       Ver semillero
                     </Button>
                   </Link>
 
-                  {role === "TEACHER" && (
+                  {(role === "TEACHER" || role === "WEB_MASTER") && (
                     <>
-                      <Link href={`/dashboard/teacher/research-group/${group.id}`}>
-                        <Button variant="cyberGradient" size="sm" className="w-full mt-2">
+                      <Link
+                        href={`/dashboard/teacher/research-group/${group.id}`}
+                      >
+                        <Button
+                          variant="cyberGradient"
+                          size="sm"
+                          className="w-full mt-2"
+                        >
                           <UserPen className="mr-2 w-4 h-4" />
                           Editar semillero
                         </Button>
                       </Link>
-
-                      <Link href={`/dashboard/teacher/research-group/${group.id}/attachments`}>
-                        <Button variant="cyberGradient" size="sm" className="w-full mt-2">
-                          <FilePlus2 className="mr-2 w-4 h-4" />
-                          Anclar archivos
-                        </Button>
-                      </Link>
-
-                      <Link href={`/dashboard/teacher/research-group/${group.id}/projects/create`}>
-                        <Button variant="cyberGradient" size="sm" className="w-full mt-2">
-                          <FilePlus2 className="mr-2 w-4 h-4" />
-                          Crear proyecto
-                        </Button>
-                      </Link>
                     </>
                   )}
+                  <Link
+                    href={`/dashboard/teacher/research-group/${group.id}/attachments`}
+                  >
+                    <Button
+                      variant="cyberGradient"
+                      size="sm"
+                      className="w-full mt-2"
+                    >
+                      <FilePlus2 className="mr-2 w-4 h-4" />
+                      Anclar archivos
+                    </Button>
+                  </Link>
+
+                  <Link
+                    href={`/dashboard/teacher/research-group/${group.id}/projects/create`}
+                  >
+                    <Button
+                      variant="cyberGradient"
+                      size="sm"
+                      className="w-full mt-2"
+                    >
+                      <FilePlus2 className="mr-2 w-4 h-4" />
+                      Crear proyecto
+                    </Button>
+                  </Link>
                 </div>
               </div>
             </div>

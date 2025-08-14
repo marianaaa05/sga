@@ -108,7 +108,8 @@ export default async function CourseContentsPage({
         },
       },
     });
-    if (!membership) return redirect("/dashboard");
+    // if (!membership) return redirect("/dashboard");
+    if (!membership && role === "STUDENT") return redirect("/dashboard");
   }
 
   // Obtener nombre del creador desde Clerk (si existe course.userId)
@@ -201,7 +202,7 @@ export default async function CourseContentsPage({
               </Button>
             </Link>
           </div>
-        )}
+           )}
       </div>
 
       <h2 className="text-xl font-medium text-slate-800 dark:text-white">⚓ Archivos anclados</h2>

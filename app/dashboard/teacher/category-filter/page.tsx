@@ -77,11 +77,20 @@ export default function CategoryFilter() {
           value={selectedCatId}
           onChange={(e) => setSelectedCatId(e.target.value)}
         >
-          {categories.map((cat) => (
-            <option key={cat.id} value={cat.id}>
+          {categories.map((cat) => {
+            const isEmpty =
+              cat.courses.filter((c) => c.isPublished).length === 0 &&
+              cat.projects.length === 0;
+            return (
+            <option 
+               key={cat.id} 
+               value={cat.id}
+               className={isEmpty ? "text-gray-400" : "text-gray-900"}
+               >
               {cat.name}
             </option>
-          ))}
+            );
+})}
         </select>
       </div>
 

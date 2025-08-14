@@ -23,7 +23,6 @@ export default async function AttachmentsPage({ params }: AttachmentsPageProps) 
   const course = await db.course.findUnique({
     where: { 
       id: courseId,
-      userId 
     },
     include: {
       attachments: {
