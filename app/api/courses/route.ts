@@ -21,7 +21,6 @@ export async function POST(req: Request) {
     return new NextResponse("Título es obligatorio", { status: 400 });
   }
 
-  // <-- Aquí hacemos el assertion
   const metadata = sessionClaims?.metadata as { role?: string } | undefined;
   const role = metadata?.role;
 

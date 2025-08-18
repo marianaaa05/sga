@@ -53,6 +53,7 @@ export async function POST(
         name: file.name,
         url: urlResponse.data.publicUrl,
         projectId,
+        userId,
       },
     });
 

@@ -70,7 +70,7 @@ const DashboardHome = () => {
       </div>
 
       <div className="grid gap-6 sm:grid-cols-2">
-        <Link href="/dashboard/teacher/research-group">
+        <Link href="/dashboard/skahverse/research-group">
           <div className="border rounded-xl p-4 shadow hover:shadow-lg transition bg-gradient-to-br from-slate-100 to-slate-300 dark:from-slate-800 dark:to-slate-700 cursor-pointer hover:bg-slate-50">
             <h2 className="text-xl font-semibold mb-1">🧪 Semilleros</h2>
             <p className="text-sm text-muted-foreground">
@@ -79,7 +79,7 @@ const DashboardHome = () => {
           </div>
         </Link>
 
-        <Link href="/dashboard/teacher/courses">
+        <Link href="/dashboard/skahverse/courses">
           <div className="border rounded-xl p-4 shadow hover:shadow-lg transition bg-gradient-to-br from-slate-100 to-slate-300 dark:from-slate-800 dark:to-slate-700 cursor-pointer hover:bg-slate-50">
             <h2 className="text-xl font-semibold mb-1">📚 Cursos</h2>
             <p className="text-sm text-muted-foreground">

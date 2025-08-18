@@ -9,6 +9,7 @@ import {
   Video,
   LocateIcon,
   Search,
+  Users,
 } from 'lucide-react';
 import { SidebarItem } from './sidebar-item';
 import { useUser } from '@clerk/nextjs';
@@ -20,7 +21,7 @@ const search = [
   {
     icon: Search,
     label: 'Buscar',
-    href: '/dashboard/teacher/category-filter',
+    href: '/dashboard/skahverse/category-filter',
   }
 ]
 
@@ -28,7 +29,7 @@ const researchGroupRoutes = [
   { 
     icon: BrainCircuit, 
     label: 'Semilleros', 
-    href: '/dashboard/teacher/research-group' 
+    href: '/dashboard/skahverse/research-group'
   },
 ];
 
@@ -36,7 +37,7 @@ const courseRoutes = [
   { 
     icon: GraduationCap, 
     label: 'Cursos', 
-    href: '/dashboard/teacher/courses' 
+    href: '/dashboard/skahverse/courses'
   },
 ];
 
@@ -44,7 +45,7 @@ const courseOtherRoutes = [
   { 
     icon: LibraryBig, 
     label: 'Contenidos', 
-    href: '/dashboard/teacher/attachments' 
+    href: '/dashboard/skahverse/attachments'
   },
 ];
 
@@ -52,8 +53,13 @@ const analyticsRoutes = [
   { 
     icon: Tags, 
     label: 'Categorías', 
-    href: '/dashboard/teacher/categories' 
+    href: '/dashboard/skahverse/categories'
   },
+  {
+    icon: Users,
+    label: 'Usuarios',
+    href: '/dashboard/skahverse/users',
+  }
 ];
 
 const publicRoutes = [

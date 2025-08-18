@@ -62,7 +62,11 @@ export async function PATCH(
 
     const updated = await db.researchProjectAttachment.update({
       where: { id: attachmentId },
-      data: { name: file.name, url: urlData.publicUrl },
+      data: { 
+        name: file.name, 
+        url: urlData.publicUrl,
+        userId,
+       },
     });
 
     return NextResponse.json(updated);

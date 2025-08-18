@@ -5,7 +5,7 @@ import Link from "next/link";
 export const Footer = () => {
   return (
     <footer className="w-full border-t bg-gradient-to-br from-slate-100 to-slate-300 dark:from-slate-800 dark:to-slate-700 shadow-sm">
-      <div className="max-w-screen-xl mx-auto flex flex-wrap items-center justify-center lg:justify-end gap-4 lg:gap-28 px-4 lg:px-20 lg:pl-32 py-4">
+      <div className="max-w-screen-xl mx-auto flex items-center justify-center lg:justify-end gap-6 lg:gap-28 px-4 lg:px-20 lg:pl-32 py-4 overflow-x-auto">
         <Button size="lg" variant="link" className="p-0">
           <Image
             src="/SKAHverse.png"
@@ -74,8 +74,8 @@ export const Footer = () => {
       </div>
 
       <p className="w-full text-xs text-center text-slate-700 p-2 lg:w-full mx-auto items-center justify-between h-full border bg-gradient-to-br from-slate-100 to-slate-300 dark:from-slate-800 dark:to-slate-700 shadow-sm">
-        © 2025 Semilleros de Investigación de Ingeniería Informática AUNAR. Todos los
-        derechos reservados.
+        © 2025 Semilleros de Investigación de Ingeniería Informática AUNAR.
+        Todos los derechos reservados.
       </p>
     </footer>
   );
