@@ -97,10 +97,9 @@ export default async function ResearchGroupViewPage({
   });
 
   const teacherEmails: Record<string, string> = {
-    "01": "mailinstructorkernel@gmail.com", //Kernel
-    "02": "mailinstructorsinapsis@gmail.com", //Sinapsis
-    // "03": "mailinstructoranimus@gmail.com", //Animus hacking
-    "03": "pruebaslmsmariana@gmail.com", //Animus hacking
+    "01": "raul.pena@aunar.edu.co", //Kernel
+    "02": "cristhian.villota@aunar.edu.co", //Sinapsis
+    "03": "santiagodavidlopez02468@gmail.com", //Animus hacking
   };
 
   const teacherEmail = group?.id ? teacherEmails[group.id] : undefined;

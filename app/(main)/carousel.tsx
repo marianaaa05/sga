@@ -6,7 +6,7 @@ import Image from "next/image";
 
 const images = [
   {
-    src: "/participaciOn-redCOLSI-2025.jpg",
+    src: "/participacion-redCOLSI-2025.jpg",
     alt: "Participación en la Red COLSI 2025",
     title: "Participación en la Red COLSI – Pasto, Nariño (2025)",
     description:
@@ -17,7 +17,7 @@ const images = [
     alt: "Ganadores del Torneo de Robots Sumos – Maquinarte 2025",
     title: "Ganadores del Torneo de Robots Sumos – Maquinarte 2025",
     description:
-      "La imagen muestra [tres estudiantes] que integran los semilleros de investigación de Ingeniería Informática quienes obtuvieron el primer lugar en el Torneo de Robots Sumos en su quinta vesión durante el evento Maquinarte, llevado a cabo en el primer semestre de 2025. En ese entonces cursaban primer semestre y, actualmente, continúan su formación académica. Su logro refleja el talento, la creatividad y la capacidad de innovación de los nuevos integrantes de la carrera, así como el potencial de los semilleros de investigación en el área de la robótica y la automatización.",
+      "La imagen muestra a tres chicos que integran los semilleros de investigación de Ingeniería Informática quienes obtuvieron el primer lugar en el Torneo de Robots Sumos en su quinta vesión durante el evento Maquinarte, llevado a cabo en el primer semestre de 2025. En ese entonces cursaban primer semestre y, actualmente, continúan su formación académica. Su logro refleja el talento, la creatividad y la capacidad de innovación de los nuevos integrantes de la carrera, así como el potencial de los semilleros de investigación en el área de la robótica y la automatización.",
   },
   {
     src: "/participacion-robot-asistente-medico-redCOLSI-2025.jpg",
