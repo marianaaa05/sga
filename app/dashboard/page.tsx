@@ -6,36 +6,41 @@ import Image from "next/image";
 import Link from "next/link";
 
 const images = [
-  // textos de prueba
   {
-    src: "/destacados-2.jpg",
-    alt: "Imagen 1",
-    title: "BATALLA DE ROBOTS EN MAQUINARTE",
+    src: "/participaciOn-redCOLSI-2025.jpg",
+    alt: "Participación en la Red COLSI 2025",
+    title: "Participación en la Red COLSI – Pasto, Nariño (2025)",
     description:
-      "Participación de estudiantes de Ingeniería Informática en la batalla de robots del evento Maquinarte 2025-I. Roberto Ramirez, Pepe Martinez y Juan Castro, tras meses de preparación, demostraron sus habilidades en robótica y programación, mostrando los resultados obtenidos a partir de los encuentros de los semilleros de investigación Sinapsis y Kernel dirigidos por docentes encargados. Un evento emocionante lleno de innovación y competencia, donde los estudiantes aplicaron sus conocimientos en un entorno real, destacando la importancia de la colaboración y el trabajo en equipo.",
+      "Los docentes encargados de los semilleros de investigación, Cristhian Villota y Raúl Peña, acompañaron a los estudiantes Jhon Deivy, Antonio Romo, Fernando, Santiago y Francisco en la Red COLSI, realizada en Pasto, Nariño, durante el semestre anterior. El equipo presentó un destacado proyecto en el área de ciberseguridad, resaltando el trabajo colaborativo y el compromiso con la formación académica e investigativa. Asimismo, el estudiante Daniel Marcillo participó con un proyecto de Internet de las Cosas (IoT), orientado al control de variables medioambientales aplicadas al cultivo de cannabis, evidenciando la innovación y la aplicación de tecnologías emergentes en problemáticas reales. Más información en redcolsiplataforma.org",    
+    },
+  {
+    src: "/ganadores-batalla-sumos-maquinarte-2025.jpg",
+    alt: "Ganadores del Torneo de Robots Sumos – Maquinarte 2025",
+    title: "Ganadores del Torneo de Robots Sumos – Maquinarte 2025",
+    description:
+      "La imagen muestra [tres estudiantes] que integran los semilleros de investigación de Ingeniería Informática quienes obtuvieron el primer lugar en el Torneo de Robots Sumos en su quinta vesión durante el evento Maquinarte, llevado a cabo en el primer semestre de 2025. En ese entonces cursaban primer semestre y, actualmente, continúan su formación académica. Su logro refleja el talento, la creatividad y la capacidad de innovación de los nuevos integrantes de la carrera, así como el potencial de los semilleros de investigación en el área de la robótica y la automatización.", 
   },
   {
-    src: "/maquinarte2025.jpg",
-    alt: "Imagen 2",
-    title: "DESTACADA PARTICIPACIÓN ESTUDIANTIL EN MAQUINARTE 2025",
+    src: "/participacion-robot-asistente-medico-redCOLSI-2025.jpg",
+    alt: "Proyecto: Robot Asistente Médico",
+    title: "Participación en la red COLSI 2025: Robot Asistente Médico",
     description:
-      "Durante el evento Maquinarte 2025-I, varios estudiantes se destacaron por sus aportes en proyectos tecnológicos innovadores, resultado del trabajo constante en los semilleros de investigación. Desde soluciones en inteligencia artificial hasta prototipos funcionales, los asistentes pudieron presenciar cómo el talento estudiantil impulsa el desarrollo académico. El evento sirvió como plataforma para visibilizar el compromiso, la creatividad y la capacidad de los futuros ingenieros, quienes fueron reconocidos por sus propuestas que abordan problemáticas actuales con enfoque tecnológico y social.",
-  },
-
-  {
-    src: "/destacados-1.jpg",
-    alt: "Imagen 3",
-    title: "INNOVADORES EN CIBERSEGURIDAD",
-    description:
-      "Estudiantes del semillero de investigación Animus Hacking destacaron durante la feria tecnológica Maquinarte 2025-I al presentar soluciones innovadoras enfocadas en la protección de datos y la navegación segura en entornos escolares y empresariales. Su propuesta incluyó el desarrollo de un software educativo interactivo que enseña a niños y jóvenes sobre prácticas seguras en internet. El equipo, conformado en su mayoría por estudiantes de cuarto y quinto semestre de Ingeniería Informática, logró captar la atención de docentes y expertos invitados, posicionándose como referentes en el uso ético y consciente de la tecnología.",
+      "Los estudiantes Anthony, John Deivy y Juan, integrantes de los semilleros de investigación de Ingeniería Informática, presentaron un robot asistente médico orientado a fortalecer la labor del personal hospitalario en la atención de pacientes. Este prototipo permite medir variables como la temperatura y el ritmo cardíaco, para así determinar la prioridad de atención según el nivel de urgencia. Con ello, se busca optimizar los tiempos, mejorar la eficiencia de los servicios de salud y apoyar la toma de decisiones médicas mediante el uso de tecnologías emergentes. Este proyecto fue presentado en la RedCOLSI (Red Colombiana de Semilleros de Investigación). Más información en redcolsiplataforma.org",
   },
   {
-    src: "/maquinarte2025-1.jpg",
-    alt: "Imagen 4",
-    title: "LIDERAZGO FEMENINO EN LA TECNOLOGÍA",
+    src: "/participacion-redCOLSI-sistema-web-invernadero-2025.jpg",
+    alt: "Proyecto: Sistema web para la administración de invernadero y visualización de variables ambientales mediante IoT aplicado a cultivos de cannabis medicinal",
+    title: "Participación en la red COLSI 2025: Sistema web para la administración de invernadero y visualización de variables ambientales mediante IoT aplicado a cultivos de cannabis medicinal",
     description:
-      "Durante el evento Maquinarte 2025-I, un grupo de estudiantes liderado por Ana María Rodríguez, integrante del semillero Sinapsis, presentó un proyecto de automatización para procesos industriales que impresionó por su enfoque práctico y escalabilidad. Ana y su equipo destacaron no solo por su capacidad técnica, sino por promover la inclusión y el liderazgo femenino en carreras STEM. Su labor representa el compromiso del semillero con la equidad de género y el desarrollo de talento en áreas tecnológicas tradicionalmente dominadas por hombres, inspirando a más mujeres a integrarse activamente en el mundo de la ingeniería.",
+    "Carlos Daniel Marcillo Tobar presentó el 26 de abril de 2025 el proyecto titulado “Desarrollo de un sistema web para la administración de invernadero y visualización de variables ambientales mediante IoT aplicado a cultivos de cannabis medicinal”. La propuesta integra sensores IoT capaces de registrar en tiempo real variables críticas como la temperatura, humedad del suelo y humedad relativa del aire, las cuales se transmiten hacia una plataforma web desarrollada con Next.js, TypeScript y Supabase. El sistema no solo permite la visualización centralizada de datos y el cálculo de promedios por etapas de cultivo, sino que también brinda una herramienta para la toma de decisiones oportunas en el manejo de invernaderos. Este trabajo busca dar solución a problemáticas reales como las pérdidas de producción ocasionadas por hongos, plagas o condiciones ambientales inadecuadas, aportando a la consolidación de la agricultura de precisión e inteligente en Colombia y contribuyendo de manera directa al fortalecimiento del sector del cannabis medicinal bajo un enfoque sostenible, eficiente y tecnológicamente innovador. "
   },
+  {
+    src: "/participacion-redCOLSI-bug-bounty-2025.jpg",
+    alt: "Proyecto: Bug Bounty como Puerta de Entrada Legal a la Ciberseguridad: Formaci ́on, Legalidad y Empleo",
+    title: "Participación en la red COLSI 2025: Bug Bounty como Puerta de Entrada Legal a la Ciberseguridad: Formación, Legalidad y Empleo",
+    description:
+     "El 26 de abril de 2025, los estudiantes Santiago David López Villota y Francisco Alejandro Tello Mirama, integrantes de los semilleros de investigación de Ingeniería Informática, participaron en la RedCOLSI presentando el proyecto “Bug Bounty como Puerta de Entrada Legal a la Ciberseguridad: Formación, Legalidad y Empleo”. La investigación abordó el impacto de los programas de Bug Bounty como una vía innovadora para la formación en ciberseguridad, el acceso a empleos legales y el fortalecimiento de la seguridad digital a nivel global. El trabajo destacó cómo estas prácticas fomentan el aprendizaje técnico, la cultura de la divulgación responsable y la democratización de oportunidades en regiones donde el acceso a la educación tecnológica es limitado. Con este proyecto, los autores resaltaron la importancia del hacking ético como motor de inclusión laboral y como estrategia pedagógica que abre las puertas al talento emergente en el campo de la ciberseguridad."
+  }
 ];
 
 const DashboardHome = () => {
