@@ -11,7 +11,7 @@ interface CourseCreateBody {
 }
 
 export async function POST(req: Request) {
-  const { userId, sessionClaims } = await auth();
+  const { userId } = await auth();
   if (!userId) {
     return new NextResponse("Unauthorized", { status: 401 });
   }
@@ -21,20 +21,13 @@ export async function POST(req: Request) {
     return new NextResponse("Título es obligatorio", { status: 400 });
   }
 
-  const metadata = sessionClaims?.metadata as { role?: string } | undefined;
-  const role = metadata?.role;
-
-  const isPublished = role === "TEACHER" || role === "WEB_MASTER";
-
   const course = await db.course.create({
     data: {
       title: body.title,
       description: body.description,
       imageUrl: body.imageUrl,
       categoryId: body.categoryId,
-      researchGroupId: body.researchGroupId,
       userId,
-      isPublished,
     },
   });
 

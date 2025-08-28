@@ -26,9 +26,6 @@ model Course {
   categoryId String?
   category   Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
 
-  researchGroupId String?
-  researchGroup   ResearchGroup? @relation(fields: [researchGroupId], references: [id], onDelete: SetNull)
-
   attachments Attachment[]
   members     Membership[]
   modules     CourseModule[]
@@ -37,7 +34,6 @@ model Course {
   updatedAt DateTime @updatedAt
 
   @@index([categoryId])
-  @@index([researchGroupId])
 }
 
 model CourseModule {
@@ -98,7 +94,6 @@ model ResearchGroup {
   description String? @db.Text
   imageUrl    String? @db.Text
 
-  courses Course[]
   members Membership[]
   attachments ResearchGroupAttachment[]
   projects ResearchProject[]
